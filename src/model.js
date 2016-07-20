@@ -1,5 +1,7 @@
 import typeSet from './typeSet'
 
+const identity = (arg) => arg
+
 function isActionCreator(pattern) {
   return typeof pattern.getType === 'function'
 }
@@ -13,7 +15,7 @@ function model(options) {
 
   function action(type, payloadReducer, metaReducer) {
     if (typeof payloadReducer !== 'function') {
-      payloadReducer = undefined
+      payloadReducer = identity
     }
 
     if (typeof metaReducer !== 'function') {
@@ -27,9 +29,7 @@ function model(options) {
     function actionCreator(...args) {
       const action = { type }
 
-      if (payloadReducer) {
-        action.payload = payloadReducer(...args)
-      }
+      action.payload = payloadReducer(...args)
 
       if (metaReducer) {
         action.meta = metaReducer(...args)

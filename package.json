@@ -2,9 +2,10 @@
   "name": "tuku",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "NODE_PATH=src NODE_ENV=test ava"
+    "test": "NODE_PATH=src NODE_ENV=test ava",
+    "build": "babel src --out-dir lib"
   },
   "ava": {
     "babel": "inherit",
@@ -19,7 +20,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "react-redux": "^4.4.5",
+    "react-router": "^2.6.0",
+    "redux": "^3.5.2"
+  },
   "devDependencies": {
+    "babel-cli": "^6.11.4",
     "babel-core": "^6.11.4",
     "babel-polyfill": "^6.9.1",
     "babel-preset-react": "^6.11.1",
@@ -27,11 +34,9 @@
     "babel-register": "^6.9.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
-    "react-router": "^2.6.0",
-    "redux": "^3.5.2",
     "redux-saga": "^0.11.0"
   },
-  "dependencies": {
-    "react-redux": "^4.4.5"
+  "peerDependencirs": {
+    "redux-saga": "^0.11.0"
   }
 }
