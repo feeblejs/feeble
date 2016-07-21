@@ -5,22 +5,28 @@ import request from '../helpers/request'
 
 const model = tuku.model({
   namespace: 'todo',
-  state: [],
+  state: {},
 })
 
 model.action('create')
-
 model.action('createSuccess')
-
 model.action('fetch')
-
 model.action('fetchSuccess')
-
+model.action('update')
+model.action('updateSuccess')
 
 model.reducer(on => {
   on(model.fetchSuccess, (state, payload) => payload)
 
-  on(model.createSuccess, (state, payload) => [...state, payload])
+  on(model.createSuccess, (state, payload) => ({
+    ...state,
+    [payload.id]: payload,
+  }))
+
+  on(model.updateSuccess, (state, payload) => ({
+    ...state,
+    [payload.id]: payload,
+  }))
 })
 
 const fetch = function* () {
@@ -37,10 +43,18 @@ const create = function* () {
   })
 }
 
+const update = function* () {
+  yield* takeEvery(model.update.getType(), function* ({ payload }) {
+    const response = yield call(request, `/todos/${payload.id}`, { method: 'put', body: JSON.stringify(payload)})
+    yield put(model.updateSuccess(response))
+  })
+}
+
 model.effect(function* () {
   yield [
     fork(fetch),
-    fork(create)
+    fork(create),
+    fork(update),
   ]
 })
 
