@@ -18,9 +18,12 @@
       "test/**/*.spec.js"
     ]
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "react",
+    "redux"
+  ],
+  "author": "Wei Zhu <yesmeck@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
