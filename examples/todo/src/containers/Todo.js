@@ -12,7 +12,10 @@ class Todo extends Component {
 
   handleSubmit = event => {
     const { dispatch } = this.props
-    dispatch(todoModel.create({ name: this.textField.input.value }))
+    dispatch(todoModel.create({
+      name: this.textField.input.value,
+      completed: false,
+    }))
     event.target.reset()
     event.preventDefault()
   }
