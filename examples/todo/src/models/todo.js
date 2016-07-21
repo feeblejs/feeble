@@ -1,6 +1,6 @@
 import tuku from 'tuku'
-import { takeEvery } from 'redux-saga'
-import { fork, call, put } from 'redux-saga/effects'
+import { takeEvery } from 'tuku/saga'
+import { fork, call, put } from 'tuku/saga/effects'
 import request from '../helpers/request'
 import uniqueId from 'lodash/uniqueId'
 import omit from 'lodash/omit'
@@ -55,7 +55,7 @@ export default function modelFactory(namespace) {
   })
 
   const fetch = function* () {
-    yield* takeEvery(model.fetch.getType(), function* ({ payload }) {
+    yield* takeEvery(model.fetch, function* ({ payload }) {
       const endpoint = payload.completed ? '/todos/completed' : '/todos'
       const response = yield call(request, endpoint, { method: 'get' })
       yield put(model.fetchSuccess(response))
@@ -63,7 +63,7 @@ export default function modelFactory(namespace) {
   }
 
   const create = function* () {
-    yield* takeEvery(model.create.getType(), function* ({ payload }) {
+    yield* takeEvery(model.create, function* ({ payload }) {
       const response = yield call(request, '/todos', { method: 'post', body: JSON.stringify(payload)})
       if (response) {
         yield put(model.createSuccess(response))
@@ -74,7 +74,7 @@ export default function modelFactory(namespace) {
   }
 
   const update = function* () {
-    yield* takeEvery(model.update.getType(), function* ({ payload }) {
+    yield* takeEvery(model.update, function* ({ payload }) {
       const response = yield call(request, `/todos/${payload.id}`, { method: 'put', body: JSON.stringify(payload)})
       if (response) {
         yield put(model.updateSuccess(response))
