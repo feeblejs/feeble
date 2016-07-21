@@ -50,10 +50,10 @@ app.router(({ history }) =>
   </Router>
 );
 
-// 5. Start
+// 5. Start app
 const tree = app.start();
 
-// 6. Render our app to dom
+// 6. Render to dom
 ReactDom.render(tree, document.getElementById('root'))
 ```
 
