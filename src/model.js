@@ -47,7 +47,7 @@ function model(options) {
     return actionCreator
   }
 
-  function reducer(handlers = {}) {
+  function reducer(handlers = {}, enhancer = identity) {
     const patternHandlers = []
 
     let type
@@ -85,6 +85,8 @@ function model(options) {
         return state
       }
     }
+
+    _reducer = enhancer(_reducer)
 
     return _reducer
   }

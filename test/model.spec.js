@@ -24,3 +24,19 @@ test('create reducer', t => {
   t.is(counter.getReducer(), reducer)
   t.is(reducer(undefined, { type: 'counter::increment' }), 1)
 })
+
+test('reducer enhancer', t => {
+  const double = reducer => {
+    return (state, action) => {
+      state = reducer(state, action)
+      return state * 2
+    }
+  }
+  const reducer = counter.reducer(on => {
+    on('counter::increment', state => state + 1)
+  }, double)
+
+
+  t.is(counter.getReducer(), reducer)
+  t.is(reducer(undefined, { type: 'counter::increment' }), 2)
+})
