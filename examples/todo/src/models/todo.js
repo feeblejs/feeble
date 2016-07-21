@@ -33,6 +33,7 @@ export default function modelFactory(namespace) {
 
     on(model.create, (state, payload) => {
       payload.id = uniqueId(`todo_${(+new Date)}_`)
+      payload.completed = false
 
       return {
         ...state,
