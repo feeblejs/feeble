@@ -19,7 +19,7 @@ class Todo extends Component {
 
   handleCheck = todo => event => {
     const { dispatch } = this.props
-    todo.completed = event.target.checked
+    todo = { ...todo, completed: event.target.checked }
     dispatch(todoModel.update(todo))
   }
 
