@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'tuku/redux'
-import { browserHistory } from 'tuku/router'
+import { push } from 'tuku/router'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import todoFactory from '../models/todo'
 import TodoInput from '../components/TodoInput'
@@ -26,15 +26,15 @@ class ActiveTodo extends Component {
   }
 
   render() {
-    const { todos } = this.props
+    const { todos, dispatch } = this.props
 
     return (
       <Tabs value="active">
-        <Tab label="Active" value="active" onActive={() => browserHistory.push('/') }>
+        <Tab label="Active" value="active" onActive={() => dispatch(push('/')) }>
           <TodoInput handleSubmit={this.handleSubmit} />
           <TodoList todos={todos} handleCheck={this.handleCheck} />
         </Tab>
-        <Tab label="Completed" value="completed" onActive={() => browserHistory.push('/completed') }>
+        <Tab label="Completed" value="completed" onActive={() => dispatch(push('/completed')) }>
         </Tab>
       </Tabs>
     )

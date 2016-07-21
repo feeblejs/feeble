@@ -97,6 +97,10 @@ function model(options) {
     return _namespace
   }
 
+  function setReducer(reducer) {
+    return _reducer = reducer
+  }
+
   function getReducer() {
     return _reducer
   }
@@ -110,6 +114,7 @@ function model(options) {
     reducer,
     effect,
     getNamespace,
+    setReducer,
     getReducer,
     getEffect,
   }

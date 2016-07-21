@@ -1,9 +1,9 @@
 import test from 'ava'
-import tuku from 'tuku'
+import model from 'model'
 import createStore from 'createStore'
 
 test('create store', t => {
-  const counter = tuku.model({
+  const counter = model({
     namespace: 'counter',
     state: 0,
   })

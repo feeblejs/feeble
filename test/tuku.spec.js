@@ -1,5 +1,6 @@
 import test from 'ava'
 import tuku from 'tuku'
+import model from 'model'
 import { takeEvery } from 'redux-saga'
 import { fork, put } from 'redux-saga/effects'
 
@@ -15,7 +16,7 @@ test('create a new app', t => {
 test('effect', t => {
   const app = tuku()
 
-  const counter = tuku.model({
+  const counter = model({
     namespace: 'counter',
     state: 0,
   })
