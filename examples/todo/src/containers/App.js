@@ -3,9 +3,14 @@ import { connect, bindActionCreators } from 'tuku/redux'
 import todo from '../models/todo'
 
 class App extends Component {
+  componentWillMount() {
+    const { dispatch } = this.props
+    dispatch(todo.fetch())
+  }
+
   handleSubmit = event => {
     const { dispatch } = this.props
-    dispatch(todo.add(this.input.value))
+    dispatch(todo.create({ name: this.input.value }))
     event.target.reset()
     event.preventDefault()
   }
@@ -19,8 +24,8 @@ class App extends Component {
           <input ref={ref => this.input = ref} type="text" />
         </form>
         <ul>
-          {todos.map((todo, index) => (
-            <li key={index}>{todo}</li>
+          {todos.map(todo => (
+            <li key={todo.id}>{todo.name}</li>
           ))}
         </ul>
       </div>
