@@ -9,7 +9,7 @@ import createSagaMiddleware from './createSagaMiddleware'
 import createStore from './createStore'
 import routing from './models/routing'
 
-function tuku() {
+function app() {
   const _models = []
   const _middlewares = []
   let _routes = null
@@ -70,6 +70,6 @@ function tuku() {
   }
 }
 
-tuku.model = model
+app.model = model
 
-export default tuku
+export default app
