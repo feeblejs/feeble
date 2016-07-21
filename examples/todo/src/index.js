@@ -11,8 +11,8 @@ injectTapEventPlugin()
 
 const app = tuku()
 
-app.model(todoFactory('activeTodo'))
-app.model(todoFactory('completedTodo'))
+app.model(todoFactory('todo::active'))
+app.model(todoFactory('todo::completed'))
 app.model(form)
 
 app.middleware(createLogger())

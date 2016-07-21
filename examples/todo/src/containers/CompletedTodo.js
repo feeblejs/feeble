@@ -5,7 +5,7 @@ import { Tabs, Tab } from 'material-ui/Tabs'
 import todoFactory from '../models/todo'
 import TodoList from '../components/TodoList'
 
-const todoModel = todoFactory('completedTodo')
+const todoModel = todoFactory('todo::completed')
 
 class CompletedTodo extends Component {
   componentWillMount() {
@@ -39,6 +39,6 @@ class CompletedTodo extends Component {
 
 export default connect(
   state => ({
-    todos: state.completedTodo
+    todos: state.todo.completed
   })
 )(CompletedTodo)

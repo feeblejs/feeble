@@ -7,7 +7,7 @@ import todoFactory from '../models/todo'
 import TodoForm from '../components/TodoForm'
 import TodoList from '../components/TodoList'
 
-const todoModel = todoFactory('activeTodo')
+const todoModel = todoFactory('todo::active')
 
 class ActiveTodo extends Component {
   componentWillMount() {
@@ -45,6 +45,6 @@ class ActiveTodo extends Component {
 
 export default connect(
   state => ({
-    todos: state.activeTodo
+    todos: state.todo.active
   })
 )(ActiveTodo)
