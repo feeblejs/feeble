@@ -53,7 +53,7 @@ app.router(({ history }) =>
 // 5. Start app
 const tree = app.start();
 
-// 6. Render to dom
+// 6. Render to DOM
 ReactDom.render(tree, document.getElementById('root'))
 ```
 
