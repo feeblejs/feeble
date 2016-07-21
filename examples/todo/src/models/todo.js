@@ -32,7 +32,7 @@ export default function modelFactory(namespace) {
     on(model.fetchSuccess, (state, payload) => payload)
 
     on(model.create, (state, payload) => {
-      payload.id = uniqueId('todo_')
+      payload.id = uniqueId(`todo_${(+new Date)}_`)
 
       return {
         ...state,
