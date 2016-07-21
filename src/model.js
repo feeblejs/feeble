@@ -10,6 +10,7 @@ function model(options) {
   const _namespace = options.namespace
   const _state = options.state
 
+  let _model
   let _reducer
   let _effect
 
@@ -22,12 +23,12 @@ function model(options) {
       metaReducer = undefined
     }
 
-    type = [_namespace, type].join('::')
+    const fullType = [_namespace, type].join('::')
 
-    typeSet.add(type)
+    typeSet.add(fullType)
 
     function actionCreator(...args) {
-      const action = { type }
+      const action = { type: fullType }
 
       action.payload = payloadReducer(...args)
 
@@ -38,8 +39,10 @@ function model(options) {
       return action
     }
 
-    actionCreator.getType = () => type
-    actionCreator.toString = () => type
+    actionCreator.getType = () => fullType
+    actionCreator.toString = () => fullType
+
+    _model[type] = actionCreator
 
     return actionCreator
   }
@@ -102,7 +105,7 @@ function model(options) {
     return _effect
   }
 
-  return {
+  _model = {
     action,
     reducer,
     effect,
@@ -110,6 +113,8 @@ function model(options) {
     getReducer,
     getEffect,
   }
+
+  return _model
 }
 
 export default model

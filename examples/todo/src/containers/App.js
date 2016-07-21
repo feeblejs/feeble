@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect, bindActionCreators } from 'tuku/redux'
-import { add } from '../models/todo'
+import todo from '../models/todo'
 
 class App extends Component {
   handleSubmit = event => {
-    this.props.add(this.input.value)
+    const { dispatch } = this.props
+    dispatch(todo.add(this.input.value))
     event.target.reset()
     event.preventDefault()
   }
@@ -30,6 +31,5 @@ class App extends Component {
 export default connect(
   state => ({
     todos: state.todo
-  }),
-  dispatch => bindActionCreators({ add }, dispatch)
+  })
 )(App)

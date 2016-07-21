@@ -5,10 +5,10 @@ const model = tuku.model({
   state: [],
 })
 
-export const add = model.action('add')
+model.action('add')
 
 model.reducer(on => {
-  on(add, (state, payload) => [...state, payload])
+  on(model.add, (state, payload) => [...state, payload])
 })
 
 model.effect(function* () {})

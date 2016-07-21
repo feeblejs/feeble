@@ -11,9 +11,9 @@ test('create model', t => {
 })
 
 test('create action creator', t => {
-  const increment = counter.action('increment')
+  counter.action('increment')
 
-  t.deepEqual(increment(), { type: 'counter::increment', payload: undefined })
+  t.deepEqual(counter.increment(), { type: 'counter::increment', payload: undefined })
 })
 
 test('create reducer', t => {
