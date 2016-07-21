@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite'
-import { ListItem, Checkbox } from 'material-ui'
+import { List, ListItem, Checkbox } from 'material-ui'
 
 const styles = StyleSheet.create({
   completed: {
@@ -8,7 +8,8 @@ const styles = StyleSheet.create({
   }
 })
 
-export default function TodoItem({ todo, handleCheck }) {
+
+function TodoItem({ todo, handleCheck }) {
   const checkbox = <Checkbox checked={todo.completed} onCheck={handleCheck(todo)} />
 
   return (
@@ -17,5 +18,15 @@ export default function TodoItem({ todo, handleCheck }) {
         {todo.name}
       </span>
     </ListItem>
+  )
+}
+
+export default function TodoList({ todos, handleCheck }) {
+  return (
+    <List>
+      {Object.values(todos).map(todo =>
+        <TodoItem key={todo.id} todo={todo} handleCheck={handleCheck} />
+      )}
+    </List>
   )
 }

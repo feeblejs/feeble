@@ -3,11 +3,15 @@ import tuku from 'tuku'
 import ReactDOM from 'react-dom'
 import createLogger from 'redux-logger'
 import routes from './routes'
-import todo from './models/todo'
+import todoFactory from './models/todo'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
+injectTapEventPlugin()
 
 const app = tuku()
 
-app.model(todo)
+app.model(todoFactory('activeTodo'))
+app.model(todoFactory('completedTodo'))
 
 app.middleware(createLogger())
 
