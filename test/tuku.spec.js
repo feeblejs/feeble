@@ -1,5 +1,5 @@
 import test from 'ava'
-import tuku from 'app'
+import tuku from 'tuku'
 import model from 'model'
 import { takeEvery } from 'redux-saga'
 import { fork, put } from 'redux-saga/effects'
