@@ -1,18 +1,17 @@
-import typeSet from './typeSet'
-import CALL_API from './CALL_API'
+import CALL_API from '../CALL_API'
 import omit from 'lodash/omit'
 
-export default function createApiMiddle(fetch) {
+export default function createApiMiddleware(callAPI) {
   return store => next => action => {
-    const callAPI = action[CALL_API]
-    if (typeof callAPI === 'undefined') {
+    const request = action[CALL_API]
+    if (typeof request === 'undefined') {
       return next(action)
     }
 
-    const { types, endpoint } = callAPI // eslint-disable-line
+    const { types, endpoint } = request // eslint-disable-line
 
     if (typeof endpoint === 'function') {
-      callAPI.endpoint = endpoint(store.getState())
+      request.endpoint = endpoint(store.getState())
     }
 
     function actionWith(data) {
@@ -30,11 +29,11 @@ export default function createApiMiddle(fetch) {
 
     next(actionWith({
       type: requestType,
-      payload: omit(callAPI, 'types'),
+      payload: omit(request, 'types'),
       meta: action.meta,
     }))
 
-    return fetch(callAPI, action)
+    return callAPI(request, action)
       .then(
         action => {
           next(actionWith({
