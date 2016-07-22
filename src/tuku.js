@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { Routes, browserHistory } from 'react-router'
 import { routerMiddleware } from 'react-router-redux'
