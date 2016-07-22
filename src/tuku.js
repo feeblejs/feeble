@@ -12,8 +12,8 @@ import routing from './models/routing'
 
 function tuku(options = {}) {
   const _models = []
+  const _store = {}
   let _routes = null
-  let _store = null
 
   const _middlewares = []
   if (options.request) {
@@ -38,7 +38,7 @@ function tuku(options = {}) {
   function start(dest) {
     model(routing)
 
-    _store = createStore(_models, _middlewares)
+    Object.assign(_store, createStore(_models, _middlewares))
 
     sagaMiddleware.run()
 
@@ -68,8 +68,7 @@ function tuku(options = {}) {
     model,
     router,
     start,
-    dispatch,
-    getState,
+    store: _store,
   }
 }
 

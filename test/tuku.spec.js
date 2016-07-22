@@ -11,6 +11,7 @@ test('create a new app', t => {
   t.is(typeof app.model, 'function')
   t.is(typeof app.router, 'function')
   t.is(typeof app.start, 'function')
+  t.is(typeof app.store, 'object')
 })
 
 test('effect', t => {
@@ -40,7 +41,7 @@ test('effect', t => {
 
   app.start()
 
-  app.dispatch(increment())
+  app.store.dispatch(increment())
 
-  t.is(app.getState().counter, 2)
+  t.is(app.store.getState().counter, 2)
 })
