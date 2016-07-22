@@ -14,7 +14,7 @@ function model(options) {
 
   let _model = {}
   let _selectors = {}
-  let _reducer = null
+  let _reducer = (state = _state) => state
   let _effect = null
 
   function action(type, payloadReducer, metaReducer) {

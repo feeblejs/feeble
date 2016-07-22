@@ -16,6 +16,15 @@ test('create action creator', t => {
   t.deepEqual(counter.increment(), { type: 'counter::increment', payload: undefined })
 })
 
+test('has default reducer', t => {
+  const foo = model({
+    namespace: 'foo',
+    state: 1
+  })
+
+  t.is(foo.getReducer()(), 1)
+})
+
 test('create reducer', t => {
   const reducer = counter.reducer(on => {
     on('counter::increment', state => state + 1)
