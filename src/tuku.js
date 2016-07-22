@@ -2,26 +2,34 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { Routes, browserHistory } from 'react-router'
-import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
+import { routerMiddleware } from 'react-router-redux'
 import { fork } from 'redux-saga/effects'
 import model from './model'
 import createApiMiddleware from './middlewares/api'
 import createSagaMiddleware from './middlewares/saga'
 import createStore from './createStore'
+import createHistory from './createHistory'
 import routing from './models/routing'
 
 function tuku(options = {}) {
   const _models = []
   const _store = {}
-  let _routes = null
-
   const _middlewares = []
-  if (options.request) {
-    middleware(createApiMiddleware(options.request))
+  let _routes = null
+  let sagaMiddleware = null
+
+  function addDefaultMiddlewares() {
+    if (options.request) {
+      middleware(createApiMiddleware(options.request))
+    }
+    sagaMiddleware = createSagaMiddleware(_models)
+    middleware(sagaMiddleware)
+    middleware(routerMiddleware(browserHistory))
   }
-  const sagaMiddleware = createSagaMiddleware(_models)
-  middleware(sagaMiddleware)
-  middleware(routerMiddleware(browserHistory))
+
+  function addDefaultModels() {
+    model(routing)
+  }
 
   function middleware(middleware) {
     _middlewares.push(middleware)
@@ -36,13 +44,14 @@ function tuku(options = {}) {
   }
 
   function start(dest) {
-    model(routing)
+    addDefaultMiddlewares()
+    addDefaultModels()
 
     Object.assign(_store, createStore(_models, _middlewares))
 
     sagaMiddleware.run()
 
-    const history = syncHistoryWithStore(browserHistory, _store)
+    const history = createHistory(_store)
 
     const Routes = _routes;
 
