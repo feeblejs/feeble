@@ -1,9 +1,11 @@
+import { isActionCreator } from './utils'
+
 export default function wrapSaga(module, methods) {
   const newModule = Object.assign({}, module)
 
   methods.map(methodName => {
     newModule[methodName] = (pattern, ...args) => {
-      if (typeof pattern.toString === 'function' && typeof pattern.getType === 'function') {
+      if (isActionCreator(pattern)) {
         pattern = pattern.getType()
       }
       return module[methodName](pattern, ...args)

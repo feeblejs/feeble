@@ -1,12 +1,9 @@
 import typeSet from './typeSet'
 import CALL_API from './CALL_API'
 import { createSelector } from 'reselect'
+import { isActionCreator } from './utils'
 
 const identity = (arg) => arg
-
-function isActionCreator(pattern) {
-  return typeof pattern.getType === 'function'
-}
 
 function model(options) {
   const _namespace = options.namespace
