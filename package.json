@@ -4,7 +4,9 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
+    "clean": "rimraf lib",
     "test": "NODE_PATH=src NODE_ENV=test ava",
+    "prebuild": "npm run clean",
     "build": "babel src --out-dir lib"
   },
   "ava": {
@@ -45,7 +47,8 @@
     "babel-register": "^6.9.0",
     "jsdom": "^9.4.1",
     "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react-dom": "^15.2.1",
+    "rimraf": "^2.5.4"
   },
   "peerDependencirs": {
     "redux-saga": "^0.11.0"
