@@ -73,10 +73,6 @@ function tuku(options = {}) {
   }
 }
 
-tuku.extend = (extenstion) => {
-  extenstion(tuku)
-}
-
 tuku.model = model
 
 export default tuku
