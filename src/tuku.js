@@ -18,6 +18,9 @@ function tuku(options = {}) {
   let _routes = null
   let sagaMiddleware = null
 
+  addDefaultMiddlewares()
+  addDefaultModels()
+
   function addDefaultMiddlewares() {
     if (options.request) {
       middleware(createApiMiddleware(options.request))
@@ -44,9 +47,6 @@ function tuku(options = {}) {
   }
 
   function start(dest) {
-    addDefaultMiddlewares()
-    addDefaultModels()
-
     Object.assign(_store, createStore(_models, _middlewares))
 
     sagaMiddleware.run()
