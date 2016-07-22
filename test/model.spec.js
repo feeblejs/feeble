@@ -1,6 +1,8 @@
 import test from 'ava'
 import model from 'model'
 import typeSet from 'typeSet'
+import { is } from 'utils'
+import { CALL_API } from '../src/constants'
 
 const counter = model({
   namespace: 'counter',
@@ -24,9 +26,32 @@ test('throw error for invalid namespace', t => {
 })
 
 test('create action creator', t => {
-  counter.action('increment')
+  counter.action('increment', () => 'hello', () => 'tuku')
 
-  t.deepEqual(counter.increment(), { type: 'counter::increment', payload: undefined })
+  t.deepEqual(counter.increment(), {
+    type: 'counter::increment',
+    payload: 'hello',
+    meta: 'tuku',
+  })
+})
+
+test('create api action creator', t => {
+  counter.apiAction('save', () => ({ method: 'post', endpoint: 'save' }))
+
+  t.deepEqual(counter.save(), {
+    [CALL_API]: {
+      types: [
+        'counter::save_request',
+        'counter::save_success',
+        'counter::save_error'
+      ],
+      method: 'post',
+      endpoint: 'save',
+    }
+  })
+
+  t.true(is.actionCreator(counter.save.success))
+  t.true(is.actionCreator(counter.save.error))
 })
 
 test('has default reducer', t => {

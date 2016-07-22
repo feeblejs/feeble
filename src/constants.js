@@ -1,3 +1,3 @@
-export const CALL_API = Symbol('CALL_API')
+export const CALL_API = '_tuku_call_api'
 
 export const NAMESPACE_PATTERN = '^[a-z]+(::[a-z]+)*$'
