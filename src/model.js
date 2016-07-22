@@ -1,4 +1,5 @@
 import typeSet from './typeSet'
+import CALL_API from './CALL_API'
 
 const identity = (arg) => arg
 
@@ -45,6 +46,41 @@ function model(options) {
     _model[type] = actionCreator
 
     return actionCreator
+  }
+
+  function apiAction(type, apiReducer, metaReducer) {
+    const suffixes = ['request', 'success', 'error']
+
+    const types = suffixes.map(suffix => {
+      return [options.namespace, `${type}_${suffix}`].join('::')
+    })
+
+    function apiActionCreator(...args) {
+      const api = apiReducer(...args)
+      const action = {
+        [CALL_API]: {
+          types,
+          ...api
+        }
+      }
+      if (metaReducer) {
+        action.meta = metaReducer(...args)
+      }
+      return action
+    }
+
+    suffixes.forEach((suffix, index) => {
+      const type = types[index]
+      typeSet.add(type)
+      apiActionCreator[suffix] = {
+        getType: () => type,
+        toString: () => type,
+      }
+    })
+
+    _model[type] = apiActionCreator
+
+    return apiActionCreator
   }
 
   function reducer(handlers = {}, enhancer = identity) {
@@ -113,6 +149,7 @@ function model(options) {
 
   _model = {
     action,
+    apiAction,
     reducer,
     effect,
     getNamespace,

@@ -1,11 +1,23 @@
-import 'whatwg-fetch'
-import config from '../config'
+import superagent from 'superagent'
 
-function request(endpont, requestObject) {
-  const url = [config.apiUrl, endpont].join('')
-  return fetch(url, requestObject)
-    .then(response => response.json())
-    .catch(error => console.log(error))
+function formatUrl(endpoint) {
+  const api = 'https://peaceful-shore-58208.herokuapp.com'
+  return [api, endpoint].join('/')
 }
 
-export default request
+export default function callApi({ method, endpoint, query, body }) {
+  return new Promise((resolve, reject) => {
+    const request = superagent[method](formatUrl(endpoint))
+
+    if (query) { request.query(query) }
+
+    if (body) { request.send(body) }
+
+    request.end((error, { body, headers, status }) => {
+      if (error) {
+        return reject({ payload: body || error, error: true, meta: { status, headers } })
+      }
+      return resolve({ payload: body })
+    })
+  })
+}

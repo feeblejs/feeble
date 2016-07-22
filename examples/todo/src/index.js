@@ -6,10 +6,13 @@ import routes from './routes'
 import todoFactory from './models/todo'
 import form from './models/form'
 import injectTapEventPlugin from 'react-tap-event-plugin'
+import request from './helpers/request'
 
 injectTapEventPlugin()
 
-const app = tuku()
+const app = tuku({
+  request,
+})
 
 app.model(todoFactory('todo::active'))
 app.model(todoFactory('todo::completed'))

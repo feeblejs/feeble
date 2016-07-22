@@ -5,15 +5,23 @@ import { Routes, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
 import { fork } from 'redux-saga/effects'
 import model from './model'
+import createApiMiddleware from './createApiMiddleware'
 import createSagaMiddleware from './createSagaMiddleware'
 import createStore from './createStore'
 import routing from './models/routing'
 
-function app() {
+function app(options) {
   const _models = []
-  const _middlewares = []
   let _routes = null
   let _store = null
+
+  const _middlewares = []
+  if (options.request) {
+    middleware(createApiMiddleware(options.request))
+  }
+  const sagaMiddleware = createSagaMiddleware(_models)
+  middleware(sagaMiddleware)
+  middleware(routerMiddleware(browserHistory))
 
   function middleware(middleware) {
     _middlewares.push(middleware)
@@ -29,11 +37,6 @@ function app() {
 
   function start(dest) {
     model(routing)
-
-    const sagaMiddleware = createSagaMiddleware(_models)
-
-    middleware(sagaMiddleware)
-    middleware(routerMiddleware(browserHistory))
 
     _store = createStore(_models, _middlewares)
 
@@ -68,6 +71,10 @@ function app() {
     dispatch,
     getState,
   }
+}
+
+app.extend = (extenstion) => {
+  extenstion(app)
 }
 
 app.model = model
