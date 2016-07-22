@@ -1,11 +1,28 @@
 import typeSet from './typeSet'
-import CALL_API from './CALL_API'
+import { CALL_API, NAMESPACE_PATTERN } from './constants'
 import { createSelector } from 'reselect'
-import { isActionCreator } from './utils'
+import invariant from 'invariant'
+import { is } from './utils'
 
 const identity = (arg) => arg
 
+const invariantReducer = (value, name) => {
+  invariant(
+    is.undef(value) || is.func(value),
+    '%s should be a function',
+    name
+  )
+}
+
 function model(options) {
+  invariant(
+    is.namespace(options.namespace),
+    '%s is not a valid namespace, namespace should be a string ' +
+    'and match the pattern %s',
+    options.namespace,
+    NAMESPACE_PATTERN
+  )
+
   const _namespace = options.namespace
   const _state = options.state
 
@@ -15,15 +32,20 @@ function model(options) {
   let _effect = null
 
   function action(type, payloadReducer, metaReducer) {
-    if (typeof payloadReducer !== 'function') {
+    invariantReducer(payloadReducer, 'payload reducer')
+    invariantReducer(metaReducer, 'meta reducer')
+
+    if (typeof payloadReducer === 'undefined') {
       payloadReducer = identity
     }
 
-    if (typeof metaReducer !== 'function') {
-      metaReducer = undefined
-    }
-
     const fullType = [_namespace, type].join('::')
+
+    invariant(
+      !typeSet.has(fullType),
+      '%s has already token by another action',
+      fullType
+    )
 
     typeSet.add(fullType)
 
@@ -47,7 +69,10 @@ function model(options) {
     return actionCreator
   }
 
-  function apiAction(type, apiReducer, metaReducer) {
+  function apiAction(type, requestReducer, metaReducer) {
+    invariantReducer(requestReducer, 'request reducer')
+    invariantReducer(metaReducer, 'meta reducer')
+
     const suffixes = ['request', 'success', 'error']
 
     const types = suffixes.map(suffix => {
@@ -55,7 +80,7 @@ function model(options) {
     })
 
     function apiActionCreator(...args) {
-      const api = apiReducer(...args)
+      const api = requestReducer(...args)
       const action = {
         [CALL_API]: {
           types,
@@ -70,7 +95,15 @@ function model(options) {
 
     suffixes.forEach((suffix, index) => {
       const type = types[index]
+
+      invariant(
+        !typeSet.has(type),
+        '%s has already used for another action',
+        type
+      )
+
       typeSet.add(type)
+
       apiActionCreator[suffix] = {
         getType: () => type,
         toString: () => type,
@@ -90,7 +123,7 @@ function model(options) {
     function on(pattern, handler) {
       if (typeof pattern === 'string') {
         handlers[pattern] = handler
-      } else if (isActionCreator(pattern)) {
+      } else if (is.actionCreator(pattern)) {
         handlers[pattern.getType()] = handler
       } else if (Array.isArray(pattern)) {
         pattern.forEach(p => on(p, handler))

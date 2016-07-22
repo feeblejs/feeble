@@ -1,7 +1,14 @@
 import test from 'ava'
 import * as utils from 'utils'
 
-test('isActionCreator', t => {
+test('is.namespace', t => {
+  t.true(utils.is.namespace('foo'))
+  t.true(utils.is.namespace('foo::bar'))
+  t.false(utils.is.namespace(':foo'))
+  t.false(utils.is.namespace('FOO'))
+})
+
+test('is.actionCreator', t => {
   const pattern1 = {
     toString: () => 'foo',
     getType: () => 'foo',
@@ -17,7 +24,7 @@ test('isActionCreator', t => {
     getType: 'bar',
   }
 
-  t.true(utils.isActionCreator(pattern1))
-  t.false(utils.isActionCreator(pattern2))
-  t.false(utils.isActionCreator(pattern3))
+  t.true(utils.is.actionCreator(pattern1))
+  t.false(utils.is.actionCreator(pattern2))
+  t.false(utils.is.actionCreator(pattern3))
 })

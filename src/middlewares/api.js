@@ -1,4 +1,4 @@
-import CALL_API from '../CALL_API'
+import { CALL_API } from '../constants'
 import omit from 'lodash/omit'
 
 export default function createApiMiddleware(callAPI) {

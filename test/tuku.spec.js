@@ -1,8 +1,13 @@
 import test from 'ava'
 import tuku from 'tuku'
 import model from 'model'
+import typeSet from 'typeSet'
 import { takeEvery } from 'redux-saga'
 import { fork, put } from 'redux-saga/effects'
+
+test.afterEach(() => {
+  typeSet.clear()
+})
 
 test('create a new app', t => {
   const app = tuku()

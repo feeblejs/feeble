@@ -1,6 +1,11 @@
 import test from 'ava'
 import model from 'model'
+import typeSet from 'typeSet'
 import createStore from 'createStore'
+
+test.afterEach(() => {
+  typeSet.clear()
+})
 
 test('create store', t => {
   const counter = model({

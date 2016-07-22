@@ -1,13 +1,26 @@
 import test from 'ava'
 import model from 'model'
+import typeSet from 'typeSet'
 
 const counter = model({
   namespace: 'counter',
   state: 0,
 })
 
+test.afterEach(() => {
+  typeSet.clear()
+})
+
 test('create model', t => {
   t.is(counter.getNamespace(), 'counter')
+})
+
+test('throw error for invalid namespace', t => {
+  t.throws(
+    () => { model({ namespace: 'foo1', state: 1 }) },
+    "foo1 is not a valid namespace, namespace should be a string " +
+    "and match the pattern ^[a-z]+(::[a-z]+)*$"
+  )
 })
 
 test('create action creator', t => {

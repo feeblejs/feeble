@@ -46,7 +46,7 @@ function tuku(options = {}) {
     _routes = routes
   }
 
-  function start(dest) {
+  function start() {
     Object.assign(_store, createStore(_models, _middlewares))
 
     sagaMiddleware.run()
@@ -55,13 +55,11 @@ function tuku(options = {}) {
 
     const Routes = _routes;
 
-    const App = (
+    return (
       <Provider store={_store}>
         <Routes history={history} />
       </Provider>
     )
-
-    return App
   }
 
   function dispatch(...args) {

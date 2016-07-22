@@ -1,9 +1,6 @@
 const types = {}
 
 function add(name) {
-  if (has(name)) {
-    throw new Error(`Duplicate action type: ${name}`)
-  }
   types[name] = true
 }
 
@@ -25,7 +22,7 @@ function clear() {
 
 export default {
   add,
-  'delete': remove,
+  remove,
   has,
   values,
   clear,
