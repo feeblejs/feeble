@@ -3,6 +3,7 @@ import { takeEvery } from 'tuku/saga'
 import { fork, call, put } from 'tuku/saga/effects'
 import request from '../helpers/request'
 import omit from 'lodash/omit'
+import schemas from '../schemas'
 
 const _models = {}
 
@@ -13,7 +14,9 @@ export default function modelFactory(namespace) {
 
   const model = tuku.model({
     namespace,
-    state: {},
+    state: {
+      ids: []
+    },
   })
 
   _models[namespace] = model
@@ -21,6 +24,7 @@ export default function modelFactory(namespace) {
   model.apiAction('fetch', ({ completed }) => ({
     method: 'get',
     endpoint: completed ? '/todos/completed' : '/todos',
+    schema: schemas.TODO_ARRAY,
   }))
 
   model.apiAction('create', todo => {
@@ -31,35 +35,32 @@ export default function modelFactory(namespace) {
       method: 'post',
       endpoint: '/todos',
       body: todo,
+      schema: schemas.TODO,
     }
   })
 
   model.apiAction('update', todo => ({
     method: 'put',
     endpoint: `/todos/${todo.id}`,
-    body: todo
+    body: todo,
+    schema: schemas.TODO,
   }))
 
   model.reducer(on => {
-    on(model.fetch.success, (state, payload) => payload)
-
-    on(model.create.request, (state, payload) => ({
-      ...state,
-      [payload.body.id]: payload.body,
+    on(model.fetch.success, (state, payload) => ({
+      ids: payload.result
     }))
 
-    on(model.create.error, (state, payload) => omit(state, payload.id))
-
-    on(model.update.request, (state, payload) => omit(state, payload.body.id))
-
-    on(model.update.error, (state, payload) => ({
-      ...state,
-      [payload.id]: {
-        ...payload,
-        completed: false
-      }
+    on(model.create.success, (state, payload) => ({
+      ids: [ ...state.ids, payload.result ]
     }))
   })
+
+  model.selector('list',
+    state => state.entity.todo,
+    (state, type)  => state.todo[type].ids,
+    (todos, ids) => ids.map(id => todos[id])
+  )
 
   return model
 }

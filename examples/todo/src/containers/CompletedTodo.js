@@ -39,6 +39,6 @@ class CompletedTodo extends Component {
 
 export default connect(
   state => ({
-    todos: state.todo.completed
+    todos: todoModel.select('list')(state, 'completed')
   })
 )(CompletedTodo)

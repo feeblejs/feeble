@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   }
 })
 
-
 function TodoItem({ todo, handleCheck }) {
   const checkbox = <Checkbox checked={todo.completed} onCheck={handleCheck(todo)} />
 
@@ -24,7 +23,7 @@ function TodoItem({ todo, handleCheck }) {
 export default function TodoList({ todos, handleCheck }) {
   return (
     <List>
-      {Object.values(todos).map(todo =>
+      {todos.map(todo =>
         <TodoItem key={todo.id} todo={todo} handleCheck={handleCheck} />
       )}
     </List>

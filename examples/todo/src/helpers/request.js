@@ -1,11 +1,12 @@
 import superagent from 'superagent'
+import { normalize } from 'normalizr'
 
 function formatUrl(endpoint) {
   const api = 'https://peaceful-shore-58208.herokuapp.com'
   return [api, endpoint].join('/')
 }
 
-export default function callApi({ method, endpoint, query, body }) {
+export default function callApi({ method, endpoint, query, body, schema }) {
   return new Promise((resolve, reject) => {
     const request = superagent[method](formatUrl(endpoint))
 
@@ -17,7 +18,7 @@ export default function callApi({ method, endpoint, query, body }) {
       if (error) {
         return reject({ payload: body || error, error: true, meta: { status, headers } })
       }
-      return resolve({ payload: body })
+      return resolve({ payload: normalize(body, schema) })
     })
   })
 }

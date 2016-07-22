@@ -45,6 +45,6 @@ class ActiveTodo extends Component {
 
 export default connect(
   state => ({
-    todos: state.todo.active
+    todos: todoModel.select('list')(state, 'active')
   })
 )(ActiveTodo)

@@ -5,6 +5,7 @@ import createLogger from 'redux-logger'
 import routes from './routes'
 import todoFactory from './models/todo'
 import form from './models/form'
+import entity from './models/entity'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import request from './helpers/request'
 
@@ -17,6 +18,7 @@ const app = tuku({
 app.model(todoFactory('todo::active'))
 app.model(todoFactory('todo::completed'))
 app.model(form)
+app.model(entity)
 
 app.middleware(createLogger())
 

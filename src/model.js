@@ -1,5 +1,6 @@
 import typeSet from './typeSet'
 import CALL_API from './CALL_API'
+import { createSelector } from 'reselect'
 
 const identity = (arg) => arg
 
@@ -11,9 +12,10 @@ function model(options) {
   const _namespace = options.namespace
   const _state = options.state
 
-  let _model
-  let _reducer
-  let _effect
+  let _model = {}
+  let _selectors = {}
+  let _reducer = null
+  let _effect = null
 
   function action(type, payloadReducer, metaReducer) {
     if (typeof payloadReducer !== 'function') {
@@ -127,6 +129,14 @@ function model(options) {
     return _reducer
   }
 
+  function selector(name, ...funcs) {
+    _selectors[name] = createSelector(...funcs)
+  }
+
+  function select(name) {
+    return _selectors[name]
+  }
+
   function effect(effect) {
     _effect = effect
   }
@@ -151,6 +161,8 @@ function model(options) {
     action,
     apiAction,
     reducer,
+    selector,
+    select,
     effect,
     getNamespace,
     setReducer,
