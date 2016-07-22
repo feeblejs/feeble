@@ -157,6 +157,10 @@ function model(options) {
     return _effect
   }
 
+  function getStatePath() {
+    return _namespace.replace('::', '.')
+  }
+
   _model = {
     action,
     apiAction,
@@ -168,6 +172,7 @@ function model(options) {
     setReducer,
     getReducer,
     getEffect,
+    getStatePath,
   }
 
   return _model

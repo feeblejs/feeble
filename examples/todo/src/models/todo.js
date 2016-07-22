@@ -1,8 +1,8 @@
 import tuku from 'tuku'
-import { takeEvery } from 'tuku/saga'
-import { fork, call, put } from 'tuku/saga/effects'
-import request from '../helpers/request'
+import { delay } from 'tuku/saga'
+import { call, put } from 'tuku/saga/effects'
 import omit from 'lodash/omit'
+import get from 'lodash/get'
 import schemas from '../schemas'
 
 const _models = {}
@@ -21,9 +21,9 @@ export default function modelFactory(namespace) {
 
   _models[namespace] = model
 
-  model.apiAction('fetch', ({ completed }) => ({
+  model.apiAction('fetch', () => ({
     method: 'get',
-    endpoint: completed ? '/todos/completed' : '/todos',
+    endpoint: model.getNamespace() === 'todo::completed' ? '/todos/completed' : '/todos',
     schema: schemas.TODO_ARRAY,
   }))
 
@@ -58,9 +58,16 @@ export default function modelFactory(namespace) {
 
   model.selector('list',
     state => state.entity.todo,
-    (state, type)  => state.todo[type].ids,
+    state => get(state, model.getStatePath()).ids,
     (todos, ids) => ids.map(id => todos[id])
   )
+
+  model.effect(function* () {
+    while (true) {
+      yield put(model.fetch({ completed: model.getNamespace() === 'todo::completed' }))
+      yield call(delay, 1000)
+    }
+  })
 
   return model
 }

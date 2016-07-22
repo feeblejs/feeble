@@ -10,7 +10,7 @@ const todoModel = todoFactory('todo::completed')
 class CompletedTodo extends Component {
   componentWillMount() {
     const { dispatch } = this.props
-    dispatch(todoModel.fetch({ completed: true }))
+    dispatch(todoModel.fetch())
   }
 
   handleCheck = todo => event => {
@@ -39,6 +39,6 @@ class CompletedTodo extends Component {
 
 export default connect(
   state => ({
-    todos: todoModel.select('list')(state, 'completed')
+    todos: todoModel.select('list')(state)
   })
 )(CompletedTodo)

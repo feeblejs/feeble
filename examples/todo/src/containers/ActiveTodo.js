@@ -12,7 +12,7 @@ const todoModel = todoFactory('todo::active')
 class ActiveTodo extends Component {
   componentWillMount() {
     const { dispatch } = this.props
-    dispatch(todoModel.fetch({ completed: false }))
+    dispatch(todoModel.fetch())
   }
 
   handleSubmit = todo => {
@@ -45,6 +45,6 @@ class ActiveTodo extends Component {
 
 export default connect(
   state => ({
-    todos: todoModel.select('list')(state, 'active')
+    todos: todoModel.select('list')(state)
   })
 )(ActiveTodo)
