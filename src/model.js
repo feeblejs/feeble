@@ -24,7 +24,7 @@ function model(options) {
   )
 
   const _namespace = options.namespace
-  const _state = options.state
+  let _state = options.state
 
   let _model = {}
   let _selectors = {}
@@ -142,15 +142,21 @@ function model(options) {
     }
 
     _reducer = (state = _state, action) => {
+      let nextState = state
       if (action && handlers[action.type]) {
-        return handlers[action.type](state, action.payload, action.meta)
+        nextState = handlers[action.type](state, action.payload, action.meta)
+        _state = nextState
+        return nextState
       } else {
         for (let { pattern, handler } of patternHandlers) {
           if (pattern(action)) {
-            return handler(state, action.payload, action.meta)
+            nextState = handler(state, action.payload, action.meta)
+            _state = nextState
+            return nextState
           }
         }
-        return state
+        _state = nextState
+        return nextState
       }
     }
 
@@ -187,8 +193,8 @@ function model(options) {
     return _effect
   }
 
-  function getStatePath() {
-    return _namespace.replace('::', '.')
+  function getState() {
+    return _state
   }
 
   _model = {
@@ -202,7 +208,7 @@ function model(options) {
     setReducer,
     getReducer,
     getEffect,
-    getStatePath,
+    getState,
   }
 
   return _model

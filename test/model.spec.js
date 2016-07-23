@@ -4,16 +4,16 @@ import typeSet from 'typeSet'
 import { is } from 'utils'
 import { CALL_API } from '../src/constants'
 
-const counter = model({
-  namespace: 'counter',
-  state: 0,
-})
-
 test.afterEach(() => {
   typeSet.clear()
 })
 
 test('create model', t => {
+  const counter = model({
+    namespace: 'counter',
+    state: 0,
+  })
+
   t.is(counter.getNamespace(), 'counter')
 })
 
@@ -26,6 +26,11 @@ test('throw error for invalid namespace', t => {
 })
 
 test('create action creator', t => {
+  const counter = model({
+    namespace: 'counter',
+    state: 0,
+  })
+
   counter.action('increment', () => 'hello', () => 'tuku')
 
   t.deepEqual(counter.increment(), {
@@ -36,6 +41,11 @@ test('create action creator', t => {
 })
 
 test('create api action creator', t => {
+  const counter = model({
+    namespace: 'counter',
+    state: 0,
+  })
+
   counter.apiAction('save', () => ({ method: 'post', endpoint: 'save' }))
 
   t.deepEqual(counter.save(), {
@@ -64,6 +74,11 @@ test('has default reducer', t => {
 })
 
 test('create reducer', t => {
+  const counter = model({
+    namespace: 'counter',
+    state: 0,
+  })
+
   const reducer = counter.reducer(on => {
     on('counter::increment', state => state + 1)
   })
@@ -73,6 +88,11 @@ test('create reducer', t => {
 })
 
 test('reducer enhancer', t => {
+  const counter = model({
+    namespace: 'counter',
+    state: 0,
+  })
+
   const double = reducer => {
     return (state, action) => {
       state = reducer(state, action)
@@ -86,4 +106,23 @@ test('reducer enhancer', t => {
 
   t.is(counter.getReducer(), reducer)
   t.is(reducer(undefined, { type: 'counter::increment' }), 2)
+})
+
+test('get state', t => {
+  const foo = model({
+    namespace: 'foo',
+    state: 1,
+  })
+
+  foo.action('double')
+
+  foo.reducer(on => {
+    on(foo.double, state => state * 2)
+  })
+
+  t.is(foo.getState(), 1)
+
+  foo.getReducer()(undefined, foo.double())
+
+  t.is(foo.getState(), 2)
 })

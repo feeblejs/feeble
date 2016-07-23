@@ -58,7 +58,7 @@ export default function modelFactory(namespace) {
 
   model.selector('list',
     state => state.entity.todo,
-    state => get(state, model.getStatePath()).ids,
+    state => model.getState().ids,
     (todos, ids) => ids.map(id => todos[id])
   )
 
