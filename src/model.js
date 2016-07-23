@@ -27,7 +27,7 @@ function model(options) {
   let _state = options.state
 
   let _model = {}
-  let _selectors = {}
+  const _selectors = {}
   let _reducer = (state = _state) => state
   let _effect = null
 
@@ -75,17 +75,15 @@ function model(options) {
 
     const suffixes = ['request', 'success', 'error']
 
-    const types = suffixes.map(suffix => {
-      return [options.namespace, `${type}_${suffix}`].join('::')
-    })
+    const types = suffixes.map(suffix => [_namespace, `${type}_${suffix}`].join('::'))
 
     function apiActionCreator(...args) {
       const api = requestReducer(...args)
       const action = {
         [CALL_API]: {
           types,
-          ...api
-        }
+          ...api,
+        },
       }
       if (metaReducer) {
         action.meta = metaReducer(...args)
@@ -118,8 +116,6 @@ function model(options) {
   function reducer(handlers = {}, enhancer = identity) {
     const patternHandlers = []
 
-    let type
-
     function on(pattern, handler) {
       if (typeof pattern === 'string') {
         handlers[pattern] = handler
@@ -147,17 +143,16 @@ function model(options) {
         nextState = handlers[action.type](state, action.payload, action.meta)
         _state = nextState
         return nextState
-      } else {
-        for (let { pattern, handler } of patternHandlers) {
-          if (pattern(action)) {
-            nextState = handler(state, action.payload, action.meta)
-            _state = nextState
-            return nextState
-          }
-        }
-        _state = nextState
-        return nextState
       }
+      for (const { pattern, handler } of patternHandlers) {
+        if (pattern(action)) {
+          nextState = handler(state, action.payload, action.meta)
+          _state = nextState
+          return nextState
+        }
+      }
+      _state = nextState
+      return nextState
     }
 
     _reducer = enhancer(_reducer)
@@ -175,6 +170,7 @@ function model(options) {
 
   function effect(effect) {
     _effect = effect
+    return _effect
   }
 
   function getNamespace() {
@@ -182,7 +178,8 @@ function model(options) {
   }
 
   function setReducer(reducer) {
-    return _reducer = reducer
+    _reducer = reducer
+    return _reducer
   }
 
   function getReducer() {

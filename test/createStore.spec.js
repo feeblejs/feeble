@@ -36,7 +36,7 @@ test('nested namespace', t => {
     counter.action('increment')
 
     counter.reducer(on => {
-      on(counter.increment, state => state + 1)
+      on(counter.increment, state => state + 1) // eslint-disable-line
     })
 
     return counter
@@ -44,12 +44,12 @@ test('nested namespace', t => {
 
   const counterOne = counterFactory({
     namespace: 'counter::one',
-    state: 1
+    state: 1,
   })
 
   const counterTwo = counterFactory({
     namespace: 'counter::two',
-    state: 2
+    state: 2,
   })
 
   const store = createStore([counterOne, counterTwo])

@@ -1,4 +1,4 @@
-const exposedProperties = ['window', 'navigator', 'document'];
+const exposedProperties = ['window', 'navigator', 'document']
 
 global.document = require('jsdom').jsdom('<body></body>')
 global.window = document.defaultView

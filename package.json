@@ -7,7 +7,8 @@
     "clean": "rimraf lib",
     "test": "NODE_PATH=src NODE_ENV=test ava",
     "prebuild": "npm run clean",
-    "build": "babel src --out-dir lib"
+    "build": "babel src --out-dir lib",
+    "lint": "NODE_PATH=src eslint src test"
   },
   "ava": {
     "babel": "inherit",
@@ -40,11 +41,18 @@
     "ava": "^0.15.2",
     "babel-cli": "^6.11.4",
     "babel-core": "^6.11.4",
+    "babel-eslint": "^6.1.2",
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-config-rackt": "^1.1.1",
+    "eslint-plugin-import": "^1.11.1",
+    "eslint-plugin-jsx-a11y": "^1.5.5",
+    "eslint-plugin-react": "^5.2.2",
     "jsdom": "^9.4.1",
     "rimraf": "^2.5.4"
   },

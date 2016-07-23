@@ -2,7 +2,7 @@ import model from '../model'
 import { routerReducer } from 'react-router-redux'
 
 const routing = model({
-  namespace: 'routing'
+  namespace: 'routing',
 })
 
 routing.setReducer(routerReducer)

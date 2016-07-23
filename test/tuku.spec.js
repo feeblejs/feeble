@@ -3,7 +3,7 @@ import tuku from 'tuku'
 import model from 'model'
 import typeSet from 'typeSet'
 import { takeEvery } from 'redux-saga'
-import { fork, put } from 'redux-saga/effects'
+import { put } from 'redux-saga/effects'
 
 test.afterEach(() => {
   typeSet.clear()
@@ -28,7 +28,7 @@ test('effect', t => {
   })
 
   const increment = counter.action('increment')
-  const double    = counter.action('double')
+  const double = counter.action('double')
 
   counter.reducer(on => {
     on(increment, state => state + 1)
