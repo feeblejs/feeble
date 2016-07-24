@@ -7,18 +7,18 @@
 ## Example
 
 ```javascript
-import React from 'react';
-import tuku, { connect } from 'tuku';
-import { Router, Route } from 'tuku/router';
+import React from 'react'
+import tuku, { connect } from 'tuku'
+import { Router, Route } from 'tuku/router'
 
 // 1. Create a app
-const app = tuku();
+const app = tuku()
 
 // 2.1 Create model
 const counter = tuku.model({
   namespace: 'counter',
   state: 0,
-});
+})
 
 // 2.2 Create action creator
 counter.action('increament')
@@ -30,6 +30,9 @@ counter.reducer(on => {
   on(counter.decreament, state => state - 1)
 })
 
+// 2.4 Attach model to app
+app.model(counter)
+
 // 3. Create view
 const App = connect(({ count }) => ({
   count
@@ -40,18 +43,18 @@ const App = connect(({ count }) => ({
       <button key="add" onClick={() => { props.dispatch(counter.increament())}}>+</button>
       <button key="minus" onClick={() => { props.dispatch(counter.decreament)}}>-</button>
     </div>
-  );
-});
+  )
+})
 
 // 4. Create router
 app.router(({ history }) =>
   <Router history={history}>
     <Route path="/" component={App} />
   </Router>
-);
+)
 
 // 5. Start app
-const tree = app.start();
+const tree = app.start()
 
 // 6. Render to DOM
 ReactDom.render(tree, document.getElementById('root'))
