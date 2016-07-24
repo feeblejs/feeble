@@ -26,9 +26,9 @@ function model(options) {
   let _state = options.state
   let _model = {}
   let _reducer = (state = _state) => state
+  let _effect = null
   const _namespace = options.namespace
   const _selectors = {}
-  const _effects = []
 
   function action(type, payloadReducer, metaReducer) {
     invariantReducer(payloadReducer, 'payload reducer')
@@ -168,8 +168,8 @@ function model(options) {
   }
 
   function effect(effect) {
-    _effects.push(effect)
-    return _effects
+    _effect = effect
+    return _effect
   }
 
   function getNamespace() {
@@ -185,8 +185,8 @@ function model(options) {
     return _reducer
   }
 
-  function getEffects() {
-    return _effects
+  function getEffect() {
+    return _effect
   }
 
   function getState() {
@@ -203,7 +203,7 @@ function model(options) {
     getNamespace,
     setReducer,
     getReducer,
-    getEffects,
+    getEffect,
     getState,
   }
 
