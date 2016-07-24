@@ -16,12 +16,16 @@ const app = tuku({
   request,
 })
 
-app.model(todoActive)
-app.model(todoCompleted)
-app.model(form)
-app.model(entity)
+app.model(
+  todoActive,
+  todoCompleted,
+  form,
+  entity
+)
 
-app.middleware(createLogger())
+app.middleware(
+  createLogger()
+)
 
 app.router(routes)
 

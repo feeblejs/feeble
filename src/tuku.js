@@ -16,12 +16,12 @@ function tuku(options = {}) {
   let _routes = null
   let sagaMiddleware = null
 
-  function middleware(middleware) {
-    _middlewares.push(middleware)
+  function middleware(...middlewares) {
+    _middlewares.push(...middlewares)
   }
 
-  function model(model) {
-    _models.push(model)
+  function model(...models) {
+    _models.push(...models)
   }
 
   function addDefaultMiddlewares() {
