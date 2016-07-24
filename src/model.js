@@ -78,16 +78,17 @@ function model(options) {
     const types = suffixes.map(suffix => [_namespace, `${type}_${suffix}`].join('::'))
 
     function apiActionCreator(...args) {
-      const api = requestReducer(...args)
+      const request = requestReducer(...args)
       const action = {
         [CALL_API]: {
           types,
-          ...api,
+          ...request,
         },
       }
       if (metaReducer) {
         action.meta = metaReducer(...args)
       }
+      action.getRequest = () => request
       return action
     }
 
@@ -102,10 +103,7 @@ function model(options) {
 
       typeSet.add(type)
 
-      apiActionCreator[suffix] = {
-        getType: () => type,
-        toString: () => type,
-      }
+      apiActionCreator[suffix] = action(type)
     })
 
     _model[type] = apiActionCreator
