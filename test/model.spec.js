@@ -60,8 +60,17 @@ test('create api action creator', t => {
     },
   })
 
+  t.deepEqual(counter.save().getRequest(), {
+    method: 'post',
+    endpoint: 'save',
+  })
+
+  t.true(is.actionCreator(counter.save.request))
   t.true(is.actionCreator(counter.save.success))
   t.true(is.actionCreator(counter.save.error))
+  t.is(counter.save.request.getType(), 'counter::save_request')
+  t.is(counter.save.success.getType(), 'counter::save_success')
+  t.is(counter.save.error.getType(), 'counter::save_error')
 })
 
 test('has default reducer', t => {

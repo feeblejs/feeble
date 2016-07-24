@@ -23,13 +23,12 @@ function model(options) {
     NAMESPACE_PATTERN
   )
 
-  const _namespace = options.namespace
-  let _state = options.state
-
-  let _model = {}
-  const _selectors = {}
-  let _reducer = (state = _state) => state
-  let _effect = null
+  let   _state      = options.state
+  let   _model      = {}
+  let   _reducer    = (state = _state) => state
+  const _namespace  = options.namespace
+  const _selectors  = {}
+  const _effects    = []
 
   function action(type, payloadReducer, metaReducer) {
     invariantReducer(payloadReducer, 'payload reducer')
@@ -88,7 +87,7 @@ function model(options) {
       if (metaReducer) {
         action.meta = metaReducer(...args)
       }
-      action.getRequest = () => request
+      Object.defineProperty(action, 'getRequest', { value: () => request })
       return action
     }
 
@@ -103,7 +102,9 @@ function model(options) {
 
       typeSet.add(type)
 
-      apiActionCreator[suffix] = action(type)
+      apiActionCreator[suffix] = (payload, meta) => ({ type, payload, meta })
+      apiActionCreator[suffix].toString = () => type
+      apiActionCreator[suffix].getType = () => type
     })
 
     _model[type] = apiActionCreator
@@ -167,8 +168,8 @@ function model(options) {
   }
 
   function effect(effect) {
-    _effect = effect
-    return _effect
+    _effects.push(effect)
+    return _effects
   }
 
   function getNamespace() {
@@ -184,8 +185,8 @@ function model(options) {
     return _reducer
   }
 
-  function getEffect() {
-    return _effect
+  function getEffects() {
+    return _effects
   }
 
   function getState() {
@@ -202,7 +203,7 @@ function model(options) {
     getNamespace,
     setReducer,
     getReducer,
-    getEffect,
+    getEffects,
     getState,
   }
 
