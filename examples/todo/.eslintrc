@@ -3,6 +3,7 @@
   "extends": "airbnb",
   "rules": {
     "semi": [2, "never"],
+    "import/no-unresolved": 0
   },
   "plugins": [
     "react"

@@ -23,12 +23,12 @@ function model(options) {
     NAMESPACE_PATTERN
   )
 
-  let   _state      = options.state
-  let   _model      = {}
-  let   _reducer    = (state = _state) => state
-  const _namespace  = options.namespace
-  const _selectors  = {}
-  const _effects    = []
+  let _state = options.state
+  let _model = {}
+  let _reducer = (state = _state) => state
+  const _namespace = options.namespace
+  const _selectors = {}
+  const _effects = []
 
   function action(type, payloadReducer, metaReducer) {
     invariantReducer(payloadReducer, 'payload reducer')

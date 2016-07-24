@@ -21,7 +21,7 @@ test('action fetch', t => {
 test('action create', t => {
   const data = {
     id: 1,
-    name: 'foo'
+    name: 'foo',
   }
   t.deepEqual(model.create(data).getRequest(), {
     method: 'post',
@@ -38,10 +38,10 @@ test('action create', t => {
 test('reduce fetch success', t => {
   t.deepEqual(
     reducer(undefined, model.fetch.success({
-      result: [1, 2]
+      result: [1, 2],
     })),
     {
-      ids: [1, 2]
+      ids: [1, 2],
     }
   )
 })
@@ -49,10 +49,10 @@ test('reduce fetch success', t => {
 test('reduce create success', t => {
   t.deepEqual(
     reducer(undefined, model.fetch.success({
-      result: 1
+      result: [1],
     })),
     {
-      ids: [1]
+      ids: [1],
     }
   )
 })

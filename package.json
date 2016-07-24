@@ -1,14 +1,18 @@
 {
   "name": "tuku",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1-dev",
+  "description": "React + Redux Architecture",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
+    "lint": "eslint src test",
     "test": "NODE_PATH=src NODE_ENV=test ava",
+    "test:examples": "babel-node examples/testAll.js",
+    "check:src": "npm run lint && npm run test",
+    "check:examples": "npm run build:examples && npm run test:examples",
     "prebuild": "npm run clean",
     "build": "babel src --out-dir lib",
-    "lint": "NODE_PATH=src eslint src test"
+    "build:examples": "babel-node examples/buildAll.js"
   },
   "ava": {
     "babel": "inherit",
@@ -53,10 +57,11 @@
     "eslint-plugin-jsx-a11y": "^1.5.5",
     "eslint-plugin-react": "^5.2.2",
     "jsdom": "^9.4.1",
+    "react": "^15.2.1",
+    "react-router": "^2.6.0",
     "rimraf": "^2.5.4"
   },
   "peerDependencirs": {
-    "react": "^0.14.0 || ^15.0.0-0",
-    "redux-saga": "^0.11.0"
+    "react": "^0.14.0 || ^15.0.0-0"
   }
 }

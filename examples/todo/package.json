@@ -1,5 +1,6 @@
 {
   "name": "tuku-todo-example",
+  "description": "Tuku todo example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
