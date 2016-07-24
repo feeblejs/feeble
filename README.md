@@ -1,4 +1,4 @@
-<h1 align="center">tuku</h1>
+<h1 align="center">Tuku</h1>
 
 <div align="center">
   <strong>React + Redux Architecture</strong>
