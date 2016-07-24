@@ -1,6 +1,6 @@
 {
   "name": "tuku",
-  "version": "0.0.1-dev",
+  "version": "0.0.1-alpha1",
   "description": "React + Redux Architecture",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "check:examples": "npm run build:examples && npm run test:examples",
     "prebuild": "npm run clean",
     "build": "babel src --out-dir lib",
-    "build:examples": "babel-node examples/buildAll.js"
+    "build:examples": "babel-node examples/buildAll.js",
+    "prepublish": "npm run check:src && npm run check:examples && npm run build"
   },
   "ava": {
     "babel": "inherit",
