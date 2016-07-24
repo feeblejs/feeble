@@ -31,7 +31,9 @@ If you are familiar with React/Redux/redux-saga, you'll love Tuku :see_no_evil:.
 
 ```javascript
 import React from 'react'
-import tuku, { connect } from 'tuku'
+import ReactDOM from 'react-dom'
+import tuku from 'tuku'
+import { connect } from 'tuku/redux'
 import { Router, Route } from 'tuku/router'
 
 // 1. Create a app
@@ -39,7 +41,7 @@ const app = tuku()
 
 // 2.1 Create model
 const counter = tuku.model({
-  namespace: 'counter',
+  namespace: 'count',
   state: 0,
 })
 
@@ -59,12 +61,12 @@ app.model(counter)
 // 3. Create view
 const App = connect(({ count }) => ({
   count
-}))(function(props) {
+}))(function({ dispatch, count }) {
   return (
     <div>
-      <h2>{ props.count }</h2>
-      <button key="add" onClick={() => { props.dispatch(counter.increament())}}>+</button>
-      <button key="minus" onClick={() => { props.dispatch(counter.decreament)}}>-</button>
+      <h2>{ count }</h2>
+      <button key="inc" onClick={() => { dispatch(counter.increament())}}>+</button>
+      <button key="dec" onClick={() => { dispatch(counter.decreament)}}>-</button>
     </div>
   )
 })
@@ -80,8 +82,10 @@ app.router(({ history }) =>
 const tree = app.start()
 
 // 6. Render to DOM
-ReactDom.render(tree, document.getElementById('root'))
+ReactDOM.render(tree, document.getElementById('root'))
 ```
+
+Play above live example on [RequireBin](http://requirebin.com/?gist=9dd0f0cfffa4862989bded30865f6af7).
 
 For more complicate examples, please see [/examples](/examples).
 
