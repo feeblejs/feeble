@@ -19,6 +19,14 @@
 </div>
 
 
+## Introduction
+
+Tuku is a framework build on top of React/Redux/redux-saga which aims to make building React/Redux applications easier and better.
+
+It introduce a `model` concept, which contains your specify domain actions, reducer, effects and selectors. This make you struct your application elegant.
+
+If you are familiar with React/Redux/redux-saga, you'll like Tuku :see_no_evil:.
+
 ## Example
 
 ```javascript
