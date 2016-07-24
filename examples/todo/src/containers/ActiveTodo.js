@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'tuku/redux'
 import { push } from 'tuku/router'
 import { Tabs, Tab } from 'material-ui/Tabs'
@@ -10,6 +10,11 @@ import TodoList from '../components/TodoList'
 const todoModel = todoFactory('todo::active')
 
 class ActiveTodo extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    todos: PropTypes.array.isRequired,
+  }
+
   componentWillMount() {
     const { dispatch } = this.props
     dispatch(todoModel.fetch())
@@ -23,8 +28,8 @@ class ActiveTodo extends Component {
 
   handleCheck = todo => event => {
     const { dispatch } = this.props
-    todo = { ...todo, completed: event.target.checked }
-    dispatch(todoModel.update(todo))
+    const newTodo = { ...todo, completed: event.target.checked }
+    dispatch(todoModel.update(newTodo))
   }
 
   render() {
@@ -32,12 +37,11 @@ class ActiveTodo extends Component {
 
     return (
       <Tabs value="active">
-        <Tab label="Active" value="active" onActive={() => dispatch(push('/')) }>
+        <Tab label="Active" value="active" onActive={() => dispatch(push('/'))}>
           <TodoForm onSubmit={this.handleSubmit} />
           <TodoList todos={todos} handleCheck={this.handleCheck} />
         </Tab>
-        <Tab label="Completed" value="completed" onActive={() => dispatch(push('/completed')) }>
-        </Tab>
+        <Tab label="Completed" value="completed" onActive={() => dispatch(push('/completed'))} />
       </Tabs>
     )
   }
@@ -45,6 +49,6 @@ class ActiveTodo extends Component {
 
 export default connect(
   () => ({
-    todos: todoModel.select('list')()
+    todos: todoModel.select('list')(),
   })
 )(ActiveTodo)

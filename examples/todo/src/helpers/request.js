@@ -14,11 +14,15 @@ export default function callApi({ method, endpoint, query, body, schema }) {
 
     if (body) { request.send(body) }
 
-    request.end((error, { body, headers, status }) => {
+    request.end((error, res) => {
       if (error) {
-        return reject({ payload: body || error, error: true, meta: { status, headers } })
+        return reject({
+          payload: res.body || error,
+          error: true,
+          meta: { status: res.status, headers: res.headers },
+        })
       }
-      return resolve({ payload: normalize(body, schema) })
+      return resolve({ payload: normalize(res.body, schema) })
     })
   })
 }

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite'
 import { List, ListItem, Checkbox } from 'material-ui'
 
 const styles = StyleSheet.create({
   completed: {
-    textDecoration: "line-through",
-  }
+    textDecoration: 'line-through',
+  },
 })
 
 function TodoItem({ todo, handleCheck }) {
@@ -20,6 +20,11 @@ function TodoItem({ todo, handleCheck }) {
   )
 }
 
+TodoItem.propTypes = {
+  todo: PropTypes.object.isRequired,
+  handleCheck: PropTypes.func.isRequired,
+}
+
 export default function TodoList({ todos, handleCheck }) {
   return (
     <List>
@@ -28,4 +33,9 @@ export default function TodoList({ todos, handleCheck }) {
       )}
     </List>
   )
+}
+
+TodoList.propTypes = {
+  todos: PropTypes.array.isRequired,
+  handleCheck: PropTypes.func.isRequired,
 }

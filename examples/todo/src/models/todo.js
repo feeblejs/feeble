@@ -1,26 +1,24 @@
 import tuku from 'tuku'
 import { delay } from 'tuku/saga'
 import { call, put } from 'tuku/saga/effects'
-import omit from 'lodash/omit'
-import get from 'lodash/get'
 import entity from './entity'
 import schemas from '../schemas'
 
-const _models = {}
+const models = {}
 
 export default function modelFactory(namespace) {
-  if (_models[namespace]) {
-    return _models[namespace]
+  if (models[namespace]) {
+    return models[namespace]
   }
 
   const model = tuku.model({
     namespace,
     state: {
-      ids: []
+      ids: [],
     },
   })
 
-  _models[namespace] = model
+  models[namespace] = model
 
   model.apiAction('fetch', () => ({
     method: 'get',
@@ -28,9 +26,12 @@ export default function modelFactory(namespace) {
     schema: schemas.TODO_ARRAY,
   }))
 
-  model.apiAction('create', todo => {
-    todo.id = +new Date
-    todo.completed = false
+  model.apiAction('create', data => {
+    const todo = {
+      id: +new Date,
+      completed: false,
+      ...data,
+    }
 
     return {
       method: 'post',
@@ -49,11 +50,11 @@ export default function modelFactory(namespace) {
 
   model.reducer(on => {
     on(model.fetch.success, (state, payload) => ({
-      ids: payload.result
+      ids: payload.result,
     }))
 
     on(model.create.success, (state, payload) => ({
-      ids: [ ...state.ids, payload.result ]
+      ids: [...state.ids, payload.result],
     }))
   })
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { Router, IndexRoute, Route } from 'tuku/router'
 import App from './containers/App'
 import ActiveTodo from './containers/ActiveTodo'
@@ -13,4 +13,8 @@ export default function routes({ history }) {
       </Route>
     </Router>
   )
+}
+
+routes.propTypes = {
+  history: PropTypes.object.isRequired,
 }

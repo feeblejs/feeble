@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'tuku/redux'
 import { browserHistory } from 'tuku/router'
 import { Tabs, Tab } from 'material-ui/Tabs'
@@ -15,8 +15,8 @@ class CompletedTodo extends Component {
 
   handleCheck = todo => event => {
     const { dispatch } = this.props
-    todo = { ...todo, completed: event.target.checked }
-    dispatch(todoModel.update(todo))
+    const newTodo = { ...todo, completed: event.target.checked }
+    dispatch(todoModel.update(newTodo))
   }
 
   render() {
@@ -24,9 +24,8 @@ class CompletedTodo extends Component {
 
     return (
       <Tabs value="completed">
-        <Tab label="Active" value="active" onActive={() => browserHistory.push('/') }>
-        </Tab>
-        <Tab label="Completed" value="completed" onActive={() => browserHistory.push('/completed') }>
+        <Tab label="Active" value="active" onActive={() => browserHistory.push('/')} />
+        <Tab label="Completed" value="completed" onActive={() => browserHistory.push('/completed')}>
           <div>
             <TodoList todos={todos} handleCheck={this.handleCheck} />
           </div>
@@ -37,8 +36,13 @@ class CompletedTodo extends Component {
   }
 }
 
+CompletedTodo.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  todos: PropTypes.array.isRequired,
+}
+
 export default connect(
   () => ({
-    todos: todoModel.select('list')()
+    todos: todoModel.select('list')(),
   })
 )(CompletedTodo)

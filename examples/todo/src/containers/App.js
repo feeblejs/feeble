@@ -1,12 +1,12 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { StyleSheet, css } from 'aphrodite'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 const styles = StyleSheet.create({
   root: {
-    width: "380px",
-    margin: "100px auto 0 auto",
-  }
+    width: '380px',
+    margin: '100px auto 0 auto',
+  },
 })
 
 export default function App(props) {
@@ -17,4 +17,8 @@ export default function App(props) {
       </div>
     </MuiThemeProvider>
   )
+}
+
+App.propTypes = {
+  children: PropTypes.any.isRequired,
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PropTypes } from 'react'
 import { TextField } from 'material-ui'
 import { reduxForm } from 'redux-form'
 
@@ -12,6 +12,11 @@ function TodoForm({ fields, handleSubmit }) {
       />
     </form>
   )
+}
+
+TodoForm.propTypes = {
+  fields: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 export default reduxForm({
