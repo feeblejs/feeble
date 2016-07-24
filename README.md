@@ -65,8 +65,8 @@ const App = connect(({ count }) => ({
   return (
     <div>
       <h2>{ count }</h2>
-      <button key="inc" onClick={() => { dispatch(counter.increament())}}>+</button>
-      <button key="dec" onClick={() => { dispatch(counter.decreament)}}>-</button>
+      <button key="inc" onClick={() => { dispatch(counter.increament()}}>+</button>
+      <button key="dec" onClick={() => { dispatch(counter.decreament()}}>-</button>
     </div>
   )
 })
