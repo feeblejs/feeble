@@ -96,7 +96,7 @@ function model(options) {
 
       invariant(
         !typeSet.has(type),
-        '%s has already used for another action',
+        '%s has already token by another action',
         type
       )
 
