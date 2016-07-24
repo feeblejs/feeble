@@ -1,7 +1,9 @@
 import tuku from 'tuku'
-import { delay } from 'tuku/saga'
-import { call, put } from 'tuku/saga/effects'
+import { delay, takeEvery } from 'tuku/saga'
+import { fork, call, put } from 'tuku/saga/effects'
+import entity from '../entity'
 import schemas from '../../schemas'
+import without from 'lodash/without'
 
 const model = tuku.model({
   namespace: 'todo::active',
@@ -38,21 +40,42 @@ model.apiAction('complete', todo => ({
   schema: schemas.TODO,
 }))
 
+model.action('add')
+model.action('remove')
+
 model.reducer(on => {
   on(model.fetch.success, (state, payload) => ({
     ids: payload.result,
   }))
 
-  on(model.create.success, (state, payload) => ({
-    ids: [...state.ids, payload.result],
+  on(model.add, (state, payload) => ({
+    ids: [...state.ids, payload],
+  }))
+
+  on(model.remove, (state, payload) => ({
+    ids: without(state.ids, payload),
   }))
 })
 
+const create = function* () {
+  yield* takeEvery(model.create.request, function* ({ payload }) {
+    yield put(entity.create('todo', payload.body))
+    yield put(model.add(payload.body.id))
+  })
+}
+
+const complete = function* () {
+  yield* takeEvery(model.complete.request, function* ({ payload }) {
+    yield put(entity.update('todo', payload.body.id, payload.body))
+    yield put(model.remove(payload.body.id))
+  })
+}
+
 model.effect(function* () {
-  while (true) {
-    yield put(model.fetch())
-    yield call(delay, 1000)
-  }
+  yield [
+    fork(create),
+    fork(complete),
+  ]
 })
 
 export default model

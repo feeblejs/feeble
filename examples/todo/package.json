@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --colors --content-base . --hot --inline",
+    "start": "webpack-dev-server --colors --content-base . --hot --inline --history-api-fallback",
     "test": "NODE_PATH=src NODE_ENV=test ava",
     "lint": "NODE_PATH=src eslint src test"
   },

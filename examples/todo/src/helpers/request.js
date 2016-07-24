@@ -3,6 +3,7 @@ import { normalize } from 'normalizr'
 
 function formatUrl(endpoint) {
   const api = 'https://peaceful-shore-58208.herokuapp.com'
+  // const api = 'http://0.0.0.0:9292'
   return [api, endpoint].join('/')
 }
 
