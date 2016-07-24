@@ -1,8 +1,7 @@
 import test from 'ava'
-import factory from 'models/todo'
+import model from 'models/todo/active'
 import schemas from 'schemas'
 
-const model = factory('todo::active')
 const reducer = model.getReducer()
 
 test('basic', t => {

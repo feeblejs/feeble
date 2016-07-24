@@ -2,10 +2,9 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'tuku/redux'
 import { browserHistory } from 'tuku/router'
 import { Tabs, Tab } from 'material-ui/Tabs'
-import todoFactory from '../models/todo'
+import entityModel from '../models/entity'
+import todoModel from '../models/todo/completed'
 import TodoList from '../components/TodoList'
-
-const todoModel = todoFactory('todo::completed')
 
 class CompletedTodo extends Component {
   componentWillMount() {
@@ -15,8 +14,7 @@ class CompletedTodo extends Component {
 
   handleCheck = todo => event => {
     const { dispatch } = this.props
-    const newTodo = { ...todo, completed: event.target.checked }
-    dispatch(todoModel.update(newTodo))
+    dispatch(todoModel.uncomplete(todo))
   }
 
   render() {
@@ -43,6 +41,6 @@ CompletedTodo.propTypes = {
 
 export default connect(
   () => ({
-    todos: todoModel.select('list')(),
+    todos: entityModel.select('entities')('todo', todoModel),
   })
 )(CompletedTodo)
