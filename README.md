@@ -27,7 +27,7 @@ It introduce a `model` concept, which contains your specify domain actions, redu
 
 If you are familiar with React/Redux/redux-saga, you'll like Tuku :see_no_evil:.
 
-## Example
+## Basic Usage
 
 ```javascript
 import React from 'react'
@@ -82,6 +82,8 @@ const tree = app.start()
 // 6. Render to DOM
 ReactDom.render(tree, document.getElementById('root'))
 ```
+
+For more complicate examples, please see [/examples](/examples).
 
 ## License
 
