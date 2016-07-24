@@ -3,6 +3,7 @@ import { delay } from 'tuku/saga'
 import { call, put } from 'tuku/saga/effects'
 import omit from 'lodash/omit'
 import get from 'lodash/get'
+import entity from './entity'
 import schemas from '../schemas'
 
 const _models = {}
@@ -57,8 +58,8 @@ export default function modelFactory(namespace) {
   })
 
   model.selector('list',
-    state => state.entity.todo,
-    state => model.getState().ids,
+    () => entity.getState().todo,
+    () => model.getState().ids,
     (todos, ids) => ids.map(id => todos[id])
   )
 
