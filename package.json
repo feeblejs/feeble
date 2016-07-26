@@ -1,6 +1,6 @@
 {
   "name": "tuku",
-  "version": "0.0.1-alpha1",
+  "version": "0.0.1-alpha2",
   "description": "React + Redux Architecture",
   "main": "lib/index.js",
   "scripts": {
