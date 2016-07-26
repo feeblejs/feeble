@@ -5,7 +5,8 @@ test('is.namespace', t => {
   t.true(utils.is.namespace('foo'))
   t.true(utils.is.namespace('foo::bar'))
   t.false(utils.is.namespace(':foo'))
-  t.false(utils.is.namespace('FOO'))
+  t.true(utils.is.namespace('FOO'))
+  t.true(utils.is.namespace('fOO'))
 })
 
 test('is.actionCreator', t => {

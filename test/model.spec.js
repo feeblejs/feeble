@@ -21,7 +21,7 @@ test('throw error for invalid namespace', t => {
   t.throws(
     () => { model({ namespace: 'foo1', state: 1 }) },
     'foo1 is not a valid namespace, namespace should be a string ' +
-    'and match the pattern ^[a-z]+(::[a-z]+)*$'
+    'and match the pattern ^[a-zA-Z]+(::[a-zA-Z]+)*$'
   )
 })
 
