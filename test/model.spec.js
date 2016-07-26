@@ -92,7 +92,6 @@ test('create reducer', t => {
     on('counter::increment', state => state + 1)
   })
 
-  t.is(counter.getReducer(), reducer)
   t.is(reducer(undefined, { type: 'counter::increment' }), 1)
 })
 
@@ -109,8 +108,56 @@ test('reducer enhancer', t => {
   }, double)
 
 
-  t.is(counter.getReducer(), reducer)
   t.is(reducer(undefined, { type: 'counter::increment' }), 2)
+})
+
+test('define multiple reducers', t => {
+  const counter = model({
+    namespace: 'counter',
+    state: 0,
+  })
+
+  counter.action('add1')
+  counter.action('add2')
+  counter.action('add3')
+  counter.action('add4')
+
+  counter.reducer(on => {
+    on(counter.add1, state => state + 1)
+  })
+
+  counter.reducer(on => {
+    on(counter.add2, state => state + 2)
+  })
+
+  counter.setReducer((state, { type }) => {
+    switch (type) {
+      case counter.add3.getType():
+        return state + 3
+      default:
+        return state
+    }
+  })
+
+  counter.setReducer((state, { type }) => {
+    switch (type) {
+      case counter.add4.getType():
+        return state + 4
+      default:
+        return state
+    }
+  })
+
+  const reducer = counter.getReducer()
+  const state1 = reducer(undefined, counter.add1())
+  const state2 = reducer(state1, counter.add2())
+  const state3 = reducer(state2, counter.add3())
+  const state4 = reducer(state3, counter.add4())
+
+  t.is(state1, 1)
+  t.is(state2, 3)
+  t.is(state3, 6)
+  t.is(state4, 10)
 })
 
 test('get state', t => {

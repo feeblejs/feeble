@@ -2,6 +2,7 @@ import typeSet from './typeSet'
 import { CALL_API, NAMESPACE_PATTERN } from './constants'
 import { createSelector } from 'reselect'
 import invariant from 'invariant'
+import composeReducers from './composeReducers'
 import { is } from './utils'
 
 const identity = (arg) => arg
@@ -25,10 +26,12 @@ function model(options) {
 
   let _state = options.state
   let _model = {}
-  let _reducer = (state = _state) => state
   let _effect = null
   const _namespace = options.namespace
   const _selectors = {}
+  const _reducers = [
+    (state = _state) => state,
+  ]
 
   function action(type, payloadReducer, metaReducer) {
     invariantReducer(payloadReducer, 'payload reducer')
@@ -136,7 +139,7 @@ function model(options) {
       factory(on)
     }
 
-    _reducer = (state = _state, action) => {
+    let reduce = (state = _state, action) => {
       let nextState = state
       if (action && handlers[action.type]) {
         nextState = handlers[action.type](state, action.payload, action.meta)
@@ -154,9 +157,11 @@ function model(options) {
       return nextState
     }
 
-    _reducer = enhancer(_reducer)
+    reduce = enhancer(reduce)
 
-    return _reducer
+    _reducers.push(reduce)
+
+    return reduce
   }
 
   function selector(name, ...funcs) {
@@ -177,12 +182,12 @@ function model(options) {
   }
 
   function setReducer(reducer) {
-    _reducer = reducer
-    return _reducer
+    _reducers.push(reducer)
+    return reducer
   }
 
   function getReducer() {
-    return _reducer
+    return composeReducers(_reducers)
   }
 
   function getEffect() {
