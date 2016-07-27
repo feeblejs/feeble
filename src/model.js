@@ -168,8 +168,8 @@ function model(options) {
     _selectors[name] = createSelector(...funcs)
   }
 
-  function select(name) {
-    return _selectors[name]
+  function select(name, ...args) {
+    return _selectors[name](...args)
   }
 
   function effect(effect) {

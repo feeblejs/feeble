@@ -52,7 +52,7 @@ function tuku(options = {}) {
 
     return (
       <Provider store={_store}>
-        <Routes history={history} />
+        <Routes history={history} store={_store} />
       </Provider>
     )
   }
