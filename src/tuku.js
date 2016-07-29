@@ -42,6 +42,16 @@ function tuku(options = {}) {
     _routes = routes
   }
 
+  function mount(component) {
+    _tree = (
+      <Provider store={_store}>
+        {component}
+      </Provider>
+    )
+
+    return _tree
+  }
+
   function start() {
     Object.assign(_store, createStore(_models, _middlewares))
 
@@ -52,16 +62,6 @@ function tuku(options = {}) {
     const Routes = _routes
 
     _tree = mount(<Routes history={history} store={_store} />)
-
-    return _tree
-  }
-
-  function mount(component) {
-    _tree = (
-      <Provider store={_store}>
-        {component}
-      </Provider>
-    )
 
     return _tree
   }
