@@ -62,7 +62,7 @@ test('mount', t => {
     return <div>Hello</div>
   }
 
-  const wrapper = mount(app.mount(Hello))
+  const wrapper = mount(app.mount(<Hello />))
 
   t.is(wrapper.find(Hello).length, 1)
 })

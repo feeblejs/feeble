@@ -60,10 +60,10 @@ function tuku(options = {}) {
     return _tree
   }
 
-  function mount(Component) {
+  function mount(component) {
     _tree = (
       <Provider store={_store}>
-        <Component />
+        {component}
       </Provider>
     )
 
