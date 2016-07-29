@@ -1,4 +1,6 @@
 import test from 'ava'
+import React from 'react'
+import { mount } from 'enzyme'
 import tuku from 'tuku'
 import model from 'model'
 import typeSet from 'typeSet'
@@ -49,4 +51,23 @@ test('effect', t => {
   app.store.dispatch(increment())
 
   t.is(app.store.getState().counter, 2)
+})
+
+test('mount', t => {
+  const app = tuku()
+
+  const counter = model({
+    namespace: 'counter',
+    state: 0,
+  })
+
+  app.start()
+
+  function Hello() {
+    return <div>Hello</div>
+  }
+
+  const wrapper = mount(app.mount(Hello))
+
+  t.is(wrapper.find(Hello).length, 1)
 })

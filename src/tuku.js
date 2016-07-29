@@ -57,6 +57,14 @@ function tuku(options = {}) {
     )
   }
 
+  function mount(Component) {
+    return (
+      <Provider store={_store}>
+        <Component />
+      </Provider>
+    )
+  }
+
   addDefaultMiddlewares()
   addDefaultModels()
 
@@ -65,6 +73,7 @@ function tuku(options = {}) {
     model,
     router,
     start,
+    mount,
     store: _store,
   }
 }
