@@ -140,21 +140,15 @@ function model(options) {
     }
 
     let reduce = (state = _state, action) => {
-      let nextState = state
       if (action && handlers[action.type]) {
-        nextState = handlers[action.type](state, action.payload, action.meta)
-        _state = nextState
-        return nextState
+        return handlers[action.type](state, action.payload, action.meta)
       }
       for (const { pattern, handler } of patternHandlers) {
         if (pattern(action)) {
-          nextState = handler(state, action.payload, action.meta)
-          _state = nextState
-          return nextState
+          return handler(state, action.payload, action.meta)
         }
       }
-      _state = nextState
-      return nextState
+      return state
     }
 
     reduce = enhancer(reduce)
@@ -187,7 +181,12 @@ function model(options) {
   }
 
   function getReducer() {
-    return composeReducers(_reducers)
+    const reducer = composeReducers(_reducers)
+    return (state, action) => {
+      const nextState = reducer(state, action)
+      _state = nextState
+      return nextState
+    }
   }
 
   function getEffect() {

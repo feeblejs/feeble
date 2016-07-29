@@ -103,12 +103,14 @@ test('reducer enhancer', t => {
 
   const double = reducer => (state, action) => reducer(state, action) * 2
 
-  const reducer = counter.reducer(on => {
+  counter.reducer(on => {
     on('counter::increment', state => state + 1)
   }, double)
 
+  const reducer = counter.getReducer()
 
   t.is(reducer(undefined, { type: 'counter::increment' }), 2)
+  t.is(counter.getState(), 2)
 })
 
 test('define multiple reducers', t => {
