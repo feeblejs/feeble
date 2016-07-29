@@ -56,11 +56,6 @@ test('effect', t => {
 test('mount', t => {
   const app = tuku()
 
-  const counter = model({
-    namespace: 'counter',
-    state: 0,
-  })
-
   app.start()
 
   function Hello() {
