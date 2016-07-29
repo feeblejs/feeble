@@ -1,7 +1,7 @@
 import tuku from 'tuku'
 import { delay, takeEvery } from 'tuku/saga'
 import { fork, call, put } from 'tuku/saga/effects'
-import entity from '../entity'
+import Entity from '../entity'
 import schemas from '../../schemas'
 import without from 'lodash/without'
 
@@ -57,16 +57,22 @@ model.reducer(on => {
   }))
 })
 
+model.selector('list',
+  () => Entity.getState().todo,
+  () => model.getState().ids,
+  (entities, ids) => ids.map(id => entities[id])
+)
+
 const create = function* () {
   yield* takeEvery(model.create.request, function* ({ payload }) {
-    yield put(entity.create('todo', payload.body))
+    yield put(Entity.create('todo', payload.body))
     yield put(model.add(payload.body.id))
   })
 }
 
 const complete = function* () {
   yield* takeEvery(model.complete.request, function* ({ payload }) {
-    yield put(entity.update('todo', payload.body.id, payload.body))
+    yield put(Entity.update('todo', payload.body.id, payload.body))
     yield put(model.remove(payload.body.id))
   })
 }

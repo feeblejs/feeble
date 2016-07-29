@@ -30,10 +30,4 @@ model.reducer(on => {
   )
 })
 
-model.selector('entities',
-  name => model.getState()[name],
-  (name, model) => model.getState().ids,
-  (entities, ids) => ids.map(id => entities[id])
-)
-
 export default model

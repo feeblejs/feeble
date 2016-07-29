@@ -51,11 +51,7 @@ function tuku(options = {}) {
 
     const Routes = _routes
 
-    _tree = (
-      <Provider store={_store}>
-        <Routes history={history} store={_store} />
-      </Provider>
-    )
+    _tree = mount(<Routes history={history} store={_store} />)
 
     return _tree
   }

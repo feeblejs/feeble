@@ -3,8 +3,7 @@ import { connect } from 'tuku/redux'
 import { push } from 'tuku/router'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import { reset } from 'redux-form'
-import entityModel from '../models/entity'
-import todoModel from '../models/todo/active'
+import Todo from '../models/todo/active'
 import TodoForm from '../components/TodoForm'
 import TodoList from '../components/TodoList'
 
@@ -16,18 +15,18 @@ class ActiveTodo extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props
-    dispatch(todoModel.fetch())
+    dispatch(Todo.fetch())
   }
 
   handleSubmit = todo => {
     const { dispatch } = this.props
-    dispatch(todoModel.create(todo))
+    dispatch(Todo.create(todo))
     dispatch(reset('todo'))
   }
 
   handleCheck = todo => event => {
     const { dispatch } = this.props
-    dispatch(todoModel.complete(todo))
+    dispatch(Todo.complete(todo))
   }
 
   render() {
@@ -47,6 +46,6 @@ class ActiveTodo extends Component {
 
 export default connect(
   () => ({
-    todos: entityModel.select('entities')('todo', todoModel),
+    todos: Todo.select('list'),
   })
 )(ActiveTodo)

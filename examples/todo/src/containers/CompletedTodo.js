@@ -3,18 +3,18 @@ import { connect } from 'tuku/redux'
 import { browserHistory } from 'tuku/router'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import entityModel from '../models/entity'
-import todoModel from '../models/todo/completed'
+import Todo from '../models/todo/completed'
 import TodoList from '../components/TodoList'
 
 class CompletedTodo extends Component {
   componentWillMount() {
     const { dispatch } = this.props
-    dispatch(todoModel.fetch())
+    dispatch(Todo.fetch())
   }
 
   handleCheck = todo => event => {
     const { dispatch } = this.props
-    dispatch(todoModel.uncomplete(todo))
+    dispatch(Todo.uncomplete(todo))
   }
 
   render() {
@@ -41,6 +41,6 @@ CompletedTodo.propTypes = {
 
 export default connect(
   () => ({
-    todos: entityModel.select('entities')('todo', todoModel),
+    todos: Todo.select('list'),
   })
 )(CompletedTodo)
