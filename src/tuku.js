@@ -14,7 +14,8 @@ function tuku(options = {}) {
   const _store = {}
   const _middlewares = []
   let _routes = null
-  let sagaMiddleware = null
+  let _tree = null
+  let _sagaMiddleware = null
 
   function middleware(...middlewares) {
     _middlewares.push(...middlewares)
@@ -28,8 +29,8 @@ function tuku(options = {}) {
     if (options.request) {
       middleware(createApiMiddleware(options.request))
     }
-    sagaMiddleware = createSagaMiddleware(_models)
-    middleware(sagaMiddleware)
+    _sagaMiddleware = createSagaMiddleware(_models)
+    middleware(_sagaMiddleware)
     middleware(routerMiddleware(browserHistory))
   }
 
@@ -44,25 +45,33 @@ function tuku(options = {}) {
   function start() {
     Object.assign(_store, createStore(_models, _middlewares))
 
-    sagaMiddleware.run()
+    _sagaMiddleware.run()
 
     const history = createHistory(_store)
 
     const Routes = _routes
 
-    return (
+    _tree = (
       <Provider store={_store}>
         <Routes history={history} store={_store} />
       </Provider>
     )
+
+    return _tree
   }
 
   function mount(Component) {
-    return (
+    _tree = (
       <Provider store={_store}>
         <Component />
       </Provider>
     )
+
+    return _tree
+  }
+
+  function tree() {
+    return _tree
   }
 
   addDefaultMiddlewares()
@@ -75,6 +84,7 @@ function tuku(options = {}) {
     start,
     mount,
     store: _store,
+    tree,
   }
 }
 
