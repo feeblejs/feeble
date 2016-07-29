@@ -24,7 +24,8 @@ function model(options) {
     NAMESPACE_PATTERN
   )
 
-  let _state = options.state
+  const _initialState = options.state
+  let _state = _initialState
   let _model = {}
   let _effect = null
   const _namespace = options.namespace
@@ -139,7 +140,7 @@ function model(options) {
       factory(on)
     }
 
-    let reduce = (state = _state, action) => {
+    let reduce = (state = _initialState, action) => {
       if (action && handlers[action.type]) {
         return handlers[action.type](state, action.payload, action.meta)
       }

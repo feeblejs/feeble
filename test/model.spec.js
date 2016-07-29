@@ -180,3 +180,21 @@ test('get state', t => {
 
   t.is(foo.getState(), 2)
 })
+
+test('use initial state', t => {
+  const counter = model({
+    namespace: 'counter',
+    state: 0,
+  })
+
+  counter.action('increment')
+
+  counter.reducer(on => {
+    on(counter.increment, state => state + 1)
+  })
+
+  const reducer = counter.getReducer()
+
+  t.is(reducer(undefined, counter.increment()), 1)
+  t.is(reducer(undefined, counter.increment()), 1)
+})
