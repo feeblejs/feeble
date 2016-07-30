@@ -1,4 +1,5 @@
 import test from 'ava'
+import sinon from 'sinon'
 import model from 'model'
 import typeSet from 'typeSet'
 import { is } from 'utils'
@@ -197,4 +198,25 @@ test('use initial state', t => {
 
   t.is(reducer(undefined, counter.increment()), 1)
   t.is(reducer(undefined, counter.increment()), 1)
+})
+
+test('create selector', t => {
+  const rectangle = model({
+    namespace: 'rectangle'
+  })
+
+  const resultFunc = sinon.spy((width, height) => width * height)
+
+  rectangle.selector('area',
+    rect => rect.width,
+    rect => rect.height,
+    resultFunc
+  )
+
+  t.is(rectangle.select('area', { width: 10, height: 5 }), 50)
+  t.true(resultFunc.calledOnce)
+  t.is(rectangle.select('area', { width: 10, height: 5 }), 50)
+  t.true(resultFunc.calledOnce)
+  t.is(rectangle.select('area', { width: 10, height: 6 }), 60)
+  t.true(resultFunc.calledTwice)
 })
