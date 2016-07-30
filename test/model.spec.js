@@ -226,10 +226,10 @@ test('structured selctor', t => {
     namespace: 'rectangle',
   })
 
-  rectangle.structuredSelctor('geometry', {
+  rectangle.selector('geometry', {
     area: rect => rect.width * rect.height,
     perimeter: rect => (rect.width + rect.height) * 2,
-  })
+  }, { structured: true })
 
   const rect = { width: 10, height: 5 }
 

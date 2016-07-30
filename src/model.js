@@ -162,12 +162,14 @@ function model(options) {
     return reduce
   }
 
-  function selector(name, ...funcs) {
-    _selectors[name] = createSelector(...funcs)
-  }
-
-  function structuredSelctor(name, selectors) {
-    _selectors[name] = createStructuredSelector(selectors)
+  function selector(name, ...args) {
+    const isOptions = v => !isUndefined(v.structured)
+    const last = args.pop()
+    if (isOptions(last) && last.structured) {
+      _selectors[name] = createStructuredSelector(...args)
+    } else {
+      _selectors[name] = createSelector(...args, last)
+    }
   }
 
   function select(name, ...args) {
@@ -210,7 +212,6 @@ function model(options) {
     apiAction,
     reducer,
     selector,
-    structuredSelctor,
     select,
     effect,
     getNamespace,
