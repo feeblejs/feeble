@@ -26,8 +26,8 @@ function tuku(options = {}) {
   }
 
   function addDefaultMiddlewares() {
-    if (options.request) {
-      middleware(createApiMiddleware(options.request))
+    if (options.callApi) {
+      middleware(createApiMiddleware(options.callApi))
     }
     _sagaMiddleware = createSagaMiddleware(_models)
     middleware(_sagaMiddleware)

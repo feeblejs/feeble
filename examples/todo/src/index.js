@@ -8,12 +8,12 @@ import todoCompleted from './models/todo/completed'
 import form from './models/form'
 import entity from './models/entity'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import request from './helpers/request'
+import callApi from './helpers/callApi'
 
 injectTapEventPlugin()
 
 const app = tuku({
-  request,
+  callApi,
 })
 
 app.model(
