@@ -3,13 +3,16 @@ import { CALL_API, NAMESPACE_PATTERN } from './constants'
 import { createSelector, createStructuredSelector } from 'reselect'
 import invariant from 'invariant'
 import composeReducers from './composeReducers'
-import { is } from './utils'
+import isNamespace from './utils/isNamespace'
+import isActionCreator from './utils/isActionCreator'
+import isUndefined from 'lodash/isUndefined'
+import isFunction from 'lodash/isFunction'
 
 const identity = (arg) => arg
 
 const invariantReducer = (value, name) => {
   invariant(
-    is.undef(value) || is.func(value),
+    isUndefined(value) || isFunction(value),
     '%s should be a function',
     name
   )
@@ -17,7 +20,7 @@ const invariantReducer = (value, name) => {
 
 function model(options) {
   invariant(
-    is.namespace(options.namespace),
+    isNamespace(options.namespace),
     '%s is not a valid namespace, namespace should be a string ' +
     'and match the pattern %s',
     options.namespace,
@@ -122,7 +125,7 @@ function model(options) {
     function on(pattern, handler) {
       if (typeof pattern === 'string') {
         handlers[pattern] = handler
-      } else if (is.actionCreator(pattern)) {
+      } else if (isActionCreator(pattern)) {
         handlers[pattern.getType()] = handler
       } else if (Array.isArray(pattern)) {
         pattern.forEach(p => on(p, handler))

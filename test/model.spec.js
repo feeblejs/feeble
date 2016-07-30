@@ -2,9 +2,8 @@ import test from 'ava'
 import sinon from 'sinon'
 import model from 'model'
 import typeSet from 'typeSet'
-import { is } from 'utils'
+import isActionCreator from 'utils/isActionCreator'
 import { CALL_API } from '../src/constants'
-import isPlainObject from 'lodash/isPlainObject'
 
 test.afterEach(() => {
   typeSet.clear()
@@ -67,9 +66,9 @@ test('create api action creator', t => {
     endpoint: 'save',
   })
 
-  t.true(is.actionCreator(counter.save.request))
-  t.true(is.actionCreator(counter.save.success))
-  t.true(is.actionCreator(counter.save.error))
+  t.true(isActionCreator(counter.save.request))
+  t.true(isActionCreator(counter.save.success))
+  t.true(isActionCreator(counter.save.error))
   t.is(counter.save.request.getType(), 'counter::save_request')
   t.is(counter.save.success.getType(), 'counter::save_success')
   t.is(counter.save.error.getType(), 'counter::save_error')
@@ -229,10 +228,11 @@ test('structured selctor', t => {
 
   rectangle.structuredSelctor('geometry', {
     area: rect => rect.width * rect.height,
-    perimeter: rectv => (rect.width + rect.height) * 2,
+    perimeter: rect => (rect.width + rect.height) * 2,
   })
 
   const rect = { width: 10, height: 5 }
 
+  t.deepEqual(rectangle.select('geometry', rect), { area: 50, perimeter: 30 })
   t.is(rectangle.select('geometry', rect), rectangle.select('geometry', rect))
 })
