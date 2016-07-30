@@ -4,6 +4,7 @@ import model from 'model'
 import typeSet from 'typeSet'
 import { is } from 'utils'
 import { CALL_API } from '../src/constants'
+import isPlainObject from 'lodash/isPlainObject'
 
 test.afterEach(() => {
   typeSet.clear()
@@ -219,4 +220,19 @@ test('create selector', t => {
   t.true(resultFunc.calledOnce)
   t.is(rectangle.select('area', { width: 10, height: 6 }), 60)
   t.true(resultFunc.calledTwice)
+})
+
+test('structured selctor', t => {
+  const rectangle = model({
+    namespace: 'rectangle',
+  })
+
+  rectangle.structuredSelctor('geometry', {
+    area: rect => rect.width * rect.height,
+    perimeter: rectv => (rect.width + rect.height) * 2,
+  })
+
+  const rect = { width: 10, height: 5 }
+
+  t.is(rectangle.select('geometry', rect), rectangle.select('geometry', rect))
 })

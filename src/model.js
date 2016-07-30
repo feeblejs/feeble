@@ -1,6 +1,6 @@
 import typeSet from './typeSet'
 import { CALL_API, NAMESPACE_PATTERN } from './constants'
-import { createSelector } from 'reselect'
+import { createSelector, createStructuredSelector } from 'reselect'
 import invariant from 'invariant'
 import composeReducers from './composeReducers'
 import { is } from './utils'
@@ -163,6 +163,10 @@ function model(options) {
     _selectors[name] = createSelector(...funcs)
   }
 
+  function structuredSelctor(name, selectors) {
+    _selectors[name] = createStructuredSelector(selectors)
+  }
+
   function select(name, ...args) {
     return _selectors[name](...args)
   }
@@ -203,6 +207,7 @@ function model(options) {
     apiAction,
     reducer,
     selector,
+    structuredSelctor,
     select,
     effect,
     getNamespace,
