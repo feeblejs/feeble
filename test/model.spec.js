@@ -202,7 +202,7 @@ test('use initial state', t => {
 
 test('create selector', t => {
   const rectangle = model({
-    namespace: 'rectangle'
+    namespace: 'rectangle',
   })
 
   const resultFunc = sinon.spy((width, height) => width * height)

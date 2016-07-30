@@ -18,7 +18,7 @@ function callAPI(callAPI, action) {
 const store = {
   getState() {
     return {}
-  }
+  },
 }
 
 let api = createApi(callAPI)
