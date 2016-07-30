@@ -89,7 +89,7 @@ For more complicate examples, please see [/examples](/examples).
 
 ## Concepts
 
-`Tuku` structures all your logic to a `app` and introduces `model` to let you model your domain's actions, reducer, effects, and selectors in one place.
+Tuku structures all your logic to a `app` and the only concept Tuku created is `model`, `model` let you model your domain's actions, reducer, effects, and selectors in one place.
 
 ### Model
 
