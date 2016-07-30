@@ -122,7 +122,7 @@ Last, we create `reducer` by calling `count.reducer`, `counter.reducer` accept a
 
 Tuku using `redux-saga` to handle side effects, so `effect` is a `saga` actually. Let's define a `effect` for above `count` model.
 
-```
+```javascript
 model.effect(function* {
   yield* takeEvery(count.increament, function* ({ payload }) {
     yield call(localStorage.setItem, 'count', payload)
