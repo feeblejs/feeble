@@ -12,8 +12,8 @@
   </a>
 
   <!-- Build Status -->
-  <a href="https://travis-ci.org/yesmeck/tuku">
-    <img src="https://img.shields.io/travis/yesmeck/tuku/master.svg?style=flat-square"
+  <a href="https://travis-ci.org/tianche/tuku">
+    <img src="https://img.shields.io/travis/tianche/tuku/master.svg?style=flat-square"
       alt="Build Status" />
   </a>
 </div>
