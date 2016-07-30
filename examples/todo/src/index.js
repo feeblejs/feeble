@@ -3,10 +3,10 @@ import tuku from 'tuku'
 import ReactDOM from 'react-dom'
 import createLogger from 'redux-logger'
 import routes from './routes'
-import todoActive from './models/todo/active'
-import todoCompleted from './models/todo/completed'
-import form from './models/form'
-import entity from './models/entity'
+import TodoActive from './models/todo/active'
+import TodoCompleted from './models/todo/completed'
+import Form from './models/form'
+import Entity from './models/entity'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import callApi from './helpers/callApi'
 
@@ -17,10 +17,10 @@ const app = tuku({
 })
 
 app.model(
-  todoActive,
-  todoCompleted,
-  form,
-  entity
+  TodoActive,
+  TodoCompleted,
+  Form,
+  Entity
 )
 
 app.middleware(
