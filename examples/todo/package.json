@@ -1,6 +1,6 @@
 {
-  "name": "tuku-todo-example",
-  "description": "Tuku todo example",
+  "name": "feeble-todo-example",
+  "description": "Feeble todo example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -34,7 +34,7 @@
     "react-tap-event-plugin": "^1.0.0",
     "redux-form": "^5.3.1",
     "superagent": "^2.1.0",
-    "tuku": "0.0.1-alpha1"
+    "feeble": "0.0.1-alpha1"
   },
   "devDependencies": {
     "ava": "^0.15.2",

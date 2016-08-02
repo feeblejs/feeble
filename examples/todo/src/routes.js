@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Router, IndexRoute, Route } from 'tuku/router'
+import { Router, IndexRoute, Route } from 'feeble/router'
 import App from './containers/App'
 import ActiveTodo from './containers/ActiveTodo'
 import CompletedTodo from './containers/CompletedTodo'

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'tuku/redux'
-import { push } from 'tuku/router'
+import { connect } from 'feeble/redux'
+import { push } from 'feeble/router'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import { reset } from 'redux-form'
 import Todo from '../models/todo/active'

@@ -1,7 +1,7 @@
 import test from 'ava'
 import React from 'react'
 import { mount } from 'enzyme'
-import tuku from 'tuku'
+import feeble from 'feeble'
 import model from 'model'
 import typeSet from 'typeSet'
 import { takeEvery } from 'redux-saga'
@@ -12,7 +12,7 @@ test.afterEach(() => {
 })
 
 test('create a new app', t => {
-  const app = tuku()
+  const app = feeble()
 
   t.is(typeof app.middleware, 'function')
   t.is(typeof app.model, 'function')
@@ -22,7 +22,7 @@ test('create a new app', t => {
 })
 
 test('effect', t => {
-  const app = tuku()
+  const app = feeble()
 
   const counter = model({
     namespace: 'counter',
@@ -54,7 +54,7 @@ test('effect', t => {
 })
 
 test('mount', t => {
-  const app = tuku()
+  const app = feeble()
 
   app.start()
 

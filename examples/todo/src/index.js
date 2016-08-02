@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import tuku from 'tuku'
+import feeble from 'feeble'
 import ReactDOM from 'react-dom'
 import createLogger from 'redux-logger'
 import routes from './routes'
@@ -12,7 +12,7 @@ import callApi from './helpers/callApi'
 
 injectTapEventPlugin()
 
-const app = tuku({
+const app = feeble({
   callApi,
 })
 

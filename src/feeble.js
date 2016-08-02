@@ -9,7 +9,7 @@ import createStore from './createStore'
 import createHistory from './createHistory'
 import routing from './models/routing'
 
-function tuku(options = {}) {
+function feeble(options = {}) {
   const _models = []
   const _store = {}
   const _middlewares = []
@@ -84,6 +84,6 @@ function tuku(options = {}) {
   }
 }
 
-tuku.model = model
+feeble.model = model
 
-export default tuku
+export default feeble

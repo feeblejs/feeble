@@ -1,8 +1,8 @@
 # API Reference
 
-* [`tuku API`](#tukuapi)
-  * [tuku(options)](#tukuoptions)
-  * [tuku.model(options)](#tukumodeloptions)
+* [`feeble API`](#feebleapi)
+  * [feeble(options)](#feebleoptions)
+  * [feeble.model(options)](#feeblemodeloptions)
 * [`app API`](#appapi)
   * [app.model(...args)](#appmodelargs)
   * [app.middleware(..args)](#appmiddlewareargs)
@@ -16,16 +16,16 @@
   * [model.apiAction(name, fn, fn)](#modelapiactionname-fn-fn)
   * [model.reducer(fn)](#modelreducerfn)
 
-## tuku API
+## feeble API
 
-### `tuku(options)`
+### `feeble(options)`
 
-Create a tuku app.
+Create a feeble app.
 
 * `options: Object` - A list of options to pass to the app, currently supported options are:
-  * `callApi: Function` - A function interact wiht server, if this option is presented, Tuku will add a api middleware to Redux store, see more details for [api middleware](#todo).
+  * `callApi: Function` - A function interact wiht server, if this option is presented, Feeble will add a api middleware to Redux store, see more details for [api middleware](#todo).
 
-### `tuku.model(options)`
+### `feeble.model(options)`
 
 Create a model.
 
@@ -45,19 +45,19 @@ Attach one or multiple models to the app. The app's initial state tree will gene
 #### Example
 
 ```javascript
-const app = tuku()
+const app = feeble()
 
-const count = tuku.model({
+const count = feeble.model({
   namespace: 'count',
   state: 0,
 })
 
-const todoA = tuku.model({
+const todoA = feeble.model({
   namespace: 'todo::a',
   state: [ 'bar' ],
 })
 
-const todoB = tuku.model({
+const todoB = feeble.model({
   namespace: 'todo::b',
   state: [ 'foo' ],
 })
@@ -98,7 +98,7 @@ Bootstrap your app, `app.start` return app's root React instance and you can ren
 #### Example
 
 ```javascript
-const app = tuku()
+const app = feeble()
 const tree = app.start()
 ReactDOM.render(tree, document.getElementById('app'))
 ```
@@ -148,7 +148,7 @@ Create a action creator.
 #### Example
 
 ```javascript
-const foo = tuku.model({
+const foo = feeble.model({
   namespace: 'foo'
 })
 
@@ -181,7 +181,7 @@ If set `callApi` option to `app`, model will expose `apiAction` to allow you cre
 #### Example
 
 ```javascript
-const todo = tuku.model({
+const todo = feeble.model({
   namespace: 'todo',
   state: [],
 })

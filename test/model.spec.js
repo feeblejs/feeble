@@ -32,12 +32,12 @@ test('create action creator', t => {
     state: 0,
   })
 
-  counter.action('increment', () => 'hello', () => 'tuku')
+  counter.action('increment', () => 'hello', () => 'feeble')
 
   t.deepEqual(counter.increment(), {
     type: 'counter::increment',
     payload: 'hello',
-    meta: 'tuku',
+    meta: 'feeble',
   })
 })
 

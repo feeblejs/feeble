@@ -1,19 +1,19 @@
 import test from 'ava'
-import tuku from 'tuku'
+import feeble from 'feeble'
 import createReducer from 'createReducer'
 
 test('default', t => {
-  const foo = tuku.model({
+  const foo = feeble.model({
     namespace: 'foo',
     state: 1,
   })
 
-  const bar1 = tuku.model({
+  const bar1 = feeble.model({
     namespace: 'bar::one',
     state: 2,
   })
 
-  const bar2 = tuku.model({
+  const bar2 = feeble.model({
     namespace: 'bar::two',
     state: 3,
   })

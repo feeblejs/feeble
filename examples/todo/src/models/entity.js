@@ -1,7 +1,7 @@
-import tuku from 'tuku'
+import feeble from 'feeble'
 import merge from 'lodash/fp/merge'
 
-const model = tuku.model({
+const model = feeble.model({
   namespace: 'entity',
   state: {},
 })

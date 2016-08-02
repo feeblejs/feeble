@@ -1,11 +1,11 @@
-import tuku from 'tuku'
-import { delay, takeEvery } from 'tuku/saga'
-import { fork, call, put } from 'tuku/saga/effects'
+import feeble from 'feeble'
+import { delay, takeEvery } from 'feeble/saga'
+import { fork, call, put } from 'feeble/saga/effects'
 import Entity from '../entity'
 import schemas from '../../schemas'
 import without from 'lodash/without'
 
-const model = tuku.model({
+const model = feeble.model({
   namespace: 'todo::completed',
   state: {
     ids: [],

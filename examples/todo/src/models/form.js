@@ -1,7 +1,7 @@
-import tuku from 'tuku'
+import feeble from 'feeble'
 import { reducer } from 'redux-form'
 
-const model = tuku.model({
+const model = feeble.model({
   namespace: 'form',
 })
 
