@@ -27,8 +27,6 @@ If you are familiar with React/Redux/redux-saga, you'll love Feeble :see_no_evil
 
 ## Example
 
-[Click here to see the example running.](http://requirebin.com/?gist=9dd0f0cfffa4862989bded30865f6af7).
-
 ```javascript
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -65,8 +63,8 @@ const App = connect(({ count }) => ({
   return (
     <div>
       <h2>{ count }</h2>
-      <button key="inc" onClick={() => { dispatch(counter.increament()}}>+</button>
-      <button key="dec" onClick={() => { dispatch(counter.decreament()}}>-</button>
+      <button key="inc" onClick={() => { dispatch(counter.increament()) }}>+</button>
+      <button key="dec" onClick={() => { dispatch(counter.decreament()) }}>-</button>
     </div>
   )
 })
