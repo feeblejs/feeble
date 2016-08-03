@@ -25,6 +25,12 @@ Feeble is a framework build on top of React/Redux/redux-saga which aims to make 
 
 If you are familiar with React/Redux/redux-saga, you'll love Feeble :see_no_evil:.
 
+## Installation
+
+```bash
+npm install feeble --save
+```
+
 ## Example
 
 ```javascript
