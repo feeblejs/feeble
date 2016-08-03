@@ -1,6 +1,6 @@
 {
   "name": "feeble",
-  "version": "0.0.1-alpha3",
+  "version": "0.0.1",
   "description": "React + Redux Architecture",
   "main": "lib/index.js",
   "scripts": {
