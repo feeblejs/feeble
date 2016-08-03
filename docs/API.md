@@ -15,6 +15,11 @@
   * [model.action(name, fn, fn)](#modelactionname-fn-fn)
   * [model.apiAction(name, fn, fn)](#modelapiactionname-fn-fn)
   * [model.reducer(fn)](#modelreducerfn)
+  * [model.selector(name, ...fns, fn, options)](#modelselectorname-fns-fn-options)
+  * [model.select(name, ...args)](#modelselectname-args)
+  * [model.effect(fn)](#modeleffectfn)
+  * [model.setReducer(fn)](#modelsetreducerfn)
+  * [model.getState()](#modelgetstate)
 
 ## feeble API
 
@@ -240,8 +245,69 @@ If "callApi" rejects, a error action will be dispatched:
 }
 ```
 
-## `model.reducer(fn)`
+### `model.reducer(fn)`
 
 Create reducer.
 
-* `fn: Function` -
+* `fn: Function` - A function takes a `on` param which register action to the reducer.
+
+#### Example
+
+```javascript
+count.reducer(on => {
+  on(todo.increment, (state, payload) => state + payload)
+  on(todo.decrement, (state, payload) => state + payload)
+})
+```
+
+### `model.selector(name, ...fns, fn, options)`
+
+* `name: Function` - Name of the selector, access the selector by calling `model.select(name)` later.
+* `fns: Array<Function>` - Input selectors.
+* `fn: Function` - Result function.
+* `options: Object` - A list of options, currently supported options are:
+  * `structured: Boolean` - Create a structured selector if true.
+
+### `model.select(name, ...args)`
+
+Access selectors.
+
+* `name: Function` - Name of the selector.
+* `args: Array<any>` - Arguments pass to the selector.
+
+### `model.effect(fn)`
+
+Create effect.
+
+* `fn: Function` - A generator function.
+
+### Example
+
+```javascript
+model.effect(function* {
+  yield* takeEvery(count.increament, function* ({ payload }) {
+    yield call(localStorage.setItem, 'count', payload)
+  })
+})
+```
+
+Using `fork` to create multiple effects:
+
+```javascript
+model.effect(function* {
+  yield [
+    fork(effect1),
+    fork(effect2),
+  ]
+})
+```
+
+### `model.setReducer(fn)`
+
+Add a exists reducer to model. This is useful when you work with third party libraries or you legacy codes.
+
+* `fn: Function` - A normal Redux reducer.
+
+### `model.getState()`
+
+Get current model state.
