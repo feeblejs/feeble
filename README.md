@@ -89,8 +89,8 @@ For more complicate examples, please see [/examples](/examples).
 
 ## Documentation
 
-* [Concepts][/docs/Concepts.md]
-* [API Reference][/docs/API.md]
+* [Concepts](/docs/Concepts.md)
+* [API Reference](/docs/API.md)
 
 ## License
 
