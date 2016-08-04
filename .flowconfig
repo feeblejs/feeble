@@ -1,0 +1,9 @@
+[ignore]
+.*/node_modules/.*
+.*/test/.*
+.*/lib/.*
+
+[libs]
+interfaces/
+node_modules/iflow-react-redux/index.js.flow
+node_modules/iflow-react-router/index.js.flow

@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import { Provider } from 'react-redux'
 import { browserHistory } from 'react-router'
@@ -9,8 +10,8 @@ import createStore from './createStore'
 import createHistory from './createHistory'
 import routing from './models/routing'
 
-function feeble(options = {}) {
-  const _models = []
+function feeble(options: { callApi?: Function } = {}) {
+  const _models: Array = []
   const _store = {}
   const _middlewares = []
   let _routes = null
