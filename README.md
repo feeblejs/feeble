@@ -21,7 +21,7 @@
 
 ## Introduction
 
-Feeble is a framework build on top of React/Redux/redux-saga which aims to make building React/Redux applications easier and better.
+Feeble is a framework built on top of React/Redux/redux-saga which aims to make building React/Redux applications easier and better.
 
 If you are familiar with React/Redux/redux-saga, you'll love Feeble :see_no_evil:.
 
@@ -48,7 +48,7 @@ const counter = feeble.model({
   state: 0,
 })
 
-// 2.2 Create action creator
+// 2.2 Create action creators
 counter.action('increament')
 counter.action('decreament')
 
@@ -58,7 +58,7 @@ counter.reducer(on => {
   on(counter.decreament, state => state - 1)
 })
 
-// 2.4 Attach model to app
+// 2.4 Attach model to the app
 app.model(counter)
 
 // 3. Create view
@@ -81,14 +81,14 @@ app.router(({ history }) =>
   </Router>
 )
 
-// 5. Start app
+// 5. Start the app
 const tree = app.start()
 
 // 6. Render to DOM
 ReactDOM.render(tree, document.getElementById('root'))
 ```
 
-For more complicate examples, please see [/examples](/examples).
+For more complex examples, please see [/examples](/examples).
 
 ## Documentation
 
