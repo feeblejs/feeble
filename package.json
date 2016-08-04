@@ -2,7 +2,7 @@
   "name": "feeble",
   "version": "0.0.1",
   "description": "React + Redux Architecture",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint src test",

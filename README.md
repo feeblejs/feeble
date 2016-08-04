@@ -37,7 +37,7 @@ npm install feeble --save
 import React from 'react'
 import ReactDOM from 'react-dom'
 import feeble from 'feeble'
-import { connect } from 'feeble/redux'
+import { connect } from 'feeble'
 import { Router, Route } from 'feeble/router'
 
 // 1. Create a app

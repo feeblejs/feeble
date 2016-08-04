@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'feeble/redux'
+import { connect } from 'feeble'
 import { push } from 'feeble/router'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import { reset } from 'redux-form'

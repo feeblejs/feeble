@@ -3,6 +3,7 @@
 * [`feeble API`](#feeble-api)
   * [feeble(options)](#feebleoptions)
   * [feeble.model(options)](#feeblemodeloptions)
+  * [connect(mapStateToProps, mapDispatchToProps, mergeProps, options)](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
 * [`app API`](#app-api)
   * [app.model(...args)](#appmodelargs)
   * [app.middleware(..args)](#appmiddlewareargs)
@@ -38,6 +39,9 @@ Create a model.
   * `namespace: String` - Namespace of the model, this is required. Namespace can be nested by a double colon `::`.
   * `state: any` - Initial state of the model.
 
+### `connect(mapStateToProps, mapDispatchToProps, mergeProps, options)`
+
+Same as `react-redux`'s [connect](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options).
 
 ## app API
 
