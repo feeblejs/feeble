@@ -1,6 +1,6 @@
 import feeble from 'feeble'
-import { delay, takeEvery } from 'feeble/saga'
-import { fork, call, put } from 'feeble/saga/effects'
+import { delay, takeEvery } from 'feeble/effects/helper'
+import { fork, call, put } from 'feeble/effects'
 import Entity from '../entity'
 import schemas from '../../schemas'
 import without from 'lodash/without'

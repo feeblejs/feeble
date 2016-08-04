@@ -21,6 +21,8 @@
   * [model.effect(fn)](#modeleffectfn)
   * [model.setReducer(fn)](#modelsetreducerfn)
   * [model.getState()](#modelgetstate)
+* [`effects API`](#effects-api)
+* [`effects helper API`](#effects-helper-api)
 
 ## feeble API
 
@@ -315,3 +317,11 @@ Add a exists reducer to model. This is useful when you work with third party lib
 ### `model.getState()`
 
 Get current model state.
+
+## `effects API`
+
+All api exposed from `feeble/effects` are all expoted from `redux-saga/effects` directly, except `take`, `takem`, `actionChannel`. These three functions are wrapped by feeble to make them accept feeble's action creator as pattern.
+
+## `effects helper API`
+
+All api exposed from `feeble/effects/helper` are all expoted from `redux-saga` directly, except `tekEvery` and `takeLatest`. These two functions are wrapped by feeble to make them accept feeble's action creator as pattern.
