@@ -1,2 +1,5 @@
+/.nyc_output
+/_book
+/docs
 /examples
 /test
