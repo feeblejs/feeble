@@ -49,13 +49,13 @@ const counter = feeble.model({
 })
 
 // 2.2 Create action creators
-counter.action('increament')
-counter.action('decreament')
+counter.action('increment')
+counter.action('decrement')
 
 // 2.3 Create reducer
 counter.reducer(on => {
-  on(counter.increament, state => state + 1)
-  on(counter.decreament, state => state - 1)
+  on(counter.increment, state => state + 1)
+  on(counter.decrement, state => state - 1)
 })
 
 // 2.4 Attach model to the app
@@ -68,8 +68,8 @@ const App = connect(({ count }) => ({
   return (
     <div>
       <h2>{ count }</h2>
-      <button key="inc" onClick={() => { dispatch(counter.increament()) }}>+</button>
-      <button key="dec" onClick={() => { dispatch(counter.decreament()) }}>-</button>
+      <button key="inc" onClick={() => { dispatch(counter.increment()) }}>+</button>
+      <button key="dec" onClick={() => { dispatch(counter.decrement()) }}>-</button>
     </div>
   )
 })
