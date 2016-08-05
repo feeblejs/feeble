@@ -92,8 +92,7 @@ For more complex examples, please see [/examples](/examples).
 
 ## Documentation
 
-* [Concepts](/docs/Concepts.md)
-* [API Reference](/docs/API.md)
+https://tianche.github.io/feeble
 
 ## License
 
