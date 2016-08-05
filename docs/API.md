@@ -132,7 +132,7 @@ import Counter from 'containers/Counter' // <== Container component you want tes
 test('todo', t => {
  const wrapper = mount(app.mount(<Counter />))
 
- wrapper.find('#increament').simulate('click')
+ wrapper.find('#increment').simulate('click')
 
  t.is(app.store.getState().count, 1)
 })
@@ -291,7 +291,7 @@ Create effect.
 
 ```javascript
 model.effect(function* {
-  yield* takeEvery(count.increament, function* ({ payload }) {
+  yield* takeEvery(count.increment, function* ({ payload }) {
     yield call(localStorage.setItem, 'count', payload)
   })
 })

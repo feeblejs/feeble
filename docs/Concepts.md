@@ -14,10 +14,10 @@ const count = feeble.model({
   state: 0,
 })
 
-count.action('increament')
+count.action('increment')
 
 count.reducer(on => {
-  on(count.increament, state => state + 1)
+  on(count.increment, state => state + 1)
 })
 ```
 
@@ -25,7 +25,7 @@ Let's walk through above example line by line to see what dose it do.
 
 First, we create a `model` using `feeble.model`, and giving it a namespace which is required for a model, and a initial state.
 
-Then, we define a `increament` action creator by calling `count.action`, and we can use `count.increament` to reference this action creator later.
+Then, we define a `increment` action creator by calling `count.action`, and we can use `count.increment` to reference this action creator later.
 
 Last, we create `reducer` by calling `count.reducer`, `counter.reducer` accept a function which takes a `on` param, you can use `on` to register actions to reducer.
 
@@ -35,7 +35,7 @@ Feeble using `redux-saga` to handle side effects, so `effect` is a `saga` actual
 
 ```javascript
 model.effect(function* {
-  yield* takeEvery(count.increament, function* ({ payload }) {
+  yield* takeEvery(count.increment, function* ({ payload }) {
     yield call(localStorage.setItem, 'count', payload)
   })
 })
