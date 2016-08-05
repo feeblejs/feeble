@@ -3,3 +3,7 @@
 /docs
 /examples
 /test
+/.babelrc
+/.eslintrc
+/travis.yml
+/book.json
