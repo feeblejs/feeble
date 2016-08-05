@@ -22,7 +22,7 @@ npm start
 
 Edit `src/index.js` to setup feeble:
 
-```
+```javascript
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
