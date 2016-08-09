@@ -9,47 +9,19 @@ Let's build a small todo application using feeble. This tutorial assumes you're 
 
 ## Boilerplate
 
-We will use [create-react-app](https://github.com/facebookincubator/create-react-app) to setup our app in this tutorial.
+We will use [create-feeble-app](https://github.com/feeblejs/create-feeble-app) to setup our app in this tutorial.
 
 ```bash
-npm i -g create-react-app
+npm i -g create-feeble-app
 
-create-react-app todo
+create-feeble-app todo
 cd todo/
-npm i feeble babel-polyfill --save
 npm start
-```
-
-Edit `src/index.js` to setup feeble:
-
-```javascript
-import 'babel-polyfill';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import feeble from 'feeble':
-import { Router, Route } from 'feeble/router';
-import App from './App';
-import './index.css';
-
-const app = feeble();
-
-app.router(({ history }) =>
-  <Router history={history}>
-    <Route path="/" component={App} />
-  </Router>
-);
-
-const tree = app.start();
-
-ReactDOM.render(
-  tree,
-  document.getElementById('root')
-);
 ```
 
 ## Creating todo model
 
-We'll start building our application by creating a todo `model`. Create `src/todo.js` and add following snippets:
+We'll start building our application by creating a todo `model`. Create `src/models/todo.js` and add following snippets:
 
 ```javascript
 import feeble from 'feeble';
@@ -62,27 +34,24 @@ const todo = feeble.model({
 export default todo
 ```
 
-## Attaching model to the app
-
-After creating model, we need attach the model to the app, edit `src/index.js` again, add following lines:
+Then, export todo `model` in `src/models/index.js`:
 
 ```javascript
-// ...
-import Todo from './todo'; // <== Import todo model
+import Todo from './todo'
 
-const app = feeble();
-
-app.model(Todo); // <== Attach to the app
+export default [
+  Todo,
+]
 ```
 
 ## Redndering our data
 
-Ok, It's times render our todo list.
+Ok, It's times render our todo list. Edit `src/containers/App/index.js`:
 
 ```javascript
 import React, { Component } from 'react';
 import { connect } from 'feeble';
-import Todo from './todo';
+import Todo from '../../models/todo';
 
 class App extends Component {
   render() {
