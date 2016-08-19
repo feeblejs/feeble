@@ -19,7 +19,7 @@
   * [model.selector(name, ...fns, fn, options)](#modelselectorname-fns-fn-options)
   * [model.select(name, ...args)](#modelselectname-args)
   * [model.effect(fn)](#modeleffectfn)
-  * [model.setReducer(fn)](#modelsetreducerfn)
+  * [model.addReducer(fn)](#modeladdreducerfn)
   * [model.getState()](#modelgetstate)
 * [`effects API`](#effects-api)
 * [`effects helper API`](#effects-helper-api)
@@ -308,7 +308,7 @@ model.effect(function* {
 })
 ```
 
-### `model.setReducer(fn)`
+### `model.addReducer(fn)`
 
 Add a exists reducer to model. This is useful when you work with third party libraries or you legacy codes.
 

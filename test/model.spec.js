@@ -133,7 +133,7 @@ test('define multiple reducers', t => {
     on(counter.add2, state => state + 2)
   })
 
-  counter.setReducer((state, { type }) => {
+  counter.addReducer((state, { type }) => {
     switch (type) {
       case counter.add3.getType():
         return state + 3
@@ -142,7 +142,7 @@ test('define multiple reducers', t => {
     }
   })
 
-  counter.setReducer((state, { type }) => {
+  counter.addReducer((state, { type }) => {
     switch (type) {
       case counter.add4.getType():
         return state + 4

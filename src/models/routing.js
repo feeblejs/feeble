@@ -5,6 +5,6 @@ const routing = model({
   namespace: 'routing',
 })
 
-routing.setReducer(routerReducer)
+routing.addReducer(routerReducer)
 
 export default routing

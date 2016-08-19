@@ -185,7 +185,7 @@ function model(options) {
     return _namespace
   }
 
-  function setReducer(reducer) {
+  function addReducer(reducer) {
     _reducers.push(reducer)
     return reducer
   }
@@ -215,7 +215,7 @@ function model(options) {
     select,
     effect,
     getNamespace,
-    setReducer,
+    addReducer,
     getReducer,
     getEffect,
     getState,
