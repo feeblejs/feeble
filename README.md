@@ -12,8 +12,8 @@
   </a>
 
   <!-- Build Status -->
-  <a href="https://travis-ci.org/tianche/feeble">
-    <img src="https://img.shields.io/travis/tianche/feeble/master.svg?style=flat-square"
+  <a href="https://travis-ci.org/feeblejs/feeble">
+    <img src="https://img.shields.io/travis/feeblejs/feeble/master.svg?style=flat-square"
       alt="Build Status" />
   </a>
 </div>
@@ -92,7 +92,7 @@ For more complex examples, please see [/examples](/examples).
 
 ## Documentation
 
-https://tianche.github.io/feeble
+https://feeblejs.github.io/feeble
 
 ## License
 
