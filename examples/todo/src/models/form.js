@@ -5,6 +5,6 @@ const model = feeble.model({
   namespace: 'form',
 })
 
-model.setReducer(reducer)
+model.addReducer(reducer)
 
 export default model
