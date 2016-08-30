@@ -1,19 +1,16 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { browserHistory } from 'react-router'
-import { routerMiddleware } from 'react-router-redux'
 import model from './model'
 import createApiMiddleware from './middlewares/api'
 import createSagaMiddleware from './middlewares/saga'
 import createStore from './createStore'
-import createHistory from './createHistory'
-import routing from './models/routing'
 
 function feeble(options = {}) {
+  const _stated = false
+  const _app = {}
   const _models = []
   const _store = {}
   const _middlewares = []
-  let _routes = null
   let _tree = null
   let _sagaMiddleware = null
 
@@ -31,18 +28,22 @@ function feeble(options = {}) {
     }
     _sagaMiddleware = createSagaMiddleware(_models)
     middleware(_sagaMiddleware)
-    middleware(routerMiddleware(browserHistory))
   }
 
   function addDefaultModels() {
-    model(routing)
+    // not default model currently
   }
 
-  function router(routes) {
-    _routes = routes
+  function start() {
+    Object.assign(_store, createStore(_models, _middlewares))
+
+    _sagaMiddleware.run()
   }
 
   function mount(component) {
+    if (!_stated) {
+      start()
+    }
     _tree = (
       <Provider store={_store}>
         {component}
@@ -52,36 +53,28 @@ function feeble(options = {}) {
     return _tree
   }
 
-  function start() {
-    Object.assign(_store, createStore(_models, _middlewares))
-
-    _sagaMiddleware.run()
-
-    const history = createHistory(_store)
-
-    const Routes = _routes
-
-    _tree = mount(<Routes history={history} store={_store} />)
-
+  function tree() {
     return _tree
   }
 
-  function tree() {
-    return _tree
+  function use(ext) {
+    return ext(_app)
   }
 
   addDefaultMiddlewares()
   addDefaultModels()
 
-  return {
+  Object.assign(_app, {
     middleware,
     model,
-    router,
-    start,
     mount,
     store: _store,
     tree,
-  }
+    use,
+    start,
+  })
+
+  return _app
 }
 
 feeble.model = model

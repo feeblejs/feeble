@@ -16,7 +16,7 @@ test('create a new app', t => {
 
   t.is(typeof app.middleware, 'function')
   t.is(typeof app.model, 'function')
-  t.is(typeof app.router, 'function')
+  t.is(typeof app.use, 'function')
   t.is(typeof app.start, 'function')
   t.is(typeof app.store, 'object')
 })

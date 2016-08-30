@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'feeble'
-import { browserHistory } from 'feeble/router'
+import { browserHistory } from 'feeble-router'
 import { Tabs, Tab } from 'material-ui/Tabs'
 import entityModel from '../models/entity'
 import Todo from '../models/todo/completed'

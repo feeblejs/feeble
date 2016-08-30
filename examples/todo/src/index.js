@@ -1,5 +1,6 @@
 import 'babel-polyfill'
 import feeble from 'feeble'
+import router from 'feeble-router'
 import ReactDOM from 'react-dom'
 import createLogger from 'redux-logger'
 import routes from './routes'
@@ -27,8 +28,8 @@ app.middleware(
   createLogger()
 )
 
-app.router(routes)
+app.use(router)
 
-const tree = app.start()
+const tree = app.router(routes)
 
 ReactDOM.render(tree, document.getElementById('app'))
