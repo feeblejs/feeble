@@ -37,7 +37,6 @@ npm install feeble --save
 import React from 'react'
 import ReactDOM from 'react-dom'
 import feeble, { connect } from 'feeble'
-import { Router, Route } from 'feeble/router'
 
 // 1. Create a app
 const app = feeble()
@@ -74,17 +73,10 @@ const App = connect(({ count }) => ({
   )
 })
 
-// 4. Create router
-app.router(({ history }) =>
-  <Router history={history}>
-    <Route path="/" component={App} />
-  </Router>
-)
+// 4. Mount the view
+const tree = app.mount(<App />)
 
-// 5. Start the app
-const tree = app.start()
-
-// 6. Render to DOM
+// 5. Render to DOM
 ReactDOM.render(tree, document.getElementById('root'))
 ```
 
