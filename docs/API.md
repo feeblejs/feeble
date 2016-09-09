@@ -7,8 +7,6 @@
 * [`app API`](#app-api)
   * [app.model(...args)](#appmodelargs)
   * [app.middleware(..args)](#appmiddlewareargs)
-  * [app.router(routes)](#approuterroutes)
-  * [app.start()](#appstart)
   * [app.mount(component)](#appmountcomponent)
   * [app.tree()](#apptree)
   * [app.store](#appstore)
@@ -96,23 +94,6 @@ And `count`'s reducer will mount to `count`, `todoA`'s reducer will mount to `to
 
 Apply Redux middlewares to your app.
 
-
-### `app.router(routes)`
-
-* `routes: Router` - Route configuration.
-
-
-### `app.start()`
-
-Bootstrap your app, `app.start` return app's root React instance and you can render it to DOM.
-
-#### Example
-
-```javascript
-const app = feeble()
-const tree = app.start()
-ReactDOM.render(tree, document.getElementById('app'))
-```
 
 ### `app.mount(component)`
 
