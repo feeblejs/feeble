@@ -9,12 +9,12 @@ Let's build a small todo application using feeble. This tutorial assumes you're 
 
 ## Boilerplate
 
-We will use [create-feeble-app](https://github.com/feeblejs/create-feeble-app) to setup our app in this tutorial.
+We will use [create-react-app](https://github.com/facebookincubator/create-react-app) to setup our app in this tutorial.
 
 ```bash
-npm i -g create-feeble-app
+npm i -g create-react-app
 
-create-feeble-app todo
+create-react-app --scripts-version feeble-scripts todo
 cd todo/
 npm start
 ```
