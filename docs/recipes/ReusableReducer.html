@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Reusable Reducer | Introduction</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.5.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../docs/API.html" />
+    
+    
+    <link rel="prev" href="../../docs/recipes/index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="2.1" data-chapter-title="Reusable Reducer" data-filepath="docs/recipes/ReusableReducer.md" data-basepath="../.." data-revision="Sun Sep 18 2016 20:52:09 GMT+0800 (CST)">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Read Me
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/introduction/index.html">
+            
+                
+                    <a href="../../docs/introduction/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="docs/introduction/Tutorial.html">
+            
+                
+                    <a href="../../docs/introduction/Tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Tutorial
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="docs/introduction/Concepts.html">
+            
+                
+                    <a href="../../docs/introduction/Concepts.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Concepts
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="docs/recipes/index.html">
+            
+                
+                    <a href="../../docs/recipes/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Recipes
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="2.1" data-path="docs/recipes/ReusableReducer.html">
+            
+                
+                    <a href="../../docs/recipes/ReusableReducer.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Reusable Reducer
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="docs/API.html">
+            
+                
+                    <a href="../../docs/API.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        API Reference
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >Introduction</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="reusable-reducer">Reusable Reducer</h1>
+<p>As feeble&apos;s model allow you create multiple reducers, you can use this feature to write reusable reducers.</p>
+<p>Let&apos;s say we have a post list and user list on the UI, a post model and a user model keep these lists&apos;s state.</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// models/post.js</span>
+<span class="hljs-keyword">const</span> post = feeble.model({
+  namespace: <span class="hljs-string">&apos;post&apos;</span>,
+  state: {
+    loading: <span class="hljs-literal">false</span>,
+    data: [],
+  }
+})
+
+post.action(<span class="hljs-string">&apos;fetch&apos;</span>, () =&gt; {
+  method: <span class="hljs-string">&apos;get&apos;</span>,
+  endpoint: <span class="hljs-string">&apos;/posts&apos;</span>,
+})
+
+post.reducer(on =&gt; {
+  on(post.fetch.request, state =&gt; ({
+    ...state,
+    loading: <span class="hljs-literal">true</span>,
+  }))
+
+  on(post.fetch.success, (state, payload) =&gt; ({
+    ...state,
+    loading: <span class="hljs-literal">true</span>,
+    data: payload,
+  }))
+})
+</code></pre>
+<pre><code class="lang-javascript"><span class="hljs-comment">// models/user.js</span>
+<span class="hljs-keyword">const</span> user = feeble.model({
+  namespace: <span class="hljs-string">&apos;user&apos;</span>,
+  state: {
+    loading: <span class="hljs-literal">false</span>,
+    data: [],
+  }
+})
+
+user.action(<span class="hljs-string">&apos;fetch&apos;</span>, () =&gt; {
+  method: <span class="hljs-string">&apos;get&apos;</span>,
+  endpoint: <span class="hljs-string">&apos;/users&apos;</span>,
+})
+
+user.reducer(on =&gt; {
+  on(user.fetch.request, state =&gt; ({
+    ...state,
+    loading: <span class="hljs-literal">true</span>,
+  }))
+
+  on(user.fetch.success, (state, payload) =&gt; ({
+    ...state,
+    loading: <span class="hljs-literal">true</span>,
+    data: payload,
+  }))
+})
+</code></pre>
+<p>These two models are 90% similar, especially the reducer. Let&apos;s extract the reducer to <code>models/conerns/list.js</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">list</span>(<span class="hljs-params">fetch</span>) </span>{
+  <span class="hljs-keyword">return</span> on =&gt; {
+    on(fetch.request, state =&gt; ({
+      ...state,
+      loading: <span class="hljs-literal">true</span>,
+    }))
+
+    on(fetch.success, (state, payload) =&gt; ({
+      ...state,
+      loading: <span class="hljs-literal">true</span>,
+      data: payload,
+    }))
+  }
+}
+</code></pre>
+<p>Applying the <code>list</code> to these models:</p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// models/post.js</span>
+<span class="hljs-keyword">import</span> list <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./concerns/list&apos;</span>
+
+const post = feeble.model({
+  namespace: <span class="hljs-string">&apos;post&apos;</span>,
+  state: {
+    loading: false,
+    data: [],
+  }
+})
+
+post.action(<span class="hljs-string">&apos;fetch&apos;</span>, () =&gt; {
+  method: <span class="hljs-string">&apos;get&apos;</span>,
+  endpoint: <span class="hljs-string">&apos;/posts&apos;</span>,
+})
+
+post.reducer(list(fetch))
+</code></pre>
+<pre><code class="lang-javascript"><span class="hljs-comment">// models/user.js</span>
+<span class="hljs-keyword">import</span> list <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./concerns/list&apos;</span>
+
+const user = feeble.model({
+  namespace: <span class="hljs-string">&apos;user&apos;</span>,
+  state: {
+    loading: false,
+    data: [],
+  }
+})
+
+user.action(<span class="hljs-string">&apos;fetch&apos;</span>, () =&gt; {
+  method: <span class="hljs-string">&apos;get&apos;</span>,
+  endpoint: <span class="hljs-string">&apos;/users&apos;</span>,
+})
+
+user.reducer(list(fetch))
+
+// You can create more reducers for other actions
+// user.reducer(...)
+</code></pre>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../docs/recipes/index.html" class="navigation navigation-prev " aria-label="Previous page: Recipes"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../docs/API.html" class="navigation navigation-next " aria-label="Next page: API Reference"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

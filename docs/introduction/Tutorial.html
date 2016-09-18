@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Tutorial | Introduction</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.5.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../../docs/introduction/Concepts.html" />
+    
+    
+    <link rel="prev" href="../../docs/introduction/index.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="1.1" data-chapter-title="Tutorial" data-filepath="docs/introduction/Tutorial.md" data-basepath="../.." data-revision="Sun Sep 18 2016 20:52:09 GMT+0800 (CST)">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Read Me
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/introduction/index.html">
+            
+                
+                    <a href="../../docs/introduction/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.1" data-path="docs/introduction/Tutorial.html">
+            
+                
+                    <a href="../../docs/introduction/Tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Tutorial
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="docs/introduction/Concepts.html">
+            
+                
+                    <a href="../../docs/introduction/Concepts.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Concepts
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="docs/recipes/index.html">
+            
+                
+                    <a href="../../docs/recipes/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Recipes
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="docs/recipes/ReusableReducer.html">
+            
+                
+                    <a href="../../docs/recipes/ReusableReducer.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Reusable Reducer
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="docs/API.html">
+            
+                
+                    <a href="../../docs/API.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        API Reference
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../" >Introduction</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="tutorial">Tutorial</h1>
+<p>Let&apos;s build a small todo application using feeble. This tutorial assumes you&apos;re familiar with a few things:</p>
+<ul>
+<li><a href="https://facebook.github.io/react" target="_blank">React</a></li>
+<li><a href="http://redux.js.org" target="_blank">Redux</a></li>
+<li><a href="http://yelouafi.github.io/redux-saga" target="_blank">redux-saga</a></li>
+<li>Some ES6 syntax</li>
+</ul>
+<h2 id="boilerplate">Boilerplate</h2>
+<p>We will use <a href="https://github.com/facebookincubator/create-react-app" target="_blank">create-react-app</a> to setup our app in this tutorial.</p>
+<pre><code class="lang-bash">npm i -g create-react-app
+
+create-react-app --scripts-version feeble-scripts todo
+<span class="hljs-built_in">cd</span> todo/
+npm start
+</code></pre>
+<h2 id="creating-todo-model">Creating todo model</h2>
+<p>We&apos;ll start building our application by creating a todo <code>model</code>. Create <code>src/models/todo.js</code> and add following snippets:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> feeble <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;feeble&apos;</span>;
+
+<span class="hljs-keyword">const</span> todo = feeble.model({
+  namespace: <span class="hljs-string">&apos;todo&apos;</span>,
+  state: [<span class="hljs-string">&apos;Workout&apos;</span>],
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> todo
+</code></pre>
+<p>Then, export todo <code>model</code> in <code>src/models/index.js</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> Todo <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./todo&apos;</span>
+
+export default [
+  Todo,
+]
+</code></pre>
+<h2 id="redndering-our-data">Redndering our data</h2>
+<p>Ok, It&apos;s times render our todo list. Edit <code>src/containers/App/index.js</code>:</p>
+<pre><code class="lang-javascript">import React, { Component } from &apos;react&apos;;
+import { connect } from &apos;feeble&apos;;
+import Todo from &apos;../../models/todo&apos;;
+
+class App extends Component {
+  render() {
+    const { todos } = this.props;
+
+    return (
+      &lt;div&gt;
+        &lt;ul&gt;
+          {todos.map((todo, index) =&gt;
+            &lt;li key={index}&gt;{todo}&lt;/li&gt;
+          )}
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default connect(() =&gt; ({
+  todos: Todo.getState() // &lt;== Get data directly from Todo model
+}))(App);
+</code></pre>
+<p>Look at your browser, the page should shows a <code>Workout</code> todo now.</p>
+<h2 id="adding-items">Adding items</h2>
+<p>Let&apos;s go back our todo model and remove the sample items. Then add a <code>add</code> action and the <code>reducer</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> todo = feeble.model({
+  namespace: <span class="hljs-string">&apos;todo&apos;</span>,
+  state: [],
+})
+
+todo.action(<span class="hljs-string">&apos;add&apos;</span>)
+
+todo.reducer(on =&gt; {
+  on(todo.add, (state, payload) =&gt; [...state, payload])
+})
+</code></pre>
+<p>Then add a input to our view:</p>
+<pre><code class="lang-javascript">import React, { Component } from &apos;react&apos;;
+import { connect } from &apos;feeble&apos;;
+import Todo from &apos;./todo&apos;;
+
+class App extends Component {
+  handleSubmit = event =&gt; {
+    event.preventDefault()
+    this.props.dispatch(Todo.add(this.input.value))
+    this.input.value = &apos;&apos;
+  }
+
+  render() {
+    const { todos } = this.props;
+
+    return (
+      &lt;div&gt;
+        &lt;header className=&quot;header&quot;&gt;
+          &lt;h1&gt;todos&lt;/h1&gt;
+          &lt;form onSubmit={this.handleSubmit}&gt;
+            &lt;input ref={ref =&gt; (this.input = ref)} placeholder=&quot;What needs to be done?&quot; /&gt;
+          &lt;/form&gt;
+        &lt;/header&gt;
+        &lt;ul&gt;
+          {todos.map((todo, index) =&gt;
+            &lt;li key={index}&gt;{todo}&lt;/li&gt;
+          )}
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default connect(() =&gt; ({
+  todos: Todo.getState()
+}))(App);
+</code></pre>
+<p>Look at your application again, and type something on the input then press <code>enter</code>&#xFF0C; you will see item is added to the list.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../../docs/introduction/index.html" class="navigation navigation-prev " aria-label="Previous page: Introduction"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../../docs/introduction/Concepts.html" class="navigation navigation-next " aria-label="Next page: Concepts"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../../gitbook/app.js"></script>
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

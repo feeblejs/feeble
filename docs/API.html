@@ -1,0 +1,513 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>API Reference | Introduction</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.5.2">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    
+    <link rel="prev" href="../docs/recipes/ReusableReducer.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book" data-level="3" data-chapter-title="API Reference" data-filepath="docs/API.md" data-basepath=".." data-revision="Sun Sep 18 2016 20:52:09 GMT+0800 (CST)">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+            
+
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Read Me
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="docs/introduction/index.html">
+            
+                
+                    <a href="../docs/introduction/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Introduction
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.1" data-path="docs/introduction/Tutorial.html">
+            
+                
+                    <a href="../docs/introduction/Tutorial.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                        Tutorial
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="docs/introduction/Concepts.html">
+            
+                
+                    <a href="../docs/introduction/Concepts.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                        Concepts
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="docs/recipes/index.html">
+            
+                
+                    <a href="../docs/recipes/index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Recipes
+                    </a>
+            
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1" data-path="docs/recipes/ReusableReducer.html">
+            
+                
+                    <a href="../docs/recipes/ReusableReducer.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                        Reusable Reducer
+                    </a>
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="3" data-path="docs/API.html">
+            
+                
+                    <a href="../docs/API.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        API Reference
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Introduction</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="api-reference">API Reference</h1>
+<ul>
+<li><a href="#feeble-api"><code>feeble API</code></a><ul>
+<li><a href="#feebleoptions">feeble(options)</a></li>
+<li><a href="#feeblemodeloptions">feeble.model(options)</a></li>
+<li><a href="#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options">connect(mapStateToProps, mapDispatchToProps, mergeProps, options)</a></li>
+</ul>
+</li>
+<li><a href="#app-api"><code>app API</code></a><ul>
+<li><a href="#appmodelargs">app.model(...args)</a></li>
+<li><a href="#appmiddlewareargs">app.middleware(..args)</a></li>
+<li><a href="#appmountcomponent">app.mount(component)</a></li>
+<li><a href="#apptree">app.tree()</a></li>
+<li><a href="#appstore">app.store</a></li>
+</ul>
+</li>
+<li><a href="#model-api"><code>model API</code></a><ul>
+<li><a href="#modelactionname-fn-fn">model.action(name, fn, fn)</a></li>
+<li><a href="#modelapiactionname-fn-fn">model.apiAction(name, fn, fn)</a></li>
+<li><a href="#modelreducerfn">model.reducer(fn)</a></li>
+<li><a href="#modelselectorname-fns-fn-options">model.selector(name, ...fns, fn, options)</a></li>
+<li><a href="#modelselectname-args">model.select(name, ...args)</a></li>
+<li><a href="#modeleffectfn">model.effect(fn)</a></li>
+<li><a href="#modeladdreducerfn">model.addReducer(fn)</a></li>
+<li><a href="#modelgetstate">model.getState()</a></li>
+</ul>
+</li>
+<li><a href="#effects-api"><code>effects API</code></a></li>
+<li><a href="#effects-helper-api"><code>effects helper API</code></a></li>
+</ul>
+<h2 id="feeble-api">feeble API</h2>
+<h3 id="feebleoptions"><code>feeble(options)</code></h3>
+<p>Create a feeble app.</p>
+<ul>
+<li><code>options: Object</code> - A list of options to pass to the app, currently supported options are:<ul>
+<li><code>callApi: Function</code> - A function interact wiht server, if this option is presented, Feeble will add a api middleware to Redux store, see more details for <a href="#todo">api middleware</a>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="feeblemodeloptions"><code>feeble.model(options)</code></h3>
+<p>Create a model.</p>
+<ul>
+<li><code>options: Object</code> - A list of options to pass to the model, currently supported options are:<ul>
+<li><code>namespace: String</code> - Namespace of the model, this is required. Namespace can be nested by a double colon <code>::</code>.</li>
+<li><code>state: any</code> - Initial state of the model.</li>
+</ul>
+</li>
+</ul>
+<h3 id="connectmapstatetoprops-mapdispatchtoprops-mergeprops-options"><code>connect(mapStateToProps, mapDispatchToProps, mergeProps, options)</code></h3>
+<p>Same as <code>react-redux</code>&apos;s <a href="https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options" target="_blank">connect</a>.</p>
+<h2 id="app-api">app API</h2>
+<h3 id="appmodelargs"><code>app.model(...args)</code></h3>
+<ul>
+<li><code>args: Array&lt;any&gt;</code> - An array of models.</li>
+</ul>
+<p>Attach one or multiple models to the app. The app&apos;s initial state tree will generate from attached model&apos;s namespace and initial state. And model&apos;s reducer will mount to the specify node by model&apos;s namespace.</p>
+<h4 id="example">Example</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> app = feeble()
+
+<span class="hljs-keyword">const</span> count = feeble.model({
+  namespace: <span class="hljs-string">&apos;count&apos;</span>,
+  state: <span class="hljs-number">0</span>,
+})
+
+<span class="hljs-keyword">const</span> todoA = feeble.model({
+  namespace: <span class="hljs-string">&apos;todo::a&apos;</span>,
+  state: [ <span class="hljs-string">&apos;bar&apos;</span> ],
+})
+
+<span class="hljs-keyword">const</span> todoB = feeble.model({
+  namespace: <span class="hljs-string">&apos;todo::b&apos;</span>,
+  state: [ <span class="hljs-string">&apos;foo&apos;</span> ],
+})
+
+app.model(count, todoA, todoB)
+</code></pre>
+<p>Above example will generate following state tree:</p>
+<pre><code class="lang-javascript">{
+  count: <span class="hljs-number">0</span>,
+  todo: {
+    a: [ <span class="hljs-string">&apos;bar&apos;</span> ],
+    b: [ <span class="hljs-string">&apos;foo&apos;</span> ],
+  },
+}
+</code></pre>
+<p>And <code>count</code>&apos;s reducer will mount to <code>count</code>, <code>todoA</code>&apos;s reducer will mount to <code>todo.a</code>, <code>todoB</code>&apos;s reducer will mount to <code>todo.b</code>. Namespace is a good way to split you large application to small modules.</p>
+<h3 id="appmiddlewareargs"><code>app.middleware(...args)</code></h3>
+<ul>
+<li><code>args: Array&lt;any&gt;</code> - An array of middlewares</li>
+</ul>
+<p>Apply Redux middlewares to your app.</p>
+<h3 id="appmountcomponent"><code>app.mount(component)</code></h3>
+<ul>
+<li><code>component: Component</code> - A React component instance.</li>
+</ul>
+<p>Mount a component the you app, it&apos;s useful when you want testing your <a href="https://github.com/reactjs/redux/blob/master/docs/basics/UsageWithReact.md#presentational-and-container-components" target="_blank">container components</a>.</p>
+<h4 id="example">Example</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> test <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;ava&apos;</span>
+<span class="hljs-keyword">import</span> app <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;./app&apos;</span> // &lt;== yor app
+<span class="hljs-keyword">import</span> { mount } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;enzyme&apos;</span>
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;react&apos;</span>
+<span class="hljs-keyword">import</span> Counter <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;containers/Counter&apos;</span> // &lt;== Container component you want test
+
+test(<span class="hljs-string">&apos;todo&apos;</span>, t =&gt; {
+ const wrapper = mount(app.mount(&lt;Counter /&gt;))
+
+ wrapper.find(<span class="hljs-string">&apos;#increment&apos;</span>).simulate(<span class="hljs-string">&apos;click&apos;</span>)
+
+ t.is(app.store.getState().count, 1)
+})
+</code></pre>
+<h3 id="apptree"><code>app.tree()</code></h3>
+<p>Access your app&apos;s root React instance.</p>
+<h3 id="appstore"><code>app.store</code></h3>
+<p>Access Redux store.</p>
+<h2 id="model-api">model API</h2>
+<h3 id="modelactionname-fn-fn"><code>model.action(name, [fn], [fn])</code></h3>
+<p>Create a action creator.</p>
+<ul>
+<li><code>name: String</code>: Name of the action creator, the name should be validate JavaScript function name, because action creator will be a method of model.</li>
+<li><code>fn: Function</code>: Transform multiple arguments as the payload. If you omit this param, the first argument pass to action creator will be the payload.</li>
+<li><code>fn: Function</code>: Transform multiple arguments as the meta.</li>
+</ul>
+<h4 id="example">Example</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> foo = feeble.model({
+  namespace: <span class="hljs-string">&apos;foo&apos;</span>
+})
+
+<span class="hljs-comment">// create a &quot;simple&quot; method on &quot;foo&quot;</span>
+foo.action(<span class="hljs-string">&apos;simple&apos;</span>)
+<span class="hljs-comment">// produce &quot;{ type: &apos;todo::simple&apos;, payload: &apos;blah&apos; }&quot;</span>
+foo.simple(<span class="hljs-string">&apos;blah&apos;</span>)
+
+<span class="hljs-comment">// create a &quot;better&quot; method on &quot;foo&quot;</span>
+foo.action(<span class="hljs-string">&apos;better&apos;</span>, str =&gt; str + str)
+<span class="hljs-comment">// produce &quot;{ type: &apos;todo::better&apos;, payload: &apos;blah blah&apos; }&quot;</span>
+foo.better(<span class="hljs-string">&apos;blah&apos;</span>)
+
+<span class="hljs-comment">// create a &quot;best&quot; method on &quot;foo&quot;</span>
+foo.action(<span class="hljs-string">&apos;best&apos;</span>, str =&gt; str + str, str =&gt; str.toUpperCase())
+<span class="hljs-comment">// produce &quot;{ type: &apos;todo::best&apos;, payload: &apos;blah blah&apos;, meta: &apos;BLAH&apos; }&quot;</span>
+foo.best(<span class="hljs-string">&apos;blah&apos;</span>)
+</code></pre>
+<h3 id="modelapiactionname-fn-fn"><code>model.apiAction(name, fn, [fn])</code></h3>
+<p>Create a API call action creator.</p>
+<p>If set <code>callApi</code> option to <code>app</code>, model will expose <code>apiAction</code> to allow you create API call action creator.</p>
+<ul>
+<li><code>name: String</code> -  Name of the action creator.</li>
+<li><code>fn: Function</code>: Transform multiple arguments as the api request.</li>
+<li><code>fn: Function</code>: Transform multiple arguments as the meta.</li>
+</ul>
+<h4 id="example">Example</h4>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> todo = feeble.model({
+  namespace: <span class="hljs-string">&apos;todo&apos;</span>,
+  state: [],
+})
+
+todo.apiAction(<span class="hljs-string">&apos;create&apos;</span>, name =&gt; ({
+  method: <span class="hljs-string">&apos;post&apos;</span>,
+  endpoint: <span class="hljs-string">&apos;/todos&apos;</span>,
+  body: { name },
+}))
+</code></pre>
+<p>When you call <code>todo.create(&apos;Workout&apos;)</code> will produce following action:</p>
+<pre><code class="lang-javascript">{
+  types: [<span class="hljs-string">&apos;todo::create_request&apos;</span>, <span class="hljs-string">&apos;todo::create_success&apos;</span>, <span class="hljs-string">&apos;todo::create_error&apos;</span>],
+  [CALL_API]: {
+    method: <span class="hljs-string">&apos;post&apos;</span>,
+    endpoint: <span class="hljs-string">&apos;/todos&apos;</span>,
+    body: { name },
+  },
+}
+</code></pre>
+<p>When api middleware find a [CALL_API] property in the action, it will dispatch a request action and pass the &quot;CALL_API&quot; object to your &quot;callApi&quot; function, here is the request action:</p>
+<pre><code class="lang-javascript">{
+  type: <span class="hljs-string">&apos;todo::create_request&apos;</span>,
+  payload: {
+    method: <span class="hljs-string">&apos;post&apos;</span>,
+    endpoint: <span class="hljs-string">&apos;/todos&apos;</span>,
+    body: { name },
+  }
+}
+</code></pre>
+<p>Then, api api middleware calls your &quot;callApi&quot; function, after &quot;callApi&quot; returns promise resolved, following action will be dispatched:</p>
+<pre><code class="lang-javascript">{
+  type: <span class="hljs-string">&apos;todo::create_success&apos;</span>,
+  payload: {
+    name: <span class="hljs-string">&apos;Workout&apos;</span>
+  }
+}
+</code></pre>
+<p>If &quot;callApi&quot; rejects, a error action will be dispatched:</p>
+<pre><code class="lang-javascript">{
+  type: <span class="hljs-string">&apos;todo::create_error&apos;</span>,
+  payload: <span class="hljs-string">&quot;errors from server&quot;</span>,
+  error: <span class="hljs-literal">true</span>,
+}
+</code></pre>
+<h3 id="modelreducerfn"><code>model.reducer(fn)</code></h3>
+<p>Create reducer.</p>
+<ul>
+<li><code>fn: Function</code> - A function takes a <code>on</code> param which register action to the reducer.</li>
+</ul>
+<h4 id="example">Example</h4>
+<pre><code class="lang-javascript">count.reducer(on =&gt; {
+  on(todo.increment, (state, payload) =&gt; state + payload)
+  on(todo.decrement, (state, payload) =&gt; state + payload)
+})
+</code></pre>
+<h3 id="modelselectorname-fns-fn-options"><code>model.selector(name, ...fns, fn, options)</code></h3>
+<ul>
+<li><code>name: Function</code> - Name of the selector, access the selector by calling <code>model.select(name)</code> later.</li>
+<li><code>fns: Array&lt;Function&gt;</code> - Input selectors.</li>
+<li><code>fn: Function</code> - Result function.</li>
+<li><code>options: Object</code> - A list of options, currently supported options are:<ul>
+<li><code>structured: Boolean</code> - Create a structured selector if true.</li>
+</ul>
+</li>
+</ul>
+<h3 id="modelselectname-args"><code>model.select(name, ...args)</code></h3>
+<p>Access selectors.</p>
+<ul>
+<li><code>name: Function</code> - Name of the selector.</li>
+<li><code>args: Array&lt;any&gt;</code> - Arguments pass to the selector.</li>
+</ul>
+<h3 id="modeleffectfn"><code>model.effect(fn)</code></h3>
+<p>Create effect.</p>
+<ul>
+<li><code>fn: Function</code> - A generator function.</li>
+</ul>
+<h3 id="example">Example</h3>
+<pre><code class="lang-javascript">model.effect(<span class="hljs-function"><span class="hljs-keyword">function</span>* </span>{
+  <span class="hljs-keyword">yield</span>* takeEvery(count.increment, <span class="hljs-function"><span class="hljs-keyword">function</span>* (<span class="hljs-params">{ payload }</span>) </span>{
+    <span class="hljs-keyword">yield</span> call(localStorage.setItem, <span class="hljs-string">&apos;count&apos;</span>, payload)
+  })
+})
+</code></pre>
+<p>Using <code>fork</code> to create multiple effects:</p>
+<pre><code class="lang-javascript">model.effect(<span class="hljs-function"><span class="hljs-keyword">function</span>* </span>{
+  <span class="hljs-keyword">yield</span> [
+    fork(effect1),
+    fork(effect2),
+  ]
+})
+</code></pre>
+<h3 id="modeladdreducerfn"><code>model.addReducer(fn)</code></h3>
+<p>Add a exists reducer to model. This is useful when you work with third party libraries or you legacy codes.</p>
+<ul>
+<li><code>fn: Function</code> - A normal Redux reducer.</li>
+</ul>
+<h3 id="modelgetstate"><code>model.getState()</code></h3>
+<p>Get current model state.</p>
+<h2 id="effects-api"><code>effects API</code></h2>
+<p>All api exposed from <code>feeble/effects</code> are all expoted from <code>redux-saga/effects</code> directly, except <code>take</code>, <code>takem</code>, <code>actionChannel</code>. These three functions are wrapped by feeble to make them accept feeble&apos;s action creator as pattern.</p>
+<h2 id="effects-helper-api"><code>effects helper API</code></h2>
+<p>All api exposed from <code>feeble/effects/helper</code> are all expoted from <code>redux-saga</code> directly, except <code>tekEvery</code> and <code>takeLatest</code>. These two functions are wrapped by feeble to make them accept feeble&apos;s action creator as pattern.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../docs/recipes/ReusableReducer.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Reusable Reducer"><i class="fa fa-angle-left"></i></a>
+        
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>

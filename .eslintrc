@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "semi": [2, "never"],
+    "import/no-unresolved": 0,
+    "no-underscore-dangle": 0,
+    "no-param-reassign": 0,
+    "no-shadow": 0,
+    "no-unused-vars": [2, { "argsIgnorePattern": "^_" }]
+  },
+  "plugins": [
+    "react"
+  ]
+}
