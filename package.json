@@ -15,6 +15,7 @@
     "build": "gulp",
     "build:examples": "babel-node examples/buildAll.js",
     "prepublish": "npm run check:src && npm run check:examples && npm run build",
+    "postinstall": "typings install",
     "docs:prepare": "gitbook install",
     "docs:watch": "npm run docs:prepare && gitbook serve",
     "docs:build": "npm run docs:prepare && rimraf _book && gitbook build",
@@ -75,7 +76,8 @@
     "react-router": "^2.6.0",
     "rimraf": "^2.5.4",
     "sinon": "^1.17.5",
-    "typescript": "^2.0.3"
+    "typescript": "^2.0.3",
+    "typings": "^1.4.0"
   },
   "peerDependencirs": {
     "react": "^0.14.0 || ^15.0.0-0"
