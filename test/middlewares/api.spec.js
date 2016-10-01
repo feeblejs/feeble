@@ -1,6 +1,6 @@
 import test from 'ava'
 import sinon from 'sinon'
-import { CALL_API } from '../../src/constants'
+import { CALL_API } from '../../lib/constants'
 import createApi from 'middlewares/api'
 
 function callAPI(callAPI, action) {

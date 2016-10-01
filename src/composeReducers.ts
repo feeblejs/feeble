@@ -1,5 +1,5 @@
-export default function composeReducers(reducers) {
-  return (state, action) => {
+export default function composeReducers(reducers: any[]) {
+  return (state: any, action: any) => {
     if (reducers.length === 0) {
       return state
     }
