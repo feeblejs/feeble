@@ -49,6 +49,10 @@
     "reselect": "^2.5.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.36",
+    "@types/react": "^0.14.38",
+    "@types/react-redux": "^4.4.32",
+    "@types/redux": "^3.5.30",
     "ava": "^0.15.2",
     "babel-cli": "^6.11.4",
     "babel-core": "^6.11.4",

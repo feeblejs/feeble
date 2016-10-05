@@ -1,3 +1,5 @@
+import { SagaIterator } from "redux-saga";
+import { Reducer } from "redux";
 import typeSet from './typeSet'
 import { CALL_API, NAMESPACE_PATTERN } from './constants'
 import { createSelector, createStructuredSelector } from 'reselect'
@@ -7,7 +9,28 @@ import isNamespace from './utils/isNamespace'
 import isActionCreator from './utils/isActionCreator'
 import * as _ from 'lodash'
 
-interface Action {
+interface ModelOptions {
+  namespace: string,
+  state: any,
+}
+
+interface ActionReducer {
+  (...args: any[]): any
+}
+
+interface PayloadReducer extends ActionReducer {}
+interface MetaReducer extends ActionReducer {}
+interface RequestReducer extends ActionReducer {}
+
+interface ActionCreatorFactory {
+  (type: string, func1?: PayloadReducer, func2?: MetaReducer): ActionCreator
+}
+
+interface APIActionCreatorFactory {
+  (type: string, func1: RequestReducer, func2? :MetaReducer): APIActionCreator
+}
+
+export interface Action {
   type: string,
   payload?: any,
   meta?: any,
@@ -23,24 +46,32 @@ interface APIActionCreator {
   [key: string]: any
 }
 
-interface Models {
-  [key: string]: any
+type ReducerFactory = (handler: ReducerMapping | ReducerBinding) => any
+
+interface ReducerMapping {
+  [type: string]: Handler<any>
 }
+
+type ReducerBinding = (on: any) => void
+
+type SelectorFactory = (name: string, ...args: any[]) => void
+
+type Select = (name: string) => any
 
 interface PatternFn {
   (action: Action): boolean
 }
 
-interface Handler {
-  (state: any, payload: any, meta: any): any
-}
+type Handler<T> = (state: T, payload: any, meta: any) => T
 
 type Pattern = string | PatternFn | ActionCreator
 
 interface PatternHandler {
   pattern: Pattern,
-  handler: Handler
+  handler: Handler<any>
 }
+
+type Effect = () => SagaIterator
 
 const identity = <T>(arg: T): T => arg
 
@@ -52,7 +83,7 @@ const invariantReducer = (value: any, name: string) => {
   )
 }
 
-function model(options: any) {
+function model(options: ModelOptions) {
   invariant(
     isNamespace(options.namespace),
     '%s is not a valid namespace, namespace should be a string ' +
@@ -63,15 +94,15 @@ function model(options: any) {
 
   const _initialState = options.state
   let _state = _initialState
-  let _model: Models = {}
-  let _effect: any = null
+  let _model: any = {}
+  let _effect: Effect
   const _namespace = options.namespace
   const _selectors: { [key: string]: any } = {}
-  const _reducers: any[] = [
+  const _reducers: Reducer<any>[] = [
     (state = _state) => state,
   ]
 
-  function action(type: string, payloadReducer: any, metaReducer: any) {
+  function action(type: string, payloadReducer?: PayloadReducer, metaReducer?: MetaReducer): ActionCreator {
     invariantReducer(payloadReducer, 'payload reducer')
     invariantReducer(metaReducer, 'meta reducer')
 
@@ -89,7 +120,7 @@ function model(options: any) {
 
     typeSet.add(fullType)
 
-    const actionCreator: ActionCreator = (<ActionCreator>(...args: any[]): Action => {
+    const actionCreator: ActionCreator = <ActionCreator>(...args: any[]) => {
       const action: Action = <Action>{ type: fullType }
 
       action.payload = payloadReducer(...args)
@@ -99,7 +130,7 @@ function model(options: any) {
       }
 
       return action
-    })
+    }
 
     actionCreator.getType = () => fullType
     actionCreator.toString = () => fullType
@@ -109,7 +140,7 @@ function model(options: any) {
     return actionCreator
   }
 
-  function apiAction(type: string, requestReducer: any, metaReducer: any) {
+  function apiAction(type: string, requestReducer?: RequestReducer, metaReducer?: MetaReducer): APIActionCreator {
     invariantReducer(requestReducer, 'request reducer')
     invariantReducer(metaReducer, 'meta reducer')
 
@@ -150,10 +181,10 @@ function model(options: any) {
     return apiActionCreator
   }
 
-  function reducer(handlers: { [key: string]: any } = {}, enhancer = identity) {
+  function reducer(handlers: { [key: string]: any } = {}, enhancer = identity): Reducer<any> {
     const patternHandlers: PatternHandler[] = []
 
-    function on(pattern: Pattern, handler: Handler) {
+    function on(pattern: Pattern, handler: Handler<any>) {
       if (typeof pattern === 'string') {
         handlers[pattern] = handler
       } else if (isActionCreator(pattern)) {
@@ -193,7 +224,7 @@ function model(options: any) {
     return reduce
   }
 
-  function selector(name: string, ...args: any[]) {
+  function selector(name: string, ...args: any[]): void {
     const isOptions = (v: any): boolean => !_.isUndefined(v.structured)
     const last = args.pop()
     if (isOptions(last) && last.structured) {
@@ -203,25 +234,25 @@ function model(options: any) {
     }
   }
 
-  function select(name: string, ...args: any[]) {
+  function select(name: string, ...args: any[]): Select {
     return _selectors[name](...args)
   }
 
-  function effect(effect: () => void) {
+  function effect(effect: Effect): Effect {
     _effect = effect
     return _effect
   }
 
-  function getNamespace() {
+  function getNamespace(): string {
     return _namespace
   }
 
-  function addReducer(reducer: () => any) {
+  function addReducer(reducer: () => any): Reducer<any> {
     _reducers.push(reducer)
     return reducer
   }
 
-  function getReducer() {
+  function getReducer(): Reducer<any> {
     const reducer = composeReducers(_reducers)
     return (state: any, action: Action) => {
       const nextState = reducer(state, action)
@@ -230,11 +261,11 @@ function model(options: any) {
     }
   }
 
-  function getEffect() {
+  function getEffect(): Effect {
     return _effect
   }
 
-  function getState() {
+  function getState(): any {
     return _state
   }
 

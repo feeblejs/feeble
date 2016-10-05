@@ -1,7 +1,6 @@
 {
   "files": [
-    "types/index.d.ts",
-    "typings/index.d.ts"
+    "types/index.d.ts"
   ],
   "include": [
     "src/**/*.ts"

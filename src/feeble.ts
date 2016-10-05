@@ -7,18 +7,28 @@ import createApiMiddleware from './middlewares/api'
 import createSagaMiddleware from './middlewares/saga'
 import createStore from './createStore'
 
-interface Options {
-  callApi?: () => Promise<void> // Todo: what does void mean?
+interface AppOptions {
+  callApi?: () => Promise<any>
 }
 
-interface Feeble {
-  (): any,
+interface AppFactory {
+  (): App,
   model: any,
 }
 
-const feeble = <Feeble>function feeble(options: Options = {}) {
+interface App {
+  middleware: (...middlewares: any[]) => any
+  model: (...models: any[]) => any,
+  mount: (node: ReactNode) => ReactNode,
+  store: Store<any>,
+  tree: () => ReactNode,
+  use: (ext: (app: App) => any) => any,
+  start: () => void,
+}
+
+const feeble = <AppFactory>function (options: AppOptions = {}) {
   const _stated = false
-  const _app = {}
+  const _app = <App>{}
   const _models: any[] = []
   const _store: Store<any> = {} as Store<any>
   const _middlewares: any[] = []
