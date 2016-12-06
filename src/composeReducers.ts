@@ -1,5 +1,8 @@
-export default function composeReducers(reducers) {
-  return (state, action) => {
+import { Reducer } from "redux"
+import { Action } from "./model"
+
+export default function composeReducers(reducers: Reducer<any>[]): Reducer<any> {
+  return (state: any, action: Action) => {
     if (reducers.length === 0) {
       return state
     }

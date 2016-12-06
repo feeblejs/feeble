@@ -1,0 +1,14 @@
+{
+  "files": [
+    "types/index.d.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ],
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "target": "es2015"
+  }
+}
+

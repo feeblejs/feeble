@@ -1,14 +1,14 @@
-const types = {}
+const types: { [key: string]: boolean } = {}
 
-function add(name) {
+function add(name: string) {
   types[name] = true
 }
 
-function remove(name) {
+function remove(name: string) {
   delete types[name]
 }
 
-function has(name) {
+function has(name: string) {
   return !!types[name]
 }
 

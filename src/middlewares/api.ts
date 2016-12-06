@@ -1,8 +1,8 @@
 import { CALL_API } from '../constants'
-import omit from 'lodash/omit'
+import * as _ from 'lodash'
 
-export default function createApiMiddleware(callAPI) {
-  return store => next => action => {
+export default function createApiMiddleware(callAPI: (...arg: any[]) => Promise<void>) {
+  return (store: any) => (next: any) => (action: any) => {
     const request = action[CALL_API]
     if (typeof request === 'undefined') {
       return next(action)
@@ -14,14 +14,9 @@ export default function createApiMiddleware(callAPI) {
       request.endpoint = endpoint(store.getState())
     }
 
-    function actionWith(data) {
-      const finalAction = {
-        ...data,
-        meta: {
-          ...data.meta,
-          ...action.meta,
-        },
-      }
+    function actionWith(data: any) {
+      const meta = (<any>Object).assign({}, data.meta, action.meta)
+      const finalAction = (<any>Object).assign({}, data, { meta })
       return finalAction
     }
 
@@ -29,24 +24,18 @@ export default function createApiMiddleware(callAPI) {
 
     next(actionWith({
       type: requestType,
-      payload: omit(request, 'types'),
+      payload: _.omit(request, 'types'),
       meta: action.meta,
     }))
 
     return callAPI(request, action)
       .then(
-        action => {
-          next(actionWith({
-            ...action,
-            type: successType,
-          }))
+        (action: any) => {
+          next(actionWith((<any>Object).assign({}, action, { type: successType })))
           return action.payload
         },
-        action => {
-          next(actionWith({
-            ...action,
-            type: errorType,
-          }))
+        (action: any) => {
+          next(actionWith((<any>Object).assign({}, action, { type: errorType })))
           return action.payload
         }
       )
