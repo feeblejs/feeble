@@ -6,7 +6,7 @@ import createEpicMiddleware from './middlewares/epic'
 import createStore from './createStore'
 
 function feeble(options = {}) {
-  const _stated = false
+  const _started = false
   const _app = {}
   const _models = []
   const _store = {}
@@ -22,11 +22,11 @@ function feeble(options = {}) {
   }
 
   function addDefaultMiddlewares() {
+    const epicMiddleware = createEpicMiddleware(_models)
+    _middlewares.unshift(epicMiddleware)
     if (options.callApi) {
       _middlewares.unshift(createApiMiddleware(options.callApi))
     }
-    const epicMiddleware = createEpicMiddleware(_models)
-    _middlewares.unshift(epicMiddleware)
   }
 
   function addDefaultModels() {
@@ -37,10 +37,11 @@ function feeble(options = {}) {
     addDefaultMiddlewares()
     addDefaultModels()
     Object.assign(_store, createStore(_models, _middlewares))
+    _started = true
   }
 
   function mount(component) {
-    if (!_stated) {
+    if (!_started) {
       start()
     }
     _tree = (
