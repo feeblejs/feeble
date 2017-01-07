@@ -26,9 +26,9 @@
 
 ## Introduction
 
-Feeble is a framework built on top of React/Redux/redux-saga which aims to make building React/Redux applications easier and better.
+Feeble is a framework built on top of React/Redux/redux-observable which aims to make building React/Redux applications easier and better.
 
-If you are familiar with React/Redux/redux-saga, you'll love Feeble :see_no_evil:.
+If you are familiar with React/Redux/redux-observable, you'll love Feeble :see_no_evil:.
 
 ## Installation
 
