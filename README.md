@@ -16,6 +16,11 @@
     <img src="https://img.shields.io/travis/feeblejs/feeble/master.svg?style=flat-square"
       alt="Build Status" />
   </a>
+
+  <!-- Coverage -->
+  <a href="https://codecov.io/gh/feeblejs/feeble">
+    <img src="https://img.shields.io/codecov/c/github/feeblejs/feeble.svg" alt="Codecov" />
+  </a>
 </div>
 
 
