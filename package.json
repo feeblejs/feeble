@@ -32,9 +32,7 @@
   ],
   "files": [
     "lib",
-    "src",
-    "index.js",
-    "middlewares.js"
+    "src"
   ],
   "keywords": [
     "react",
