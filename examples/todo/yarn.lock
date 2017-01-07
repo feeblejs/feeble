@@ -1897,9 +1897,9 @@ feeble-router@^0.1.0:
     react-router "^2.7.0"
     react-router-redux "^4.0.5"
 
-feeble@1.0.0-alpha3:
-  version "1.0.0-alpha3"
-  resolved "https://registry.yarnpkg.com/feeble/-/feeble-1.0.0-alpha3.tgz#a730a16690ce58e851557e3ea124ec64fcf8337d"
+feeble@1.0.0-alpha4:
+  version "1.0.0-alpha4"
+  resolved "https://registry.yarnpkg.com/feeble/-/feeble-1.0.0-alpha4.tgz#04971291c83d073bdbc0e20d7cab92706843b710"
   dependencies:
     invariant "^2.2.1"
     jest "^18.1.0"

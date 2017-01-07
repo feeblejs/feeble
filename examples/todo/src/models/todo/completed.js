@@ -44,7 +44,7 @@ model.selector('list',
 
 // uncomplete
 model.epic(action$ =>
-  action$.ofType(model.uncomplete.request.getType())
+  action$.ofAction(model.uncomplete.request)
   .mergeMap(({ payload }) =>
     Observable.concat(
       Observable.of(Entity.update('todo', payload.body.id, payload.body)),
