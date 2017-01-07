@@ -1,5 +1,3 @@
-import test from 'ava'
-import sinon from 'sinon'
 import { CALL_API } from '../../src/constants'
 import createApi from 'middlewares/api'
 
@@ -23,17 +21,16 @@ const store = {
 
 let api = createApi(callAPI)
 
-test('CALL_API not given', t => {
-  const next = sinon.spy()
+test('CALL_API not given', () => {
+  const next = jest.fn()
   const action = { type: 'INCREMENT' }
   api(store)(next)(action)
 
-  t.true(next.calledOnce)
-  t.true(next.calledWith(action))
+  expect(next).toBeCalledWith(action)
 })
 
-test('call api success', t => {
-  const next = sinon.spy()
+test('call api success', () => {
+  const next = jest.fn()
 
   const action = {
     [CALL_API]: {
@@ -49,9 +46,7 @@ test('call api success', t => {
   }
 
   return api(store)(next)(action).then(() => {
-    t.true(next.calledTwice)
-
-    t.deepEqual(next.firstCall.args[0], {
+    expect(next.mock.calls[0][0]).toEqual({
       type: 'FETCH_REQUEST',
       payload: {
         method: 'get',
@@ -64,7 +59,7 @@ test('call api success', t => {
       },
     })
 
-    t.deepEqual(next.secondCall.args[0], {
+    expect(next.mock.calls[1][0]).toEqual({
       type: 'FETCH_SUCCESS',
       payload: {
         name: 'ava',
@@ -77,8 +72,8 @@ test('call api success', t => {
   })
 })
 
-test('call api error', t => {
-  const next = sinon.spy()
+test('call api error', () => {
+  const next = jest.fn()
 
   const action = {
     [CALL_API]: {
@@ -94,9 +89,7 @@ test('call api error', t => {
   }
 
   return api(store)(next)(action).then(() => {
-    t.true(next.calledTwice)
-
-    t.deepEqual(next.firstCall.args[0], {
+    expect(next.mock.calls[0][0]).toEqual({
       type: 'FETCH_REQUEST',
       payload: {
         method: 'get',
@@ -109,7 +102,7 @@ test('call api error', t => {
       },
     })
 
-    t.deepEqual(next.secondCall.args[0], {
+    expect(next.mock.calls[1][0]).toEqual({
       type: 'FETCH_ERROR',
       payload: 'i am a error',
       error: true,
@@ -121,12 +114,12 @@ test('call api error', t => {
   })
 })
 
-test('endpoint can be a function', t => {
+test('endpoint can be a function', () => {
   const next = () => {}
-  const fetch = sinon.stub().returns(new Promise(resolve => setTimeout(() => {
+  const fetch = jest.fn().mockReturnValue(new Promise(resolve => setTimeout(() => {
     resolve({ payload: 'foo' })
   })))
-  const endpoint = sinon.stub().returns('/users')
+  const endpoint = jest.fn().mockReturnValue('/users')
   api = createApi(fetch)
 
   const action = {
@@ -138,9 +131,7 @@ test('endpoint can be a function', t => {
   }
 
   return api(store)(next)(action).then(() => {
-    t.true(endpoint.calledOnce)
-
-    t.deepEqual(fetch.firstCall.args[0], {
+    expect(fetch.mock.calls[0][0]).toEqual({
       types: ['FETCH_REQUEST', 'FETCH_SUCCESS', 'FETCH_ERROR'],
       method: 'get',
       endpoint: '/users',

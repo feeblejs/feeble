@@ -1,4 +1,3 @@
-import test from 'ava'
 import React from 'react'
 import { mount } from 'enzyme'
 import feeble from 'feeble'
@@ -7,21 +6,21 @@ import typeSet from 'typeSet'
 import { takeEvery } from 'redux-saga'
 import { put } from 'redux-saga/effects'
 
-test.afterEach(() => {
+afterEach(() => {
   typeSet.clear()
 })
 
-test('create a new app', t => {
+test('create a new app', () => {
   const app = feeble()
 
-  t.is(typeof app.middleware, 'function')
-  t.is(typeof app.model, 'function')
-  t.is(typeof app.use, 'function')
-  t.is(typeof app.start, 'function')
-  t.is(typeof app.store, 'object')
+  expect(typeof app.middleware).toBe('function')
+  expect(typeof app.model).toBe('function')
+  expect(typeof app.use).toBe('function')
+  expect(typeof app.start).toBe('function')
+  expect(typeof app.store).toBe('object')
 })
 
-test('effect', t => {
+test('effect', () => {
   const app = feeble()
 
   const counter = model({
@@ -50,10 +49,10 @@ test('effect', t => {
 
   app.store.dispatch(increment())
 
-  t.is(app.store.getState().counter, 2)
+  expect(app.store.getState().counter).toBe(2)
 })
 
-test('mount', t => {
+test('mount', () => {
   const app = feeble()
 
   app.start()
@@ -64,5 +63,5 @@ test('mount', t => {
 
   const wrapper = mount(app.mount(<Hello />))
 
-  t.is(wrapper.find(Hello).length, 1)
+  expect(wrapper.find(Hello).length).toBe(1)
 })

@@ -5,18 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --colors --content-base . --hot --inline --history-api-fallback",
-    "test": "NODE_PATH=src NODE_ENV=test ava",
+    "test": "jest",
     "lint": "NODE_PATH=src eslint src test"
   },
-  "ava": {
-    "babel": "inherit",
-    "require": [
-      "babel-register",
-      "babel-polyfill",
-      "./test/helpers/setup.js"
-    ],
-    "files": [
-      "test/**/*.spec.js"
+  "jest": {
+    "modulePaths": [
+      "<rootDir>/src"
     ]
   },
   "keywords": [],
@@ -25,19 +19,19 @@
   "dependencies": {
     "aphrodite": "^0.5.0",
     "babel-polyfill": "^6.9.1",
-    "feeble": "^0.2.0",
+    "feeble": "^0.3.0",
     "feeble-router": "^0.1.0",
+    "jest": "^18.1.0",
     "lodash": "^4.13.1",
     "material-ui": "^0.15.2",
     "normalizr": "^2.2.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
-    "react-tap-event-plugin": "^1.0.0",
+    "react-tap-event-plugin": "^2.0.1",
     "redux-form": "^5.3.1",
     "superagent": "^2.1.0"
   },
   "devDependencies": {
-    "ava": "^0.15.2",
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",

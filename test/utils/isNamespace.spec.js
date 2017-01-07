@@ -1,10 +1,9 @@
-import test from 'ava'
 import isNamespace from 'utils/isNamespace'
 
-test('isNamspace', t => {
-  t.true(isNamespace('foo'))
-  t.true(isNamespace('foo::bar'))
-  t.false(isNamespace(':foo'))
-  t.true(isNamespace('FOO'))
-  t.true(isNamespace('fOO'))
+test('isNamspace', () => {
+  expect(isNamespace('foo')).toBe(true)
+  expect(isNamespace('foo::bar')).toBe(true)
+  expect(isNamespace(':foo')).toBe(false)
+  expect(isNamespace('FOO')).toBe(true)
+  expect(isNamespace('fOO')).toBe(true)
 })

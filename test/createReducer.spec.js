@@ -1,8 +1,7 @@
-import test from 'ava'
 import feeble from 'feeble'
 import createReducer from 'createReducer'
 
-test('default', t => {
+test('default', () => {
   const foo = feeble.model({
     namespace: 'foo',
     state: 1,
@@ -20,7 +19,7 @@ test('default', t => {
 
   const reducer = createReducer([foo, bar1, bar2])
 
-  t.deepEqual(reducer(undefined, { type: 'init' }), {
+  expect(reducer(undefined, { type: 'init' })).toEqual({
     foo: 1,
     bar: {
       one: 2,

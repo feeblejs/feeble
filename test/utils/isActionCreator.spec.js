@@ -1,7 +1,6 @@
-import test from 'ava'
 import isActionCreator from 'utils/isActionCreator'
 
-test('isActionCreator', t => {
+test('isActionCreator', () => {
   const pattern1 = {
     toString: () => 'foo',
     getType: () => 'foo',
@@ -17,7 +16,7 @@ test('isActionCreator', t => {
     getType: 'bar',
   }
 
-  t.true(isActionCreator(pattern1))
-  t.false(isActionCreator(pattern2))
-  t.false(isActionCreator(pattern3))
+  expect(isActionCreator(pattern1)).toBe(true)
+  expect(isActionCreator(pattern2)).toBe(false)
+  expect(isActionCreator(pattern3)).toBe(false)
 })

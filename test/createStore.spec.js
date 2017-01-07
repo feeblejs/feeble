@@ -1,13 +1,12 @@
-import test from 'ava'
 import model from 'model'
 import typeSet from 'typeSet'
 import createStore from 'createStore'
 
-test.afterEach(() => {
+afterEach(() => {
   typeSet.clear()
 })
 
-test('create store', t => {
+test('create store', () => {
   const counter = model({
     namespace: 'counter',
     state: 0,
@@ -23,10 +22,10 @@ test('create store', t => {
 
   store.dispatch(increment())
 
-  t.is(store.getState().counter, 1)
+  expect(store.getState().counter).toBe(1)
 })
 
-test('nested namespace', t => {
+test('nested namespace', () => {
   const counterFactory = ({ namespace, state }) => {
     const counter = model({
       namespace,
@@ -54,21 +53,21 @@ test('nested namespace', t => {
 
   const store = createStore([counterOne, counterTwo])
 
-  t.deepEqual(store.getState().counter, {
+  expect(store.getState().counter).toEqual({
     one: 1,
     two: 2,
   })
 
   store.dispatch(counterOne.increment())
 
-  t.deepEqual(store.getState().counter, {
+  expect(store.getState().counter).toEqual({
     one: 2,
     two: 2,
   })
 
   store.dispatch(counterTwo.increment())
 
-  t.deepEqual(store.getState().counter, {
+  expect(store.getState().counter).toEqual({
     one: 2,
     two: 3,
   })

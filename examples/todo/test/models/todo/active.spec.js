@@ -1,28 +1,27 @@
-import test from 'ava'
 import model from 'models/todo/active'
 import schemas from 'schemas'
 
 const reducer = model.getReducer()
 
-test('basic', t => {
-  t.is(model.getNamespace(), 'todo::active')
-  t.deepEqual(model.getState(), { ids: [] })
+test('basic', () => {
+  expect(model.getNamespace()).toBe('todo::active')
+  expect(model.getState()).toEqual({ ids: [] })
 })
 
-test('action fetch', t => {
-  t.deepEqual(model.fetch().getRequest(), {
+test('action fetch', () => {
+  expect(model.fetch().getRequest()).toEqual({
     method: 'get',
     endpoint: '/todos',
     schema: schemas.TODO_ARRAY,
   })
 })
 
-test('action create', t => {
+test('action create', () => {
   const data = {
     id: 1,
     name: 'foo',
   }
-  t.deepEqual(model.create(data).getRequest(), {
+  expect(model.create(data).getRequest()).toEqual({
     method: 'post',
     endpoint: '/todos',
     body: {
@@ -34,24 +33,18 @@ test('action create', t => {
   })
 })
 
-test('reduce fetch success', t => {
-  t.deepEqual(
-    reducer(undefined, model.fetch.success({
-      result: [1, 2],
-    })),
-    {
-      ids: [1, 2],
-    }
-  )
+test('reduce fetch success', () => {
+  expect(reducer(undefined, model.fetch.success({
+    result: [1, 2],
+  }))).toEqual({
+    ids: [1, 2],
+  })
 })
 
-test('reduce create success', t => {
-  t.deepEqual(
-    reducer(undefined, model.fetch.success({
-      result: [1],
-    })),
-    {
-      ids: [1],
-    }
-  )
+test('reduce create success', () => {
+  expect(reducer(undefined, model.fetch.success({
+    result: [1],
+  }))).toEqual({
+    ids: [1],
+  })
 })

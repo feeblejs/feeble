@@ -1,32 +1,31 @@
-import test from 'ava'
-import sinon from 'sinon'
 import model from 'model'
 import typeSet from 'typeSet'
 import isActionCreator from 'utils/isActionCreator'
 import { CALL_API } from '../src/constants'
 
-test.afterEach(() => {
+afterEach(() => {
   typeSet.clear()
 })
 
-test('create model', t => {
+test('create model', () => {
   const counter = model({
     namespace: 'counter',
     state: 0,
   })
 
-  t.is(counter.getNamespace(), 'counter')
+  expect(counter.getNamespace()).toBe('counter')
 })
 
-test('throw error for invalid namespace', t => {
-  t.throws(
-    () => { model({ namespace: 'foo1', state: 1 }) },
+test('throw error for invalid namespace', () => {
+  expect(() => {
+    model({ namespace: 'foo1', state: 1 })
+  }).toThrowError(
     'foo1 is not a valid namespace, namespace should be a string ' +
     'and match the pattern ^[a-zA-Z]+(::[a-zA-Z]+)*$'
   )
 })
 
-test('create action creator', t => {
+test('create action creator', () => {
   const counter = model({
     namespace: 'counter',
     state: 0,
@@ -34,14 +33,14 @@ test('create action creator', t => {
 
   counter.action('increment', () => 'hello', () => 'feeble')
 
-  t.deepEqual(counter.increment(), {
+  expect(counter.increment()).toEqual({
     type: 'counter::increment',
     payload: 'hello',
     meta: 'feeble',
   })
 })
 
-test('create api action creator', t => {
+test('create api action creator', () => {
   const counter = model({
     namespace: 'counter',
     state: 0,
@@ -49,7 +48,7 @@ test('create api action creator', t => {
 
   counter.apiAction('save', () => ({ method: 'post', endpoint: 'save' }))
 
-  t.deepEqual(counter.save(), {
+  expect(counter.save()).toEqual({
     [CALL_API]: {
       types: [
         'counter::save_request',
@@ -61,29 +60,29 @@ test('create api action creator', t => {
     },
   })
 
-  t.deepEqual(counter.save().getRequest(), {
+  expect(counter.save().getRequest()).toEqual({
     method: 'post',
     endpoint: 'save',
   })
 
-  t.true(isActionCreator(counter.save.request))
-  t.true(isActionCreator(counter.save.success))
-  t.true(isActionCreator(counter.save.error))
-  t.is(counter.save.request.getType(), 'counter::save_request')
-  t.is(counter.save.success.getType(), 'counter::save_success')
-  t.is(counter.save.error.getType(), 'counter::save_error')
+  expect(isActionCreator(counter.save.request)).toBe(true)
+  expect(isActionCreator(counter.save.success)).toBe(true)
+  expect(isActionCreator(counter.save.error)).toBe(true)
+  expect(counter.save.request.getType()).toBe('counter::save_request')
+  expect(counter.save.success.getType()).toBe('counter::save_success')
+  expect(counter.save.error.getType()).toBe('counter::save_error')
 })
 
-test('has default reducer', t => {
+test('has default reducer', () => {
   const foo = model({
     namespace: 'foo',
     state: 1,
   })
 
-  t.is(foo.getReducer()(), 1)
+  expect(foo.getReducer()()).toBe(1)
 })
 
-test('create reducer', t => {
+test('create reducer', () => {
   const counter = model({
     namespace: 'counter',
     state: 0,
@@ -93,10 +92,10 @@ test('create reducer', t => {
     on('counter::increment', state => state + 1)
   })
 
-  t.is(reducer(undefined, { type: 'counter::increment' }), 1)
+  expect(reducer(undefined, { type: 'counter::increment' })).toBe(1)
 })
 
-test('reducer enhancer', t => {
+test('reducer enhancer', () => {
   const counter = model({
     namespace: 'counter',
     state: 0,
@@ -110,11 +109,11 @@ test('reducer enhancer', t => {
 
   const reducer = counter.getReducer()
 
-  t.is(reducer(undefined, { type: 'counter::increment' }), 2)
-  t.is(counter.getState(), 2)
+  expect(reducer(undefined, { type: 'counter::increment' })).toBe(2)
+  expect(counter.getState()).toBe(2)
 })
 
-test('define multiple reducers', t => {
+test('define multiple reducers', () => {
   const counter = model({
     namespace: 'counter',
     state: 0,
@@ -157,13 +156,13 @@ test('define multiple reducers', t => {
   const state3 = reducer(state2, counter.add3())
   const state4 = reducer(state3, counter.add4())
 
-  t.is(state1, 1)
-  t.is(state2, 3)
-  t.is(state3, 6)
-  t.is(state4, 10)
+  expect(state1).toBe(1)
+  expect(state2).toBe(3)
+  expect(state3).toBe(6)
+  expect(state4).toBe(10)
 })
 
-test('get state', t => {
+test('get state', () => {
   const foo = model({
     namespace: 'foo',
     state: 1,
@@ -175,14 +174,14 @@ test('get state', t => {
     on(foo.double, state => state * 2)
   })
 
-  t.is(foo.getState(), 1)
+  expect(foo.getState()).toBe(1)
 
   foo.getReducer()(undefined, foo.double())
 
-  t.is(foo.getState(), 2)
+  expect(foo.getState()).toBe(2)
 })
 
-test('use initial state', t => {
+test('use initial state', () => {
   const counter = model({
     namespace: 'counter',
     state: 0,
@@ -196,16 +195,16 @@ test('use initial state', t => {
 
   const reducer = counter.getReducer()
 
-  t.is(reducer(undefined, counter.increment()), 1)
-  t.is(reducer(undefined, counter.increment()), 1)
+  expect(reducer(undefined, counter.increment())).toBe(1)
+  expect(reducer(undefined, counter.increment())).toBe(1)
 })
 
-test('create selector', t => {
+test('create selector', () => {
   const rectangle = model({
     namespace: 'rectangle',
   })
 
-  const resultFunc = sinon.spy((width, height) => width * height)
+  const resultFunc = jest.fn((width, height) => width * height)
 
   rectangle.selector('area',
     rect => rect.width,
@@ -213,15 +212,16 @@ test('create selector', t => {
     resultFunc
   )
 
-  t.is(rectangle.select('area', { width: 10, height: 5 }), 50)
-  t.true(resultFunc.calledOnce)
-  t.is(rectangle.select('area', { width: 10, height: 5 }), 50)
-  t.true(resultFunc.calledOnce)
-  t.is(rectangle.select('area', { width: 10, height: 6 }), 60)
-  t.true(resultFunc.calledTwice)
+  expect(rectangle.select('area', { width: 10, height: 5 })).toBe(50)
+  expect(resultFunc.mock.calls.length).toBe(1)
+  expect(rectangle.select('area', { width: 10, height: 5 })).toBe(50)
+  expect(resultFunc.mock.calls.length).toBe(1)
+  expect(rectangle.select('area', { width: 10, height: 5 })).toBe(50)
+  expect(rectangle.select('area', { width: 10, height: 6 })).toBe(60)
+  expect(resultFunc.mock.calls.length).toBe(2)
 })
 
-test('structured selctor', t => {
+test('structured selctor', () => {
   const rectangle = model({
     namespace: 'rectangle',
   })
@@ -233,6 +233,6 @@ test('structured selctor', t => {
 
   const rect = { width: 10, height: 5 }
 
-  t.deepEqual(rectangle.select('geometry', rect), { area: 50, perimeter: 30 })
-  t.is(rectangle.select('geometry', rect), rectangle.select('geometry', rect))
+  expect(rectangle.select('geometry', rect)).toEqual({ area: 50, perimeter: 30 })
+  expect(rectangle.select('geometry', rect)).toBe(rectangle.select('geometry', rect))
 })

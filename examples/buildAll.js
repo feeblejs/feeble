@@ -10,9 +10,9 @@ var exampleDirs = fs.readdirSync(__dirname).filter((file) => {
   return fs.statSync(path.join(__dirname, file)).isDirectory()
 })
 
-// Ordering is important here. `npm install` must come first.
+// Ordering is important here. `yarn install` must come first.
 var cmdArgs = [
-  { cmd: 'npm', args: [ 'install' ] },
+  { cmd: 'yarn', args: [ 'install' ] },
   { cmd: './node_modules/.bin/webpack', args: [ 'src/index.js' ] }
 ]
 

@@ -10,10 +10,10 @@ var exampleDirs = fs.readdirSync(__dirname).filter((file) => {
   return fs.statSync(path.join(__dirname, file)).isDirectory()
 })
 
-// Ordering is important here. `npm install` must come first.
+// Ordering is important here. `yarn install` must come first.
 var cmdArgs = [
-  { cmd: 'npm', args: [ 'install' ] },
-  { cmd: 'npm', args: [ 'test' ] }
+  { cmd: 'yarn', args: [ 'install' ] },
+  { cmd: 'yarn', args: [ 'test' ] }
 ]
 
 for (const dir of exampleDirs) {
