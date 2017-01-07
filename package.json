@@ -27,6 +27,12 @@
       "<rootDir>/test"
     ]
   },
+  "files": [
+    "lib",
+    "src",
+    "index.js",
+    "middlewares.js"
+  ],
   "keywords": [
     "react",
     "redux"
