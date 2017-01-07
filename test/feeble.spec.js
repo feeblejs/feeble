@@ -36,7 +36,7 @@ test('epic', () => {
   })
 
   counter.epic(action$ =>
-    action$.ofType(increment.getType())
+    action$.ofAction(increment)
       .map(() => double())
   )
 
