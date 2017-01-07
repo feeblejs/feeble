@@ -1,6 +1,7 @@
 import typeSet from './typeSet'
 import { CALL_API, NAMESPACE_PATTERN } from './constants'
 import { createSelector, createStructuredSelector } from 'reselect'
+import { combineEpics } from 'redux-observable'
 import invariant from 'invariant'
 import composeReducers from './composeReducers'
 import isNamespace from './utils/isNamespace'
@@ -30,7 +31,7 @@ function model(options) {
   const _initialState = options.state
   let _state = _initialState
   let _model = {}
-  let _effect = null
+  const _epics = []
   const _namespace = options.namespace
   const _selectors = {}
   const _reducers = [
@@ -176,9 +177,8 @@ function model(options) {
     return _selectors[name](...args)
   }
 
-  function effect(effect) {
-    _effect = effect
-    return _effect
+  function epic(_epic) {
+    return _epics.push(_epic)
   }
 
   function getNamespace() {
@@ -199,8 +199,8 @@ function model(options) {
     }
   }
 
-  function getEffect() {
-    return _effect
+  function getEpic() {
+    return combineEpics(..._epics)
   }
 
   function getState() {
@@ -213,11 +213,11 @@ function model(options) {
     reducer,
     selector,
     select,
-    effect,
+    epic,
     getNamespace,
     addReducer,
     getReducer,
-    getEffect,
+    getEpic,
     getState,
   }
 

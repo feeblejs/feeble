@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import model from './model'
 import createApiMiddleware from './middlewares/api'
-import createSagaMiddleware from './middlewares/saga'
+import createEpicMiddleware from './middlewares/epic'
 import createStore from './createStore'
 
 function feeble(options = {}) {
@@ -12,7 +12,6 @@ function feeble(options = {}) {
   const _store = {}
   const _middlewares = []
   let _tree = null
-  let _sagaMiddleware = null
 
   function middleware(...middlewares) {
     _middlewares.push(...middlewares)
@@ -26,8 +25,8 @@ function feeble(options = {}) {
     if (options.callApi) {
       middleware(createApiMiddleware(options.callApi))
     }
-    _sagaMiddleware = createSagaMiddleware(_models)
-    middleware(_sagaMiddleware)
+    const epicMiddleware = createEpicMiddleware(_models)
+    middleware(epicMiddleware)
   }
 
   function addDefaultModels() {
@@ -35,9 +34,9 @@ function feeble(options = {}) {
   }
 
   function start() {
+    addDefaultMiddlewares()
+    addDefaultModels()
     Object.assign(_store, createStore(_models, _middlewares))
-
-    _sagaMiddleware.run()
   }
 
   function mount(component) {
@@ -60,9 +59,6 @@ function feeble(options = {}) {
   function use(ext) {
     return ext(_app)
   }
-
-  addDefaultMiddlewares()
-  addDefaultModels()
 
   Object.assign(_app, {
     middleware,

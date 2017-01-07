@@ -3,8 +3,7 @@ import { mount } from 'enzyme'
 import feeble from 'feeble'
 import model from 'model'
 import typeSet from 'typeSet'
-import { takeEvery } from 'redux-saga'
-import { put } from 'redux-saga/effects'
+import 'rxjs'
 
 afterEach(() => {
   typeSet.clear()
@@ -20,7 +19,7 @@ test('create a new app', () => {
   expect(typeof app.store).toBe('object')
 })
 
-test('effect', () => {
+test('epic', () => {
   const app = feeble()
 
   const counter = model({
@@ -33,20 +32,16 @@ test('effect', () => {
 
   counter.reducer(on => {
     on(increment, state => state + 1)
-
     on(double, state => state * 2)
   })
 
-  counter.effect(function* () {
-    yield* takeEvery(increment.getType(), function* () {
-      yield put(double())
-    })
-  })
+  counter.epic(action$ =>
+    action$.ofType(increment.getType())
+      .map(() => double())
+  )
 
   app.model(counter)
-
   app.start()
-
   app.store.dispatch(increment())
 
   expect(app.store.getState().counter).toBe(2)
