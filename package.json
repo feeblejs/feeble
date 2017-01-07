@@ -27,6 +27,9 @@
       "<rootDir>/test"
     ]
   },
+  "pre-commit": [
+    "lint"
+  ],
   "files": [
     "lib",
     "src",
@@ -67,6 +70,7 @@
     "eslint-plugin-jsx-a11y": "^1.5.5",
     "eslint-plugin-react": "^5.2.2",
     "gitbook-cli": "^2.3.0",
+    "pre-commit": "^1.2.2",
     "react": "^15.2.1",
     "react-addons-test-utils": "^15.2.1",
     "react-dom": "^15.2.1",
