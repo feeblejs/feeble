@@ -18,8 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "aphrodite": "^0.5.0",
-    "babel-polyfill": "^6.9.1",
-    "feeble": "^0.3.0",
+    "feeble": "1.0.0-alpha3",
     "feeble-router": "^0.1.0",
     "jest": "^18.1.0",
     "lodash": "^4.13.1",
