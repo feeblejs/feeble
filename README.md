@@ -19,7 +19,7 @@
 
   <!-- Coverage -->
   <a href="https://codecov.io/gh/feeblejs/feeble">
-    <img src="https://img.shields.io/codecov/c/github/feeblejs/feeble.svg?style=flat-square" alt="Codecov" />
+    <img src="https://img.shields.io/codecov/c/github/feeblejs/feeble.svg?style=flat-square" alt="Codecov" />
   </a>
 </div>
 
