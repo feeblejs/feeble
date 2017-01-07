@@ -4,3 +4,6 @@ npm-debug.log
 /coverage
 /.nyc_output
 /_book
+/yarn.lock
+yarn-error.log
+.yarnclean
