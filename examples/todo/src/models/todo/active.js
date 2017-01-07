@@ -1,5 +1,5 @@
 import feeble from 'feeble'
-import { Observable } from 'rxjs/RX'
+import { Observable } from 'rxjs/Rx'
 import Entity from '../entity'
 import schemas from '../../schemas'
 import without from 'lodash/without'
