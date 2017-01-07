@@ -6,7 +6,7 @@ import createEpicMiddleware from './middlewares/epic'
 import createStore from './createStore'
 
 function feeble(options = {}) {
-  const _started = false
+  let _started = false
   const _app = {}
   const _models = []
   const _store = {}
