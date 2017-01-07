@@ -1,5 +1,3 @@
-import { SagaIterator } from "redux-saga";
-import { Reducer } from "redux";
 import typeSet from './typeSet'
 import { CALL_API, NAMESPACE_PATTERN } from './constants'
 import { createSelector, createStructuredSelector } from 'reselect'
@@ -7,83 +5,20 @@ import invariant from 'invariant'
 import composeReducers from './composeReducers'
 import isNamespace from './utils/isNamespace'
 import isActionCreator from './utils/isActionCreator'
-import * as _ from 'lodash'
+import isUndefined from 'lodash/isUndefined'
+import isFunction from 'lodash/isFunction'
 
-interface ModelOptions {
-  namespace: string,
-  state: any,
-}
+const identity = (arg) => arg
 
-interface ActionReducer {
-  (...args: any[]): any
-}
-
-interface PayloadReducer extends ActionReducer {}
-interface MetaReducer extends ActionReducer {}
-interface RequestReducer extends ActionReducer {}
-
-interface ActionCreatorFactory {
-  (type: string, func1?: PayloadReducer, func2?: MetaReducer): ActionCreator
-}
-
-interface APIActionCreatorFactory {
-  (type: string, func1: RequestReducer, func2? :MetaReducer): APIActionCreator
-}
-
-export interface Action {
-  type: string,
-  payload?: any,
-  meta?: any,
-}
-
-interface ActionCreator {
-  (): any,
-  getType?: () => string,
-  toString?: () => string,
-}
-
-interface APIActionCreator {
-  [key: string]: any
-}
-
-type ReducerFactory = (handler: ReducerMapping | ReducerBinding) => any
-
-interface ReducerMapping {
-  [type: string]: Handler<any>
-}
-
-type ReducerBinding = (on: any) => void
-
-type SelectorFactory = (name: string, ...args: any[]) => void
-
-type Select = (name: string) => any
-
-interface PatternFn {
-  (action: Action): boolean
-}
-
-type Handler<T> = (state: T, payload: any, meta: any) => T
-
-type Pattern = string | PatternFn | ActionCreator
-
-interface PatternHandler {
-  pattern: Pattern,
-  handler: Handler<any>
-}
-
-type Effect = () => SagaIterator
-
-const identity = <T>(arg: T): T => arg
-
-const invariantReducer = (value: any, name: string) => {
+const invariantReducer = (value, name) => {
   invariant(
-    _.isUndefined(value) || _.isFunction(value),
+    isUndefined(value) || isFunction(value),
     '%s should be a function',
     name
   )
 }
 
-function model(options: ModelOptions) {
+function model(options) {
   invariant(
     isNamespace(options.namespace),
     '%s is not a valid namespace, namespace should be a string ' +
@@ -94,15 +29,15 @@ function model(options: ModelOptions) {
 
   const _initialState = options.state
   let _state = _initialState
-  let _model: any = {}
-  let _effect: Effect
+  let _model = {}
+  let _effect = null
   const _namespace = options.namespace
-  const _selectors: { [key: string]: any } = {}
-  const _reducers: Reducer<any>[] = [
+  const _selectors = {}
+  const _reducers = [
     (state = _state) => state,
   ]
 
-  function action(type: string, payloadReducer?: PayloadReducer, metaReducer?: MetaReducer): ActionCreator {
+  function action(type, payloadReducer, metaReducer) {
     invariantReducer(payloadReducer, 'payload reducer')
     invariantReducer(metaReducer, 'meta reducer')
 
@@ -120,8 +55,8 @@ function model(options: ModelOptions) {
 
     typeSet.add(fullType)
 
-    const actionCreator: ActionCreator = <ActionCreator>(...args: any[]) => {
-      const action: Action = <Action>{ type: fullType }
+    function actionCreator(...args) {
+      const action = { type: fullType }
 
       action.payload = payloadReducer(...args)
 
@@ -140,7 +75,7 @@ function model(options: ModelOptions) {
     return actionCreator
   }
 
-  function apiAction(type: string, requestReducer?: RequestReducer, metaReducer?: MetaReducer): APIActionCreator {
+  function apiAction(type, requestReducer, metaReducer) {
     invariantReducer(requestReducer, 'request reducer')
     invariantReducer(metaReducer, 'meta reducer')
 
@@ -148,10 +83,13 @@ function model(options: ModelOptions) {
 
     const types = suffixes.map(suffix => [_namespace, `${type}_${suffix}`].join('::'))
 
-    const apiActionCreator: APIActionCreator = (...args: any[]) => {
+    function apiActionCreator(...args) {
       const request = requestReducer(...args)
-      const action: Action = <Action>{
-        [CALL_API]: (<any>Object).assign({}, { types }, request),
+      const action = {
+        [CALL_API]: {
+          types,
+          ...request,
+        },
       }
       if (metaReducer) {
         action.meta = metaReducer(...args)
@@ -171,7 +109,7 @@ function model(options: ModelOptions) {
 
       typeSet.add(type)
 
-      apiActionCreator[suffix] = (payload: any, meta: any): Action => ({ type, payload, meta })
+      apiActionCreator[suffix] = (payload, meta) => ({ type, payload, meta })
       apiActionCreator[suffix].toString = () => type
       apiActionCreator[suffix].getType = () => type
     })
@@ -181,14 +119,14 @@ function model(options: ModelOptions) {
     return apiActionCreator
   }
 
-  function reducer(handlers: { [key: string]: any } = {}, enhancer = identity): Reducer<any> {
-    const patternHandlers: PatternHandler[] = []
+  function reducer(handlers = {}, enhancer = identity) {
+    const patternHandlers = []
 
-    function on(pattern: Pattern, handler: Handler<any>) {
+    function on(pattern, handler) {
       if (typeof pattern === 'string') {
         handlers[pattern] = handler
       } else if (isActionCreator(pattern)) {
-        handlers[(<ActionCreator>pattern).getType()] = handler
+        handlers[pattern.getType()] = handler
       } else if (Array.isArray(pattern)) {
         pattern.forEach(p => on(p, handler))
       } else if (typeof pattern === 'function') {
@@ -205,12 +143,12 @@ function model(options: ModelOptions) {
       factory(on)
     }
 
-    let reduce = (state = _initialState, action: Action) => {
+    let reduce = (state = _initialState, action) => {
       if (action && handlers[action.type]) {
         return handlers[action.type](state, action.payload, action.meta)
       }
       for (const { pattern, handler } of patternHandlers) {
-        if ((<PatternFn>pattern)(action)) {
+        if (pattern(action)) {
           return handler(state, action.payload, action.meta)
         }
       }
@@ -224,48 +162,48 @@ function model(options: ModelOptions) {
     return reduce
   }
 
-  function selector(name: string, ...args: any[]): void {
-    const isOptions = (v: any): boolean => !_.isUndefined(v.structured)
+  function selector(name, ...args) {
+    const isOptions = v => !isUndefined(v.structured)
     const last = args.pop()
     if (isOptions(last) && last.structured) {
-      _selectors[name] = createStructuredSelector.apply(null, args)
+      _selectors[name] = createStructuredSelector(...args)
     } else {
-      _selectors[name] = createSelector.apply(null, [...args, last])
+      _selectors[name] = createSelector(...args, last)
     }
   }
 
-  function select(name: string, ...args: any[]): Select {
+  function select(name, ...args) {
     return _selectors[name](...args)
   }
 
-  function effect(effect: Effect): Effect {
+  function effect(effect) {
     _effect = effect
     return _effect
   }
 
-  function getNamespace(): string {
+  function getNamespace() {
     return _namespace
   }
 
-  function addReducer(reducer: () => any): Reducer<any> {
+  function addReducer(reducer) {
     _reducers.push(reducer)
     return reducer
   }
 
-  function getReducer(): Reducer<any> {
+  function getReducer() {
     const reducer = composeReducers(_reducers)
-    return (state: any, action: Action) => {
+    return (state, action) => {
       const nextState = reducer(state, action)
       _state = nextState
       return nextState
     }
   }
 
-  function getEffect(): Effect {
+  function getEffect() {
     return _effect
   }
 
-  function getState(): any {
+  function getState() {
     return _state
   }
 

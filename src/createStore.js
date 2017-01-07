@@ -1,7 +1,7 @@
 import { createStore as _createStore, applyMiddleware } from 'redux'
 import createReducer from './createReducer'
 
-function createStore(models: any[], middlewares: any[], initialState?: any): any {
+function createStore(models, middlewares, initialState) {
   const reducer = createReducer(models)
 
   const enhancer = middlewares && middlewares.length > 0 ?

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
-import * as _ from 'lodash'
+import set from 'lodash/set'
 
-const combine = (reducers: any) => {
+const combine = (reducers) => {
   Object.keys(reducers).forEach(key => {
     if (typeof reducers[key] === 'object') {
       reducers[key] = combineReducers(reducers[key])
@@ -10,10 +10,10 @@ const combine = (reducers: any) => {
   return combineReducers(reducers)
 }
 
-export default function createReducer(models: any[]) {
+export default function createReducer(models) {
   const reducers = models.reduce((acc, model) => {
     const nsPath = model.getNamespace().replace('::', '.')
-    _.set(acc, nsPath, model.getReducer())
+    set(acc, nsPath, model.getReducer())
     return acc
   }, {})
 

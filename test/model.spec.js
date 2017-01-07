@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import model from 'model'
 import typeSet from 'typeSet'
 import isActionCreator from 'utils/isActionCreator'
-import { CALL_API } from '../lib/constants'
+import { CALL_API } from '../src/constants'
 
 test.afterEach(() => {
   typeSet.clear()
