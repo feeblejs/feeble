@@ -23,10 +23,10 @@ function feeble(options = {}) {
 
   function addDefaultMiddlewares() {
     if (options.callApi) {
-      middleware(createApiMiddleware(options.callApi))
+      _middlewares.unshift(createApiMiddleware(options.callApi))
     }
     const epicMiddleware = createEpicMiddleware(_models)
-    middleware(epicMiddleware)
+    _middlewares.unshift(epicMiddleware)
   }
 
   function addDefaultModels() {
