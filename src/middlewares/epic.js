@@ -5,7 +5,7 @@ import {
 } from 'redux-observable'
 
 ActionsObservable.prototype.ofAction = function (...actions) {
-  return this.ofType(...actions.map(a => a.getType()))
+  return this.ofType(...actions.map(action => action.getType()))
 }
 
 export default function createEpicMiddleware(models) {
