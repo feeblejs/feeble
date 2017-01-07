@@ -65,14 +65,12 @@ model.selector('list',
 // create
 model.epic($action =>
   $action.ofAction(model.create.request)
-  .do(x => console.debug(x))
   .mergeMap(({ payload }) =>
     Observable.concat(
       Observable.of(Entity.create('todo', payload.body)),
       Observable.of(model.add(payload.body.id))
     )
   )
-  .do(x => console.debug(x))
 )
 
 // complete
