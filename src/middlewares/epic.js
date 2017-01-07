@@ -1,4 +1,8 @@
-import { ActionsObservable, createEpicMiddleware as createMiddleware, combineEpics } from 'redux-observable'
+import {
+  ActionsObservable,
+  createEpicMiddleware as createMiddleware,
+  combineEpics,
+} from 'redux-observable'
 
 ActionsObservable.prototype.ofAction = function (...actions) {
   return this.ofType(...actions.map(a => a.getType()))
