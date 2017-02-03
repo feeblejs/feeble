@@ -1,10 +1,10 @@
 # Concepts
 
-Feeble structures all your logic to a `app` and the only concept Feeble introduced is `model`, `model` let you model your domain's actions, reducer, effects, and selectors in one place.
+Feeble structures all your logic to a `app` and the only concept Feeble introduced is `model`, `model` let you model your domain's actions, reducer, epics, and selectors in one place.
 
 ## Model
 
-A `model` is a object contains `state`, `actions`, `reducer`, `effects`, `selectors`.
+A `model` is a object contains `state`, `actions`, `reducer`, `epics`, `selectors`.
 
 Here's a typical model example:
 
@@ -15,9 +15,11 @@ const count = feeble.model({
 })
 
 count.action('increment')
+count.action('double')
 
 count.reducer(on => {
   on(count.increment, state => state + 1)
+  on(count.double, state => state * 2)
 })
 ```
 
@@ -29,16 +31,17 @@ Then, we define a `increment` action creator by calling `count.action`, and we c
 
 Last, we create `reducer` by calling `count.reducer`, `counter.reducer` accept a function which takes a `on` param, you can use `on` to register actions to reducer.
 
-`action creator` and `reducer` are all Redux's concepts, so what is `effects`?
+`action creator` and `reducer` are all Redux's concepts, so what is `epics`?
 
-Feeble using `redux-saga` to handle side effects, so `effect` is a `saga` actually. Let's define a `effect` for above `count` model.
+Feeble using `redux-observable` to handle side effects, an Epic is the core primitive of redux-observable. Let's define a `epic` for above `count` model.
 
 ```javascript
-model.effect(function* {
-  yield* takeEvery(count.increment, function* ({ payload }) {
-    yield call(localStorage.setItem, 'count', payload)
-  })
+model.epic(action$ =>
+  action$.ofType(count.increment)
+    .mapTo(count.double())
 })
 ```
+
+This.epic doubles count after you increase it.
 
 When you attach model to the `app`, Feeble will run your saga automaticly.

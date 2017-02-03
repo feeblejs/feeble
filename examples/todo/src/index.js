@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import feeble from 'feeble'
 import router from 'feeble-router'
 import ReactDOM from 'react-dom'

@@ -8,11 +8,6 @@ branches:
   only:
     - master
 
-cache:
-  directories:
-  - $HOME/.npm
-  - examples/todo/node_modules
-
 script:
   - npm run lint
   - npm run test -- --coverage

@@ -16,11 +16,9 @@
   * [model.reducer(fn)](#modelreducerfn)
   * [model.selector(name, ...fns, fn, options)](#modelselectorname-fns-fn-options)
   * [model.select(name, ...args)](#modelselectname-args)
-  * [model.effect(fn)](#modeleffectfn)
+  * [model.epic(fn)](#modelepicfn)
   * [model.addReducer(fn)](#modeladdreducerfn)
   * [model.getState()](#modelgetstate)
-* [`effects API`](#effects-api)
-* [`effects helper API`](#effects-helper-api)
 
 ## feeble API
 
@@ -262,31 +260,19 @@ Access selectors.
 * `name: Function` - Name of the selector.
 * `args: Array<any>` - Arguments pass to the selector.
 
-### `model.effect(fn)`
+### `model.epic(fn)`
 
-Create effect.
+Create epic.
 
-* `fn: Function` - A generator function.
+* `fn: Function` - A epic function.
 
 ### Example
 
 ```javascript
-model.effect(function* {
-  yield* takeEvery(count.increment, function* ({ payload }) {
-    yield call(localStorage.setItem, 'count', payload)
-  })
-})
-```
-
-Using `fork` to create multiple effects:
-
-```javascript
-model.effect(function* {
-  yield [
-    fork(effect1),
-    fork(effect2),
-  ]
-})
+model.epic(action$ =>
+  action$.ofAction(model.ping)
+    .mapTo(model.pong())
+)
 ```
 
 ### `model.addReducer(fn)`
@@ -298,11 +284,3 @@ Add a exists reducer to model. This is useful when you work with third party lib
 ### `model.getState()`
 
 Get current model state.
-
-## `effects API`
-
-All api exposed from `feeble/effects` are all expoted from `redux-saga/effects` directly, except `take`, `takem`, `actionChannel`. These three functions are wrapped by feeble to make them accept feeble's action creator as pattern.
-
-## `effects helper API`
-
-All api exposed from `feeble/effects/helper` are all expoted from `redux-saga` directly, except `tekEvery` and `takeLatest`. These two functions are wrapped by feeble to make them accept feeble's action creator as pattern.

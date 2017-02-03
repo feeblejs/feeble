@@ -1,6 +1,5 @@
 import feeble from 'feeble'
-import { delay, takeEvery } from 'feeble/effects/helper'
-import { fork, call, put } from 'feeble/effects'
+import { Observable } from 'rxjs/Rx'
 import Entity from '../entity'
 import schemas from '../../schemas'
 import without from 'lodash/without'
@@ -63,25 +62,26 @@ model.selector('list',
   (entities, ids) => ids.map(id => entities[id])
 )
 
-const create = function* () {
-  yield* takeEvery(model.create.request, function* ({ payload }) {
-    yield put(Entity.create('todo', payload.body))
-    yield put(model.add(payload.body.id))
-  })
-}
+// create
+model.epic(action$ =>
+  action$.ofAction(model.create.request)
+  .mergeMap(({ payload }) =>
+    Observable.concat(
+      Observable.of(Entity.create('todo', payload.body)),
+      Observable.of(model.add(payload.body.id))
+    )
+  )
+)
 
-const complete = function* () {
-  yield* takeEvery(model.complete.request, function* ({ payload }) {
-    yield put(Entity.update('todo', payload.body.id, payload.body))
-    yield put(model.remove(payload.body.id))
-  })
-}
-
-model.effect(function* () {
-  yield [
-    fork(create),
-    fork(complete),
-  ]
-})
+// complete
+model.epic(action$ =>
+  action$.ofAction(model.complete.request)
+  .mergeMap(({ payload }) =>
+    Observable.concat(
+      Observable.of(Entity.update('todo', payload.body.id, payload.body)),
+      Observable.of(model.remove(payload.body.id))
+    )
+  )
+)
 
 export default model
